@@ -1,5 +1,6 @@
 import ChannelHeader from 'components/ChannelHeader';
 import ChannelList from 'components/ChannelList';
+import OnlineUser from 'components/OnlineUser';
 import Channel from 'model/Channel';
 import { Grid } from './style';
 
@@ -31,7 +32,7 @@ const Layout = () => {
             topic: 'Welcome to the Series Channel',
             image: 'https://i.pinimg.com/736x/09/4a/48/094a48d40e2b409fdb328ab332078923.jpg',
             members: [],
-            isPrivate: true,
+            isPrivate: false,
             hasNotifications: true,
             isSelected: false
         }
@@ -41,6 +42,7 @@ const Layout = () => {
         <Grid>
             <ChannelHeader />
             <ChannelList channels={channels} />
+            <OnlineUser />
         </Grid>
     );
 };

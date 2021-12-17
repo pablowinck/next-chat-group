@@ -1,3 +1,4 @@
+import { Lock } from '@styled-icons/boxicons-solid/Lock';
 import styled from 'styled-components';
 export const Container = styled.div`
     display: flex;
@@ -7,6 +8,9 @@ export const Container = styled.div`
     padding: 0 2rem;
 
     user-select: none;
+    cursor: pointer;
+
+    position: relative;
 
     .selected {
         background-color: ${(props) => props.theme.colors.background[100]};
@@ -26,7 +30,7 @@ export const Link = styled.a`
     text-transform: uppercase;
     border-radius: 0.75rem;
 
-    transitions: all 0.3 ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
         background-color: ${(props) => props.theme.colors.background[100]};
@@ -61,4 +65,14 @@ export const ChannelAvatar = styled.div<{ hasNotifications: boolean }>`
 
         display: ${(props) => (props.hasNotifications ? 'block' : 'none')};
     }
+`;
+
+export const PrivateIcon = styled(Lock)`
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+
+    color: ${(props) => props.theme.colors.secondary};
+
+    right: 3.5rem;
 `;

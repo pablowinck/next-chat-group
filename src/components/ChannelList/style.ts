@@ -4,6 +4,9 @@ export const Container = styled.div`
 
     background-color: ${(props) => props.theme.colors.background[400]};
 `;
-export const Content = styled.div``;
+
+export const Content = styled.div`
+    background-color: ${(props) => props.theme.colors.background[400]};
+`;
 export const SearchBar = styled.div``;
 export const Channels = styled.div``;

@@ -1,5 +1,5 @@
 import Channel from 'model/Channel';
-import { ChannelAvatar, Container, Link } from './style';
+import { ChannelAvatar, Container, Link, PrivateIcon } from './style';
 
 const ChannelItem = ({ channel }: { channel: Channel }) => {
     return (
@@ -16,6 +16,8 @@ const ChannelItem = ({ channel }: { channel: Channel }) => {
                     />
                 </ChannelAvatar>
                 <span>{channel.name}</span>
+
+                {channel.isPrivate && <PrivateIcon />}
             </Link>
         </Container>
     );

@@ -41,5 +41,11 @@ export const AddIcon = styled(Add)`
     height: 14px;
     width: 14px;
 
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+        transform: rotate(90deg);
+    }
+
     color: ${(props) => props.theme.colors.text};
 `;

@@ -1,6 +1,7 @@
 import Channel from 'model/Channel';
 import ChannelItem from './ChannelItem';
-import { Channels, Container, Content, SearchBar } from './style';
+import SearchBar from './SearchBar';
+import { Channels, Container, Content } from './style';
 
 const ChannelList: React.FC<{ channels: Channel[] }> = ({ channels }) => {
     return (

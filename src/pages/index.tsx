@@ -5,7 +5,7 @@ const Home: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Homepage</title>
+                <title>Chat Group</title>
             </Head>
             <Layout />
         </>
