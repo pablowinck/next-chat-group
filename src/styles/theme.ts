@@ -1,8 +1,17 @@
 const theme = {
     colors: {
-        background: '#121214',
-        text: '#e1e1e6',
-    },
+        text: '#E0E0E0',
+        primary: '#7159c1',
+        secondary: '#828282',
+        background: {
+            100: '#3C393F',
+            200: '#333333',
+            300: '#252329',
+            400: '#120F13',
+            800: '#0B090C'
+        },
+        red: '#FF0000'
+    }
 };
 
 export default theme;

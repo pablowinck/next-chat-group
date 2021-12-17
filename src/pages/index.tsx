@@ -1,3 +1,4 @@
+import Layout from 'components/Layout';
 import Head from 'next/head';
 
 const Home: React.FC = () => {
@@ -6,9 +7,7 @@ const Home: React.FC = () => {
             <Head>
                 <title>Homepage</title>
             </Head>
-            <main>
-                <h1>Homepage</h1>
-            </main>
+            <Layout />
         </>
     );
 };
