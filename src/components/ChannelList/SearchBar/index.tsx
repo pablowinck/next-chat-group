@@ -1,12 +1,10 @@
-import { Container, Content, Input, SeachIcon } from './style';
+import { Container, Input, SeachIcon } from './style';
 
 const SearchBar = () => {
     return (
         <Container>
-            <Content>
-                <SeachIcon />
-                <Input placeholder="Search" />
-            </Content>
+            <Input placeholder="Search" />
+            <SeachIcon />
         </Container>
     );
 };
