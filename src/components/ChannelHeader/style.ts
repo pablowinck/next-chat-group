@@ -11,6 +11,9 @@ export const Container = styled.header`
     color: ${(props) => props.theme.colors.text};
     user-select: none;
 
+    z-index: 1;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
     span {
         font-size: 18px;
         font-weight: 700;

@@ -41,9 +41,5 @@ export const MoreIcon = styled(ArrowIosDownwardOutline)`
 
     color: ${(props) => props.theme.colors.text};
 
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        transform: rotate(180deg);
-    }
+    /* transition: all 0.3s ease-in-out; */
 `;
