@@ -10,4 +10,15 @@ export default createGlobalStyle`
     html, body, #root {
         height: 100%;
     }
+
+    input {
+        outline: none;
+        border: none;
+    }
+
+    input:focus, button:focus, a:focus {
+        outline: none;
+        border: none;
+        box-shadow: 0 0 0 2px #252329, 0 0 0 4px #7159c1;
+    }
 `;
