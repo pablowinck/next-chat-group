@@ -12,4 +12,10 @@ export const Grid = styled.div`
     grid-template-rows: 59.49px auto 75.42px;
     grid-template-areas: 'CH TP' 'CL MS' 'ON MS';
     height: 100vh;
+
+    @media (max-width: 768px) {
+        grid-template-columns: auto auto;
+        grid-template-rows: 59.49px auto auto;
+        grid-template-areas: 'TP TP' 'MS MS' 'MS MS';
+    }
 `;

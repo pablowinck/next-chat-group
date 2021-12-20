@@ -32,7 +32,15 @@ const Layout = () => {
     const getSelectedMessages = () => {
         return messages
             .filter((message) => message.channelId === channelSelected.id)
-            .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+            .sort((a, b) => {
+                if (a.createdAt > b.createdAt) return 1;
+                if (a.createdAt < b.createdAt) return -1;
+
+                if (a.id > b.id) return 1;
+                if (a.id < b.id) return -1;
+
+                return 0;
+            });
     };
 
     return (

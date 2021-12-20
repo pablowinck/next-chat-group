@@ -18,6 +18,10 @@ export const Container = styled.header`
         font-size: 18px;
         font-weight: 700;
     }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 export const Rounded = styled.button`
     width: 32px;

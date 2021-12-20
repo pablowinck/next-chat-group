@@ -19,6 +19,10 @@ export const Container = styled.div`
         font-weight: 700;
         color: ${(props) => props.theme.colors.text};
     }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 export const Avatar = styled.div`
     width: 42px;
