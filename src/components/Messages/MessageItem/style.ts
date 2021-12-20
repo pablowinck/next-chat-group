@@ -22,6 +22,8 @@ export const Avatar = styled.div`
 
     margin-right: 20px;
 
+    user-select: none;
+
     img {
         width: 100%;
         height: 100%;
@@ -42,6 +44,10 @@ export const Header = styled.div`
 export const Name = styled.div`
     font-weight: 700;
     margin-right: 10px;
+
+    user-select: none;
 `;
-export const Time = styled.div``;
+export const Time = styled.div`
+    user-select: none;
+`;
 export const Text = styled.div``;

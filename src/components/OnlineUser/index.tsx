@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useState } from 'react';
 import Menu from './Menu';
 import { Avatar, Container, MoreIcon } from './style';
@@ -17,7 +18,14 @@ const OnlineUser = () => {
     return (
         <Container>
             <Avatar>
-                <img src="/images/default-avatar.png" alt="" />
+                <Image
+                    src="/images/default-avatar.png"
+                    alt="Avatar"
+                    layout="intrinsic"
+                    width={'100%'}
+                    height={'100%'}
+                    draggable={false}
+                />
             </Avatar>
             <span>Pablo Winter</span>
 

@@ -5,21 +5,46 @@ import OnlineUser from 'components/OnlineUser';
 import Topbar from 'components/Topbar';
 import { channelsData } from 'data/channels';
 import { messagesData } from 'data/messages';
+import Channel from 'model/Channel';
 import { useState } from 'react';
 import { Grid } from './style';
 
 const Layout = () => {
-    const channels = channelsData;
+    const [channels, setChannels] = useState(channelsData);
 
     const [channelSelected, setChannelSelected] = useState(channels[0]);
+
+    const messages = messagesData;
+
+    const handleSelectChannel = (currentChannel: Channel) => {
+        setChannelSelected(currentChannel);
+
+        let newChannels = channels.map((channel) => {
+            channel.isSelected =
+                channel.id === currentChannel.id ? true : false;
+
+            return channel;
+        });
+
+        setChannels(newChannels);
+    };
+
+    const getSelectedMessages = () => {
+        return messages
+            .filter((message) => message.channelId === channelSelected.id)
+            .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+    };
 
     return (
         <Grid>
             <ChannelHeader />
-            <ChannelList channels={channels} />
+            <ChannelList
+                channels={channels}
+                setChannelSelected={handleSelectChannel}
+            />
             <OnlineUser />
             <Topbar topic={channelSelected.topic} />
-            <Messages messages={messagesData} />
+            <Messages messages={getSelectedMessages()} />
         </Grid>
     );
 };

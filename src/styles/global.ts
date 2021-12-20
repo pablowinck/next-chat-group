@@ -20,5 +20,7 @@ export default createGlobalStyle`
         outline: none;
         border: none;
         box-shadow: 0 0 0 2px #252329, 0 0 0 4px #7159c1;
+
+        transition: box-shadow 0.3s ease-in-out;
     }
 `;

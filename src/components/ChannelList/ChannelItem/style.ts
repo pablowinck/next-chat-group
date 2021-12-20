@@ -11,10 +11,6 @@ export const Container = styled.div`
     cursor: pointer;
 
     position: relative;
-
-    &.selected {
-        background-color: ${(props) => props.theme.colors.background[100]};
-    }
 `;
 export const Link = styled.a`
     text-decoration: none;
@@ -33,6 +29,9 @@ export const Link = styled.a`
     transition: all 0.3s ease-in-out;
 
     &:hover {
+        background-color: ${(props) => props.theme.colors.background[100]};
+    }
+    &.selected {
         background-color: ${(props) => props.theme.colors.background[100]};
     }
 `;

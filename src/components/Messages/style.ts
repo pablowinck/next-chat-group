@@ -36,6 +36,7 @@ export const TypeInput = styled.div`
 
         border: none;
         outline: none;
+        box-shadow: none !important;
 
         color: ${(props) => props.theme.colors.text};
     }
@@ -73,6 +74,8 @@ export const DateSeparator = styled.div`
 
     display: flex;
     flex-direction: row;
+
+    margin-top: 5rem;
 
     width: 100%;
 

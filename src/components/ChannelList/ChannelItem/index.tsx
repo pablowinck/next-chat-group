@@ -1,12 +1,19 @@
-import Image from 'next/image';
-
 import Channel from 'model/Channel';
+import Image from 'next/image';
 import { ChannelAvatar, Container, Link, PrivateIcon } from './style';
 
-const ChannelItem = ({ channel }: { channel: Channel }) => {
+interface props {
+    channel: Channel;
+    setChannelSelected: (channel: Channel) => void;
+}
+
+const ChannelItem: React.FC<props> = ({ channel, setChannelSelected }) => {
     return (
-        <Container className={channel.isSelected && 'selected'}>
-            <Link>
+        <Container>
+            <Link
+                onClick={() => setChannelSelected(channel)}
+                className={channel.isSelected && 'selected'}
+            >
                 <ChannelAvatar hasNotifications={channel.hasNotifications}>
                     <Image
                         src={

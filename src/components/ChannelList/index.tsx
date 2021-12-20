@@ -3,14 +3,23 @@ import ChannelItem from './ChannelItem';
 import SearchBar from './SearchBar';
 import { Channels, Container, Content } from './style';
 
-const ChannelList: React.FC<{ channels: Channel[] }> = ({ channels }) => {
+interface props {
+    channels: Channel[];
+    setChannelSelected: (channel: Channel) => void;
+}
+
+const ChannelList: React.FC<props> = ({ channels, setChannelSelected }) => {
     return (
         <Container>
             <Content>
                 <SearchBar />
                 <Channels>
-                    {channels.map((channel) => (
-                        <ChannelItem key={channel.id} channel={channel} />
+                    {channels.map((channel, index) => (
+                        <ChannelItem
+                            key={index}
+                            channel={channel}
+                            setChannelSelected={setChannelSelected}
+                        />
                     ))}
                 </Channels>
             </Content>
