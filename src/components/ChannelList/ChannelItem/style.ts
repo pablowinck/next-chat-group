@@ -12,7 +12,7 @@ export const Container = styled.div`
 
     position: relative;
 
-    .selected {
+    &.selected {
         background-color: ${(props) => props.theme.colors.background[100]};
     }
 `;

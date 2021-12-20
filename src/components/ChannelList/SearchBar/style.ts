@@ -16,7 +16,7 @@ export const Content = styled.div`
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 0 17px;
+    padding: 0 7px 0 12px;
 `;
 export const SeachIcon = styled(Search)`
     height: 17px;
@@ -25,6 +25,8 @@ export const SeachIcon = styled(Search)`
     color: ${(props) => props.theme.colors.text};
 `;
 export const Input = styled.input`
+    width: auto;
+
     background: none;
     border: none;
 
