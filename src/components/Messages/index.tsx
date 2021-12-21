@@ -31,7 +31,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                 {getMessagesByDate(messages).map((message, index) => {
                     if (message?.type === 'date') {
                         return (
-                            <DateSeparator>
+                            <DateSeparator key={index}>
                                 <span>
                                     {message.date.toLocaleDateString('pt-BR') ==
                                     new Date().toLocaleDateString('pt-BR')

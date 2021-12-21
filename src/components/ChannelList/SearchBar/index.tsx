@@ -1,9 +1,16 @@
 import { Container, Input, SeachIcon } from './style';
 
-const SearchBar = () => {
+interface props {
+    setFilter: (filter: string) => void;
+}
+
+const SearchBar = ({ setFilter }) => {
     return (
         <Container>
-            <Input placeholder="Search" />
+            <Input
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="Search"
+            />
             <SeachIcon />
         </Container>
     );
