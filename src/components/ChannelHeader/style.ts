@@ -14,6 +14,8 @@ export const Container = styled.header`
     z-index: 1;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
+    position: relative;
+
     span {
         font-size: 18px;
         font-weight: 700;
@@ -47,12 +49,6 @@ export const Rounded = styled.button`
 export const AddIcon = styled(Add)`
     height: 14px;
     width: 14px;
-
-    transition: all 0.5s ease-in-out;
-
-    &:hover {
-        transform: rotate(90deg);
-    }
 
     color: ${(props) => props.theme.colors.text};
 `;
