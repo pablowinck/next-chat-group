@@ -1,23 +1,21 @@
-import { Button, Checkbox } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 export const Container = styled(motion.div)`
     position: absolute;
 
-    top: calc(100% + 20vh);
+    top: calc(100% + 10vh);
     left: 25vw;
     right: 25vw;
 
     margin: auto;
 
-    height: 40vh;
+    height: 53vh;
     width: 40vw;
     padding: 1rem 2rem;
 
-    background-color: ${(props) => props.theme.colors.text};
-    color: ${(props) => props.theme.colors.background[300]};
+    background-color: ${(props) => props.theme.colors.background[300]};
+    color: ${(props) => props.theme.colors.text};
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 18px;
 
@@ -50,39 +48,116 @@ export const Content = styled.div`
 `;
 export const Form = styled.form`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
-        'name name'
-        'topic topic'
-        'private image'
-        'submit submit';
-    grid-gap: 1rem;
+        'avatar '
+        'name '
+        'topic '
+        'private '
+        'submit ';
     align-items: center;
 `;
-export const ChannelName = styled(TextField)`
+export const ChannelName = styled.div`
     grid-area: name;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+`;
+export const ChannelTopic = styled.div`
+    grid-area: topic;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+`;
+export const IsPrivate = styled.input`
+    -webkit-appearance: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
 
-    &:focus,
-    &:active {
-        box-shadow: none;
+    background-color: ${(props) => props.theme.colors.background[100]};
+    transition: background-color 0.3s ease-in-out;
+
+    &:checked {
+        background-color: ${(props) => props.theme.colors.primary};
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        ::after {
+            content: '\u2714';
+            font-size: 1.5rem;
+            color: ${(props) => props.theme.colors.text};
+        }
+
+        &:hover {
+            background-color: ${(props) => props.theme.colors.primaryDark};
+        }
+    }
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.background[200]};
     }
 `;
-export const ChannelTopic = styled(TextField)`
-    grid-area: topic;
-`;
-export const ChannelImage = styled.input`
-    grid-area: image;
-`;
-export const IsPrivate = styled(Checkbox)``;
 export const PrivateContent = styled.div`
     grid-area: private;
 
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
+    gap: 0.5rem;
 `;
 
-export const Submit = styled(Button)`
+export const Submit = styled.button`
     grid-area: submit;
+
+    height: 2.5rem;
+    width: 100%;
+    background-color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.text};
+    font-size: 1rem;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.primaryDark};
+    }
+`;
+
+export const Label = styled.label`
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+`;
+export const Input = styled.input`
+    width: 100%;
+    height: 2rem;
+    border-radius: 8px;
+    border: none;
+    background-color: ${(props) => props.theme.colors.background[100]};
+    color: ${(props) => props.theme.colors.text};
+    font-size: 1rem;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+
+    &:focus {
+        background-color: ${(props) => props.theme.colors.background[200]};
+    }
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.background[200]};
+    }
+`;
+
+// avatar input
+export const AvatarChange = styled.div`
+    grid-area: avatar;
+    background-color: ${(props) => props.theme.colors.background[100]};
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    margin: 0 auto;
 `;

@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
 import { FC } from 'react';
 import {
+    AvatarChange,
     ChannelName,
     ChannelTopic,
     CloseIcon,
@@ -8,7 +8,9 @@ import {
     Content,
     Form,
     Header,
+    Input,
     IsPrivate,
+    Label,
     PrivateContent,
     Submit,
     Title
@@ -31,17 +33,20 @@ const ModalAdd: FC<props> = ({ setIsOpenAdd }) => {
             </Header>
             <Content>
                 <Form>
-                    <ChannelName variant="outlined" label="Channel Name" />
-                    <ChannelTopic variant="outlined" label="Channel Topic" />
-                    <Button variant="contained" component="label">
-                        Channel Image
-                        <input type="file" hidden />
-                    </Button>
+                    <AvatarChange />
+                    <ChannelName>
+                        <Label>Name</Label>
+                        <Input />
+                    </ChannelName>
+                    <ChannelTopic>
+                        <Label>Topic</Label>
+                        <Input />
+                    </ChannelTopic>
 
                     <PrivateContent>
-                        <IsPrivate /> <p>Private</p>
+                        <IsPrivate type={'checkbox'} /> <p>Private</p>
                     </PrivateContent>
-                    <Submit variant="contained"> Enviar </Submit>
+                    <Submit> Create </Submit>
                 </Form>
             </Content>
         </Container>
