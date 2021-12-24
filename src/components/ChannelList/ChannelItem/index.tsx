@@ -8,10 +8,19 @@ interface props {
 }
 
 const ChannelItem: React.FC<props> = ({ channel, setChannelSelected }) => {
+    const handleClick = () => {
+        let currentChannel = channel;
+
+        currentChannel.hasNotifications =
+            currentChannel.hasNotifications && false;
+
+        setChannelSelected(currentChannel);
+    };
+
     return (
         <Container>
             <Link
-                onClick={() => setChannelSelected(channel)}
+                onClick={handleClick}
                 className={channel.isSelected && 'selected'}
             >
                 <ChannelAvatar hasNotifications={channel.hasNotifications}>
