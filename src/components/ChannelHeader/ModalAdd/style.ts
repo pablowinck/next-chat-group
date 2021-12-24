@@ -1,4 +1,5 @@
 import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
+import { Formik } from 'formik';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 export const Container = styled(motion.div)`
@@ -10,7 +11,7 @@ export const Container = styled(motion.div)`
 
     margin: auto;
 
-    height: 53vh;
+    height: 57vh;
     width: 40vw;
     padding: 1rem 2rem;
 
@@ -41,7 +42,7 @@ export const Title = styled.h1`
     font-size: 1.5rem;
 `;
 
-export const Content = styled.div`
+export const Content = styled(Formik)`
     margin: 1rem 0rem;
     height: calc(100% - 2rem);
     width: 100%;
@@ -69,6 +70,8 @@ export const ChannelTopic = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+
+    margin-top: 1rem;
 `;
 export const IsPrivate = styled.input`
     -webkit-appearance: none;
@@ -86,8 +89,8 @@ export const IsPrivate = styled.input`
         justify-content: center;
         align-items: center;
         ::after {
-            content: '\u2714';
-            font-size: 1.5rem;
+            content: '\u0058';
+            font-size: 1rem;
             color: ${(props) => props.theme.colors.text};
         }
 

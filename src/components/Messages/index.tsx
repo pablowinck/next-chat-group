@@ -29,6 +29,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
         <Container>
             <Content>
                 {getMessagesByDate(messages).map((message, index) => {
+                    console.log(message);
                     if (message?.type === 'date') {
                         return (
                             <DateSeparator key={index}>

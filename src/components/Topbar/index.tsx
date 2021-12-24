@@ -1,9 +1,16 @@
-import { Container, Text } from './style';
+import { FC } from 'react';
+import { ChannelId, Container, Text } from './style';
 
-const Topbar = ({ topic }: { topic: string }) => {
+interface IProps {
+    topic: string;
+    id: number;
+}
+
+const Topbar: FC<IProps> = ({ topic, id }) => {
     return (
         <Container>
             <Text>{topic}</Text>
+            <ChannelId>#{id}</ChannelId>
         </Container>
     );
 };

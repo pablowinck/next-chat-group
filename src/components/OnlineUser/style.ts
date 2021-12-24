@@ -30,6 +30,8 @@ export const Avatar = styled.div`
 
     border-radius: 7px;
 
+    margin-right: 0.5rem;
+
     img {
         width: 100%;
         height: 100%;

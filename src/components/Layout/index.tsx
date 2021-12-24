@@ -45,13 +45,13 @@ const Layout = () => {
 
     return (
         <Grid>
-            <ChannelHeader />
+            <ChannelHeader setChannels={setChannels} channels={channels} />
             <ChannelList
                 channels={channels}
                 setChannelSelected={handleSelectChannel}
             />
             <OnlineUser />
-            <Topbar topic={channelSelected.topic} />
+            <Topbar topic={channelSelected.topic} id={channelSelected.id} />
             <Messages messages={getSelectedMessages()} />
         </Grid>
     );

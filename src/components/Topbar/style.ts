@@ -20,3 +20,11 @@ export const Text = styled.span`
 
     color: ${(props) => props.theme.colors.text};
 `;
+
+export const ChannelId = styled.span`
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: ${(props) => props.theme.colors.secondary};
+    margin-left: 0.5rem;
+`;

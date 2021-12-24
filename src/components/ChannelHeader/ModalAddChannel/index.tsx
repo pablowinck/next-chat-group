@@ -11,9 +11,10 @@ import {
 
 interface props {
     setIsOpenAdd: (value: boolean) => void;
+    setIsOpenJoin: (value: boolean) => void;
 }
 
-const ModalAddChannel: FC<props> = ({ setIsOpenAdd }) => {
+const ModalAddChannel: FC<props> = ({ setIsOpenAdd, setIsOpenJoin }) => {
     return (
         <Container
             initial={{ opacity: 0, y: -20 }}
@@ -25,7 +26,7 @@ const ModalAddChannel: FC<props> = ({ setIsOpenAdd }) => {
                     <AddIcon />
                     <AddText>Add Channel</AddText>
                 </Item>
-                <Item>
+                <Item onClick={() => setIsOpenJoin(true)}>
                     <JoinIcon />
                     <JoinText>Join Channel</JoinText>
                 </Item>
