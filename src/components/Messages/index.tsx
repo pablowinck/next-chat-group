@@ -1,4 +1,5 @@
 import { Message } from 'model/Message';
+import { FC, useEffect } from 'react';
 import MessageItem from './MessageItem';
 import {
     Container,
@@ -9,7 +10,21 @@ import {
     TypeInput
 } from './style';
 
-const Messages = ({ messages }: { messages: Message[] }) => {
+interface IProps {
+    messages: Message[];
+    isPrivateChannel: boolean;
+    setViewModalPassword: (isViewModalPassword: boolean) => void;
+    viewMessages: boolean;
+    setViewMessages: (isViewMessages: boolean) => void;
+}
+
+const Messages: FC<IProps> = ({
+    messages,
+    isPrivateChannel,
+    setViewModalPassword,
+    viewMessages,
+    setViewMessages
+}) => {
     let currentDate = new Date();
 
     const getMessagesByDate = (messages: Message[]) =>
@@ -25,32 +40,40 @@ const Messages = ({ messages }: { messages: Message[] }) => {
 
             return acc;
         }, []);
+
+    useEffect(() => {
+        setViewModalPassword(isPrivateChannel);
+        setViewMessages(!isPrivateChannel);
+    }, [isPrivateChannel, setViewModalPassword, setViewMessages]);
+
     return (
         <Container>
             <Content>
-                {getMessagesByDate(messages).map((message, index) => {
-                    console.log(message);
-                    if (message?.type === 'date') {
-                        return (
-                            <DateSeparator key={index}>
-                                <span>
-                                    {message.date.toLocaleDateString('pt-BR') ==
-                                    new Date().toLocaleDateString('pt-BR')
-                                        ? 'HOJE'
-                                        : message.date.toLocaleDateString(
-                                              'pt-BR'
-                                          )}
-                                </span>
-                            </DateSeparator>
-                        );
-                    } else {
-                        return (
-                            <div key={index}>
-                                <MessageItem message={message} />
-                            </div>
-                        );
-                    }
-                })}
+                {viewMessages &&
+                    getMessagesByDate(messages).map((message, index) => {
+                        if (message?.type === 'date') {
+                            return (
+                                <DateSeparator key={index}>
+                                    <span>
+                                        {message.date.toLocaleDateString(
+                                            'pt-BR'
+                                        ) ==
+                                        new Date().toLocaleDateString('pt-BR')
+                                            ? 'HOJE'
+                                            : message.date.toLocaleDateString(
+                                                  'pt-BR'
+                                              )}
+                                    </span>
+                                </DateSeparator>
+                            );
+                        } else {
+                            return (
+                                <div key={index}>
+                                    <MessageItem message={message} />
+                                </div>
+                            );
+                        }
+                    })}
             </Content>
 
             <TypeInput>

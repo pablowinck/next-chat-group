@@ -4,7 +4,10 @@ export default interface Channel {
     topic: string;
     image: string;
     members: [];
-    isPrivate: boolean;
+    private: {
+        isPrivate: boolean;
+        password: string;
+    };
     isSelected: boolean;
     hasNotifications: boolean;
 }

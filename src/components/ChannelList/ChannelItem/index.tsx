@@ -36,7 +36,7 @@ const ChannelItem: React.FC<props> = ({ channel, setChannelSelected }) => {
                 </ChannelAvatar>
                 <span>{channel.name}</span>
 
-                {channel.isPrivate && <PrivateIcon />}
+                {channel.private?.isPrivate && <PrivateIcon />}
             </Link>
         </Container>
     );

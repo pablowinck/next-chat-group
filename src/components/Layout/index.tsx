@@ -1,6 +1,7 @@
 import ChannelHeader from 'components/ChannelHeader';
 import ChannelList from 'components/ChannelList';
 import Messages from 'components/Messages';
+import ModalPassword from 'components/ModalPassword';
 import OnlineUser from 'components/OnlineUser';
 import Topbar from 'components/Topbar';
 import { channelsData } from 'data/channels';
@@ -13,6 +14,10 @@ const Layout = () => {
     const [channels, setChannels] = useState(channelsData);
 
     const [channelSelected, setChannelSelected] = useState(channels[0]);
+
+    const [viewModalPassword, setViewModalPassword] = useState(false);
+
+    const [viewMessages, setViewMessages] = useState(false);
 
     const messages = messagesData;
 
@@ -52,7 +57,20 @@ const Layout = () => {
             />
             <OnlineUser />
             <Topbar topic={channelSelected.topic} id={channelSelected.id} />
-            <Messages messages={getSelectedMessages()} />
+            <Messages
+                messages={getSelectedMessages()}
+                isPrivateChannel={channelSelected.private.isPrivate}
+                setViewModalPassword={setViewModalPassword}
+                setViewMessages={setViewMessages}
+                viewMessages={viewMessages}
+            />
+            {viewModalPassword && (
+                <ModalPassword
+                    currentPassword={channelSelected.private?.password}
+                    setViewMessages={setViewMessages}
+                    setViewModalPassword={setViewModalPassword}
+                />
+            )}
         </Grid>
     );
 };
