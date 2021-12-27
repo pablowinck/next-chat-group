@@ -13,11 +13,14 @@ const ModalPassword: FC<IProps> = ({
     setViewModalPassword
 }) => {
     const [password, setPassword] = useState('');
+    const [hasError, setHasError] = useState(false);
 
     const handleClick = () => {
         if (password === currentPassword) {
             setViewMessages(true);
             setViewModalPassword(false);
+        } else {
+            setHasError(true);
         }
     };
 
@@ -33,6 +36,7 @@ const ModalPassword: FC<IProps> = ({
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {hasError && <span>incorrect</span>}
             </Content>
             <Button onClick={handleClick}>Submit</Button>
         </Container>

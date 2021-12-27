@@ -69,6 +69,12 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+
+    span {
+        margin-left: 0.5rem;
+        font-weight: 700;
+        color: ${(props) => props.theme.colors.error};
+    }
 `;
 
 export const Header = styled.div`
