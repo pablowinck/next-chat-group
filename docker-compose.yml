@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    chat-group:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: chat-group
+        restart: always
+        volumes:
+            - ./:/chat-group
+            - /chat-group/node_modules
+            - /chat-group/.next
+        ports:
+            - '3000:3000'
