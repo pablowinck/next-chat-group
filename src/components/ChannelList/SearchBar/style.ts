@@ -5,15 +5,7 @@ export const Container = styled.div`
     width: 265.42px;
     height: 48px;
 
-
     margin: 20px auto 40px auto;
-
-/*
-    display: flex;
-    justify-content: start;
-    align-items: center;
-     padding: 0 7px 0 12px; */
-
 `;
 export const SeachIcon = styled(Search)`
     grid-area: 1/1;
@@ -25,7 +17,6 @@ export const SeachIcon = styled(Search)`
     color: ${(props) => props.theme.colors.text};
 `;
 export const Input = styled.input`
-
     grid-area: 1/1;
     background-color: ${(props) => props.theme.colors.background[100]};
     width: 100%;
@@ -33,14 +24,14 @@ export const Input = styled.input`
     padding-left: 44px;
     padding-right: 12px;
 
-/*
-    width: auto;
-
-    background: none;
-    border: none; */
-
-
     color: ${(props) => props.theme.colors.text};
 
     font-size: 14px;
+
+    transition: background-color 0.3s ease-in-out;
+
+    &:focus,
+    &:hover {
+        background-color: ${(props) => props.theme.colors.background[300]};
+    }
 `;
