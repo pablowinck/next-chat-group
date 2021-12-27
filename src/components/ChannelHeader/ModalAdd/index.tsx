@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import {
     AvatarChange,
     ChannelName,
+    ChannelPassword,
     ChannelTopic,
     CloseIcon,
     Container,
@@ -33,7 +34,10 @@ const ModalAdd: FC<IProps> = ({ setIsOpenAdd, setChannels, channels }) => {
                 topic: values.channelTopic,
                 image: '/images/default-avatar.png',
                 members: [],
-                isPrivate: values.isPrivate,
+                private: {
+                    isPrivate: values.isPrivate,
+                    password: values.password
+                },
                 hasNotifications: false,
                 isSelected: false
             }
@@ -45,7 +49,8 @@ const ModalAdd: FC<IProps> = ({ setIsOpenAdd, setChannels, channels }) => {
     const initialValues = {
         channelName: '',
         channelTopic: '',
-        isPrivate: false
+        isPrivate: false,
+        password: ''
     };
 
     let validate = Yup.object().shape({
@@ -55,6 +60,7 @@ const ModalAdd: FC<IProps> = ({ setIsOpenAdd, setChannels, channels }) => {
         channelTopic: Yup.string()
             .required('required field')
             .max(30, 'most 30 caracters'),
+        password: Yup.string().min(4, 'minimum 4 caracters'),
         isPrivate: Yup.boolean()
     });
 
@@ -113,6 +119,21 @@ const ModalAdd: FC<IProps> = ({ setIsOpenAdd, setChannels, channels }) => {
                                 <Label>{errors.channelTopic}</Label>
                             )}
                         </ChannelTopic>
+                        {values.isPrivate && (
+                            <ChannelPassword>
+                                <Label>Password</Label>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                />
+                                {errors.password && touched.password && (
+                                    <Label>{errors.password}</Label>
+                                )}
+                            </ChannelPassword>
+                        )}
 
                         <PrivateContent>
                             <IsPrivate

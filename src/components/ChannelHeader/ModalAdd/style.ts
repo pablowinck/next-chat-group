@@ -11,7 +11,7 @@ export const Container = styled(motion.div)`
 
     margin: auto;
 
-    height: 57vh;
+    height: 62vh;
     width: 40vw;
     padding: 1rem 2rem;
 
@@ -48,29 +48,33 @@ export const Content = styled(Formik)`
     width: 100%;
 `;
 export const Form = styled.form`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-        'avatar '
-        'name '
-        'topic '
-        'private '
-        'submit ';
+    display: flex;
+    flex-direction: column;
     align-items: center;
+
+    gap: 1rem;
+
+    height: 100%;
+    width: 100%;
 `;
 export const ChannelName = styled.div`
-    grid-area: name;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    width: 100%;
 `;
 export const ChannelTopic = styled.div`
-    grid-area: topic;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-
+    width: 100%;
+    margin-top: 1rem;
+`;
+export const ChannelPassword = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
     margin-top: 1rem;
 `;
 export const IsPrivate = styled.input`
@@ -104,8 +108,6 @@ export const IsPrivate = styled.input`
     }
 `;
 export const PrivateContent = styled.div`
-    grid-area: private;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,8 +115,6 @@ export const PrivateContent = styled.div`
 `;
 
 export const Submit = styled.button`
-    grid-area: submit;
-
     height: 2.5rem;
     width: 100%;
     background-color: ${(props) => props.theme.colors.primary};
@@ -157,7 +157,6 @@ export const Input = styled.input`
 
 // avatar input
 export const AvatarChange = styled.div`
-    grid-area: avatar;
     background-color: ${(props) => props.theme.colors.background[100]};
     border-radius: 50%;
     height: 5rem;
