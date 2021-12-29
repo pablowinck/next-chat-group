@@ -1,22 +1,32 @@
+import { useChatContext } from 'contexts/ChatContext';
 import { FC, useState } from 'react';
-import { Button, Container, Content, Header, Input, Label } from './style';
+import {
+    Button,
+    Container,
+    Content,
+    Form,
+    Header,
+    Input,
+    Label
+} from './style';
 
 interface IProps {
-    currentPassword: string;
     setViewMessages: (isValidPassword: boolean) => void;
     setViewModalPassword: (isViewModalPassword: boolean) => void;
 }
 
 const ModalPassword: FC<IProps> = ({
-    currentPassword,
     setViewMessages,
     setViewModalPassword
 }) => {
     const [password, setPassword] = useState('');
     const [hasError, setHasError] = useState(false);
 
-    const handleClick = () => {
-        if (password === currentPassword) {
+    const { selectedChannel } = useChatContext();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password === selectedChannel.private?.password) {
             setViewMessages(true);
             setViewModalPassword(false);
         } else {
@@ -29,16 +39,18 @@ const ModalPassword: FC<IProps> = ({
             <Header>
                 <span>Enter your password</span>
             </Header>
-            <Content>
-                <Label>Password</Label>
-                <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                {hasError && <span>incorrect</span>}
-            </Content>
-            <Button onClick={handleClick}>Submit</Button>
+            <Form onSubmit={(e) => handleSubmit(e)}>
+                <Content>
+                    <Label>Password</Label>
+                    <Input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    {hasError && <span>incorrect</span>}
+                </Content>
+                <Button type="submit">Submit</Button>
+            </Form>
         </Container>
     );
 };

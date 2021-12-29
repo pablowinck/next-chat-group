@@ -1,4 +1,5 @@
-import Channel from 'model/Channel';
+import { Channel, useChatContext } from 'contexts/ChatContext';
+import { useViewContext } from 'contexts/ViewContext';
 import { FC } from 'react';
 import * as Yup from 'yup';
 import {
@@ -18,30 +19,27 @@ import {
     Submit,
     Title
 } from './style';
-interface IProps {
-    setIsOpenAdd: (value: boolean) => void;
-    setChannels: (value: Channel[]) => void;
-    channels: Channel[];
-}
 
-const ModalAdd: FC<IProps> = ({ setIsOpenAdd, setChannels, channels }) => {
+const ModalAdd: FC = () => {
+    const { channels, addChannel } = useChatContext();
+    const { setIsOpenAdd } = useViewContext();
+
     const handleSubmit = (values, { resetForm }) => {
-        setChannels([
-            ...channels,
-            {
-                id: channels.length + 1,
-                name: values.channelName,
-                topic: values.channelTopic,
-                image: '/images/default-avatar.png',
-                members: [],
-                private: {
-                    isPrivate: values.isPrivate,
-                    password: values.password
-                },
-                hasNotifications: false,
-                isSelected: false
-            }
-        ]);
+        const newChannel: Channel = {
+            id: channels.length + 1,
+            name: values.channelName,
+            topic: values.channelTopic,
+            image: '/images/default-avatar.png',
+            members: [],
+            private: {
+                isPrivate: values.isPrivate,
+                password: values.password
+            },
+            hasNotifications: false,
+            isSelected: false
+        };
+
+        addChannel(newChannel);
 
         resetForm();
     };

@@ -15,6 +15,8 @@ export const Grid = styled.div`
 
     position: relative;
 
+    overflow: none;
+
     @media (max-width: 768px) {
         grid-template-columns: auto auto;
         grid-template-rows: 59.49px auto auto;

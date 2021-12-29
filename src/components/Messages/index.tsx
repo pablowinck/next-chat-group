@@ -1,5 +1,5 @@
-import { Message } from 'model/Message';
-import { FC, useEffect } from 'react';
+import { useChatContext } from 'contexts/ChatContext';
+import { createRef, FC, useEffect, useState } from 'react';
 import MessageItem from './MessageItem';
 import {
     Container,
@@ -11,46 +11,52 @@ import {
 } from './style';
 
 interface IProps {
-    messages: Message[];
-    isPrivateChannel: boolean;
     setViewModalPassword: (isViewModalPassword: boolean) => void;
     viewMessages: boolean;
     setViewMessages: (isViewMessages: boolean) => void;
 }
 
 const Messages: FC<IProps> = ({
-    messages,
-    isPrivateChannel,
     setViewModalPassword,
     viewMessages,
     setViewMessages
 }) => {
-    let currentDate = new Date();
+    const [message, setMessage] = useState('');
+    const { selectedChannel, messagesByDate, addMessage, messages } =
+        useChatContext();
 
-    const getMessagesByDate = (messages: Message[]) =>
-        messages.reduce((acc, message) => {
-            const date = new Date(message.createdAt);
+    const isPrivateChannel = selectedChannel.private?.isPrivate;
 
-            if (date.toDateString() !== currentDate.toDateString()) {
-                acc.push({ type: 'date', date });
-                currentDate = date;
-            }
-
-            acc.push(message);
-
-            return acc;
-        }, []);
-
+    const messageInput = createRef<HTMLInputElement>();
     useEffect(() => {
         setViewModalPassword(isPrivateChannel);
         setViewMessages(!isPrivateChannel);
     }, [isPrivateChannel, setViewModalPassword, setViewMessages]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addMessage({
+            id: messages.length + 1,
+            channelId: selectedChannel.id,
+            user: {
+                id: 10,
+                name: 'Pablo Winter',
+                email: 'pablowinck123@gmail.com',
+                profileImage: '/images/default-avatar.png',
+                createdAt: new Date()
+            },
+            content: message,
+            createdAt: new Date()
+        });
+        setMessage('');
+        messageInput.current?.focus();
+    };
+
     return (
         <Container>
             <Content>
                 {viewMessages &&
-                    getMessagesByDate(messages).map((message, index) => {
+                    messagesByDate.map((message, index) => {
                         if (message?.type === 'date') {
                             return (
                                 <DateSeparator key={index}>
@@ -76,9 +82,16 @@ const Messages: FC<IProps> = ({
                     })}
             </Content>
 
-            <TypeInput>
-                <input type="text" placeholder="Type a message here" />
-                <SendButton>
+            <TypeInput onSubmit={(e) => handleSubmit(e)}>
+                <input
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    type="text"
+                    placeholder="Type a message here"
+                    autoFocus
+                    ref={messageInput}
+                />
+                <SendButton type="submit">
                     <SendIcon />
                 </SendButton>
             </TypeInput>

@@ -1,17 +1,12 @@
-import Channel from 'model/Channel';
+import { useChatContext } from 'contexts/ChatContext';
 import { useState } from 'react';
 import ChannelItem from './ChannelItem';
 import SearchBar from './SearchBar';
 import { Channels, Container, Content } from './style';
 
-interface props {
-    channels: Channel[];
-    setChannelSelected: (channel: Channel) => void;
-}
-
-const ChannelList: React.FC<props> = ({ channels, setChannelSelected }) => {
+const ChannelList: React.FC = () => {
     const [filter, setFilter] = useState('');
-
+    const { channels } = useChatContext();
     return (
         <Container>
             <Content>
@@ -23,13 +18,11 @@ const ChannelList: React.FC<props> = ({ channels, setChannelSelected }) => {
                                 .toLowerCase()
                                 .includes(filter.toLowerCase())
                         )
-                        .map((channel, index) => (
-                            <ChannelItem
-                                key={index}
-                                channel={channel}
-                                setChannelSelected={setChannelSelected}
-                            />
-                        ))}
+                        .map((channel, index) => {
+                            return (
+                                <ChannelItem key={index} channel={channel} />
+                            );
+                        })}
                 </Channels>
             </Content>
         </Container>

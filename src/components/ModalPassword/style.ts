@@ -19,7 +19,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.5rem;
 `;
 export const Label = styled.label`
     color: ${(props) => props.theme.colors.text};
@@ -66,6 +65,7 @@ export const Button = styled.button`
 `;
 
 export const Content = styled.div`
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -87,6 +87,12 @@ export const Header = styled.div`
         font-weight: 700;
         text-transform: uppercase;
     }
+`;
+
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `;
 
 // export const CloseIcon = styled(CloseSquare)`

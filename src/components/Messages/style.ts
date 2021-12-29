@@ -11,13 +11,15 @@ export const Container = styled.div`
     align-items: center;
     justify-content: end;
 
+    overflow-y: hidden;
+
     padding: 39px 70px;
 `;
 export const Content = styled.div`
     width: 100%;
 `;
 
-export const TypeInput = styled.div`
+export const TypeInput = styled.form`
     background-color: ${(props) => props.theme.colors.background[100]};
 
     width: 100%;

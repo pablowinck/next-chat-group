@@ -1,3 +1,4 @@
+import { useViewContext } from 'contexts/ViewContext';
 import { FC } from 'react';
 import {
     Button,
@@ -11,11 +12,9 @@ import {
     Title
 } from './style';
 
-interface IProps {
-    setIsOpenJoin: (value: boolean) => void;
-}
+const ModalJoin: FC = () => {
+    const { setIsOpenJoin } = useViewContext();
 
-const ModalJoin: FC<IProps> = ({ setIsOpenJoin }) => {
     return (
         <Container
             initial={{ opacity: 0, y: -20 }}

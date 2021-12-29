@@ -4,9 +4,10 @@ import styled from 'styled-components';
 export const Container = styled(motion.div)`
     position: absolute;
 
-    top: calc(100% + 20vh);
-    left: 37vw;
-    right: 37vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     margin: auto;
 

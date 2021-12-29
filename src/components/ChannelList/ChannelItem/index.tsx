@@ -1,26 +1,17 @@
-import Channel from 'model/Channel';
+import { Channel, useChatContext } from 'contexts/ChatContext';
 import Image from 'next/image';
 import { ChannelAvatar, Container, Link, PrivateIcon } from './style';
 
 interface props {
     channel: Channel;
-    setChannelSelected: (channel: Channel) => void;
 }
 
-const ChannelItem: React.FC<props> = ({ channel, setChannelSelected }) => {
-    const handleClick = () => {
-        let currentChannel = channel;
-
-        currentChannel.hasNotifications =
-            currentChannel.hasNotifications && false;
-
-        setChannelSelected(currentChannel);
-    };
-
+const ChannelItem: React.FC<props> = ({ channel }) => {
+    const { onSelectChannel } = useChatContext();
     return (
         <Container>
             <Link
-                onClick={handleClick}
+                onClick={() => onSelectChannel(channel)}
                 className={channel.isSelected && 'selected'}
             >
                 <ChannelAvatar hasNotifications={channel.hasNotifications}>

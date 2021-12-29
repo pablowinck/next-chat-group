@@ -1,3 +1,4 @@
+import { useViewContext } from 'contexts/ViewContext';
 import { FC } from 'react';
 import {
     AddIcon,
@@ -9,12 +10,9 @@ import {
     JoinText
 } from './style';
 
-interface props {
-    setIsOpenAdd: (value: boolean) => void;
-    setIsOpenJoin: (value: boolean) => void;
-}
+const ModalAddChannel: FC = () => {
+    const { setIsOpenAdd, setIsOpenJoin } = useViewContext();
 
-const ModalAddChannel: FC<props> = ({ setIsOpenAdd, setIsOpenJoin }) => {
     return (
         <Container
             initial={{ opacity: 0, y: -20 }}
