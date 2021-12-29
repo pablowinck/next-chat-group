@@ -12,8 +12,8 @@ export const Container = styled(motion.div)`
 
     margin: auto;
 
-    height: 62vh;
-    width: 40vw;
+    height: 35rem;
+    width: 50rem;
     padding: 1rem 2rem;
 
     background-color: ${(props) => props.theme.colors.background[300]};
@@ -45,12 +45,13 @@ export const Title = styled.h1`
 
 export const Content = styled(Formik)`
     margin: 1rem 0rem;
-    height: calc(100% - 2rem);
+    height: 100%;
     width: 100%;
 `;
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
     gap: 1rem;
