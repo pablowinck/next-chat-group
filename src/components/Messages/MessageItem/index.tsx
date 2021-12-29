@@ -1,4 +1,4 @@
-import { Message } from 'model/Message';
+import { Message } from 'contexts/ChatContext';
 import Image from 'next/image';
 import { Avatar, Container, Content, Header, Name, Text, Time } from './style';
 
