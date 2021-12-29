@@ -1,4 +1,4 @@
-import { Message } from 'model/Message';
+import { Message } from 'contexts/ChatContext';
 
 export const messagesData: Message[] = [
     {

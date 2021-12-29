@@ -1,4 +1,4 @@
-import Channel from 'model/Channel';
+import { Channel } from 'contexts/ChatContext';
 
 export const channelsData: Channel[] = [
     {
