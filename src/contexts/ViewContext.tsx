@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type ViewContextType = {
     isOpenAdd: boolean;
@@ -9,6 +9,8 @@ type ViewContextType = {
     setViewMessages: (value: boolean) => void;
     viewPassword: boolean;
     setViewPassword: (value: boolean) => void;
+    viewSettings: string;
+    setViewSettings: (value: string) => void;
 };
 
 const ViewContext = createContext({} as ViewContextType);
@@ -18,6 +20,11 @@ const ViewContextProvider: React.FC = ({ children }) => {
     const [isOpenJoin, setIsOpenJoin] = useState(false);
     const [viewMessages, setViewMessages] = useState(true);
     const [viewPassword, setViewPassword] = useState(false);
+    const [viewSettings, setViewSettings] = useState('');
+
+    useEffect(() => {
+        console.log('[viewSettings] ' + viewSettings);
+    }, [viewSettings]);
 
     const value: ViewContextType = {
         isOpenAdd: isOpenAdd,
@@ -27,7 +34,9 @@ const ViewContextProvider: React.FC = ({ children }) => {
         viewMessages: viewMessages,
         setViewMessages: setViewMessages,
         viewPassword: viewPassword,
-        setViewPassword: setViewPassword
+        setViewPassword: setViewPassword,
+        viewSettings: viewSettings,
+        setViewSettings: setViewSettings
     };
 
     return (

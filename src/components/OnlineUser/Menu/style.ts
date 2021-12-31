@@ -38,6 +38,9 @@ export const Item = styled.div`
 
     cursor: pointer;
 
+    background: none;
+    border: none;
+
     &:hover {
         background-color: ${(props) => props.theme.colors.background[100]};
     }

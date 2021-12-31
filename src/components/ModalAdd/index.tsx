@@ -1,3 +1,4 @@
+import Overlay from 'components/Overlay';
 import { Channel, useChatContext } from 'contexts/ChatContext';
 import { useViewContext } from 'contexts/ViewContext';
 import { FC } from 'react';
@@ -11,6 +12,7 @@ import {
     Container,
     Content,
     Form,
+    FormContent,
     Header,
     Input,
     IsPrivate,
@@ -63,105 +65,115 @@ const ModalAdd: FC = () => {
     });
 
     return (
-        <Container
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-        >
-            <Header>
-                <Title>New Channel</Title>
-                <CloseIcon onClick={() => setIsOpenAdd(false)} />
-            </Header>
-            <Content
-                initialValues={initialValues}
-                validationSchema={validate}
-                onSubmit={handleSubmit}
+        <>
+            <Overlay onClick={() => setIsOpenAdd(false)} />
+            <Container
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
             >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting
-                }) => (
-                    <Form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleSubmit();
-                        }}
-                    >
-                        <AvatarChange />
-                        <ChannelName>
-                            <Label>Name</Label>
-                            <Input
-                                name="channelName"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.channelName}
-                            />
-                            {errors.channelName && touched.channelName && (
-                                <Label>{errors.channelName}</Label>
-                            )}
-                        </ChannelName>
-                        <ChannelTopic>
-                            <Label>Topic</Label>
-                            <Input
-                                name="channelTopic"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.channelTopic}
-                            />
-                            {errors.channelTopic && touched.channelTopic && (
-                                <Label>{errors.channelTopic}</Label>
-                            )}
-                        </ChannelTopic>
-                        <ChannelPassword>
-                            <Label
-                                className={
-                                    !values.isPrivate && 'label-disabled'
-                                }
-                            >
-                                Password
-                            </Label>
-                            <Input
-                                className={!values.isPrivate && 'disabled'}
-                                name="password"
-                                type="password"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.password}
-                                disabled={!values.isPrivate}
-                            />
-                            {errors.password && touched.password && (
-                                <Label>{errors.password}</Label>
-                            )}
-                        </ChannelPassword>
-
-                        <PrivateContent>
-                            <IsPrivate
-                                type={'checkbox'}
-                                name="isPrivate"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.isPrivate}
-                            />
-                            <p>Private</p>
-                        </PrivateContent>
-                        <Submit
-                            onClick={() => {
-                                console.log(errors);
-                                console.log(touched);
+                <Header>
+                    <Title>New Channel</Title>
+                    <CloseIcon onClick={() => setIsOpenAdd(false)} />
+                </Header>
+                <Content
+                    initialValues={initialValues}
+                    validationSchema={validate}
+                    onSubmit={handleSubmit}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting
+                    }) => (
+                        <Form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleSubmit();
                             }}
-                            type="submit"
                         >
-                            Create
-                        </Submit>
-                    </Form>
-                )}
-            </Content>
-        </Container>
+                            <AvatarChange />
+                            <FormContent>
+                                <ChannelName>
+                                    <Label>Name</Label>
+                                    <Input
+                                        name="channelName"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.channelName}
+                                    />
+                                    {errors.channelName &&
+                                        touched.channelName && (
+                                            <Label>{errors.channelName}</Label>
+                                        )}
+                                </ChannelName>
+                                <ChannelTopic>
+                                    <Label>Topic</Label>
+                                    <Input
+                                        name="channelTopic"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.channelTopic}
+                                    />
+                                    {errors.channelTopic &&
+                                        touched.channelTopic && (
+                                            <Label>{errors.channelTopic}</Label>
+                                        )}
+                                </ChannelTopic>
+                                <ChannelPassword>
+                                    <Label
+                                        className={
+                                            !values.isPrivate &&
+                                            'label-disabled'
+                                        }
+                                    >
+                                        Password
+                                    </Label>
+                                    <Input
+                                        className={
+                                            !values.isPrivate && 'disabled'
+                                        }
+                                        name="password"
+                                        type="password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
+                                        disabled={!values.isPrivate}
+                                    />
+                                    {errors.password && touched.password && (
+                                        <Label>{errors.password}</Label>
+                                    )}
+                                </ChannelPassword>
+
+                                <PrivateContent>
+                                    <IsPrivate
+                                        type={'checkbox'}
+                                        name="isPrivate"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.isPrivate}
+                                    />
+                                    <p>Private</p>
+                                </PrivateContent>
+                            </FormContent>
+                            <Submit
+                                onClick={() => {
+                                    console.log(errors);
+                                    console.log(touched);
+                                }}
+                                type="submit"
+                            >
+                                Create
+                            </Submit>
+                        </Form>
+                    )}
+                </Content>
+            </Container>
+        </>
     );
 };
 

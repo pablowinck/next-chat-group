@@ -5,12 +5,14 @@ import ModalAdd from 'components/ModalAdd';
 import ModalJoin from 'components/ModalJoin';
 import ModalPassword from 'components/ModalPassword';
 import OnlineUser from 'components/OnlineUser';
+import Settings from 'components/Settings';
 import Topbar from 'components/Topbar';
 import { useViewContext } from 'contexts/ViewContext';
 import { Grid } from './style';
 
 const Layout = () => {
-    const { isOpenAdd, isOpenJoin, viewPassword } = useViewContext();
+    const { isOpenAdd, isOpenJoin, viewPassword, viewSettings } =
+        useViewContext();
 
     return (
         <Grid>
@@ -22,6 +24,7 @@ const Layout = () => {
             {viewPassword && <ModalPassword />}
             {isOpenAdd && <ModalAdd />}
             {isOpenJoin && <ModalJoin />}
+            {viewSettings !== '' && <Settings menuSelected="profile" />}
         </Grid>
     );
 };

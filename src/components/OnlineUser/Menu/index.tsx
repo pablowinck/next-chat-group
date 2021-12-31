@@ -1,3 +1,4 @@
+import { useViewContext } from 'contexts/ViewContext';
 import {
     ConfigurationIcon,
     Container,
@@ -7,19 +8,25 @@ import {
     Separator
 } from './style';
 const Menu = () => {
+    const { setViewSettings } = useViewContext();
+
+    const handleClick = (view: string) => {
+        setViewSettings(view);
+    };
+
     return (
         <Container
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
         >
-            <Item>
+            <Item onClick={() => handleClick('profile')}>
                 <ProfileIcon />
                 <span>My Profile</span>
             </Item>
-            <Item>
+            <Item onClick={() => handleClick('appaerance')}>
                 <ConfigurationIcon />
-                <span>Configurations</span>
+                <span>Appaerance</span>
             </Item>
             <Separator />
             <Item>

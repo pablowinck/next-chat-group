@@ -49,15 +49,64 @@ export const Content = styled(Formik)`
     width: 100%;
 `;
 export const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-row: 1fr auto 1fr;
+    grid-template-areas: 'avatar' 'input' 'button';
 
     height: 100%;
     width: 100%;
+`;
+export const AvatarChange = styled.div`
+    grid-area: avatar;
+    background-color: ${(props) => props.theme.colors.background[100]};
+    border-radius: 50%;
+    height: 7rem;
+    width: 7rem;
+    margin: 0.5rem auto 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.background[200]};
+    }
+
+    ::after {
+        content: 'upload a photo';
+        padding: 0.5rem;
+        font-size: 1rem;
+        color: ${(props) => props.theme.colors.text};
+        text-transform: uppercase;
+    }
+`;
+export const FormContent = styled.div`
+    grid-area: input;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`;
+export const Submit = styled.button`
+    grid-area: button;
+    height: 2.5rem;
+    width: 100%;
+    background-color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.text};
+    font-size: 1rem;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.primaryDark};
+    }
 `;
 export const ChannelName = styled.div`
     display: flex;
@@ -125,22 +174,6 @@ export const PrivateContent = styled.div`
     gap: 0.5rem;
 `;
 
-export const Submit = styled.button`
-    height: 2.5rem;
-    width: 100%;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.text};
-    font-size: 1rem;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-
-    &:hover {
-        background-color: ${(props) => props.theme.colors.primaryDark};
-    }
-`;
-
 export const Label = styled.label`
     font-size: 1rem;
     font-weight: bold;
@@ -164,13 +197,4 @@ export const Input = styled.input`
     &:hover {
         background-color: ${(props) => props.theme.colors.background[200]};
     }
-`;
-
-// avatar input
-export const AvatarChange = styled.div`
-    background-color: ${(props) => props.theme.colors.background[100]};
-    border-radius: 50%;
-    height: 5rem;
-    width: 5rem;
-    margin: 0 auto;
 `;
