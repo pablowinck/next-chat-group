@@ -78,6 +78,15 @@ export const ChannelPassword = styled.div`
     gap: 0.4rem;
     width: 100%;
     margin-top: 1rem;
+
+    .disabled {
+        background-color: ${(props) => props.theme.colors.background[800]};
+        pointer-events: none;
+    }
+
+    .label-disabled {
+        color: ${(props) => props.theme.colors.secondary};
+    }
 `;
 export const IsPrivate = styled.input`
     -webkit-appearance: none;

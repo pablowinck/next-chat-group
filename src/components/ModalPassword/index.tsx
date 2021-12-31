@@ -1,4 +1,5 @@
 import { useChatContext } from 'contexts/ChatContext';
+import { useViewContext } from 'contexts/ViewContext';
 import { FC, useState } from 'react';
 import {
     Button,
@@ -10,25 +11,18 @@ import {
     Label
 } from './style';
 
-interface IProps {
-    setViewMessages: (isValidPassword: boolean) => void;
-    setViewModalPassword: (isViewModalPassword: boolean) => void;
-}
-
-const ModalPassword: FC<IProps> = ({
-    setViewMessages,
-    setViewModalPassword
-}) => {
+const ModalPassword: FC = () => {
     const [password, setPassword] = useState('');
     const [hasError, setHasError] = useState(false);
 
     const { selectedChannel } = useChatContext();
+    const { setViewMessages, setViewPassword } = useViewContext();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === selectedChannel.private?.password) {
             setViewMessages(true);
-            setViewModalPassword(false);
+            setViewPassword(false);
         } else {
             setHasError(true);
         }

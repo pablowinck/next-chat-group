@@ -117,21 +117,27 @@ const ModalAdd: FC = () => {
                                 <Label>{errors.channelTopic}</Label>
                             )}
                         </ChannelTopic>
-                        {values.isPrivate && (
-                            <ChannelPassword>
-                                <Label>Password</Label>
-                                <Input
-                                    name="password"
-                                    type="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.password}
-                                />
-                                {errors.password && touched.password && (
-                                    <Label>{errors.password}</Label>
-                                )}
-                            </ChannelPassword>
-                        )}
+                        <ChannelPassword>
+                            <Label
+                                className={
+                                    !values.isPrivate && 'label-disabled'
+                                }
+                            >
+                                Password
+                            </Label>
+                            <Input
+                                className={!values.isPrivate && 'disabled'}
+                                name="password"
+                                type="password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                disabled={!values.isPrivate}
+                            />
+                            {errors.password && touched.password && (
+                                <Label>{errors.password}</Label>
+                            )}
+                        </ChannelPassword>
 
                         <PrivateContent>
                             <IsPrivate

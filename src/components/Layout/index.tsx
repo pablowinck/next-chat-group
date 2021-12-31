@@ -7,15 +7,10 @@ import ModalPassword from 'components/ModalPassword';
 import OnlineUser from 'components/OnlineUser';
 import Topbar from 'components/Topbar';
 import { useViewContext } from 'contexts/ViewContext';
-import { useState } from 'react';
 import { Grid } from './style';
 
 const Layout = () => {
-    const [viewModalPassword, setViewModalPassword] = useState(false);
-
-    const [viewMessages, setViewMessages] = useState(false);
-
-    const { isOpenAdd, isOpenJoin } = useViewContext();
+    const { isOpenAdd, isOpenJoin, viewPassword } = useViewContext();
 
     return (
         <Grid>
@@ -23,17 +18,8 @@ const Layout = () => {
             <ChannelList />
             <OnlineUser />
             <Topbar />
-            <Messages
-                setViewModalPassword={setViewModalPassword}
-                setViewMessages={setViewMessages}
-                viewMessages={viewMessages}
-            />
-            {viewModalPassword && (
-                <ModalPassword
-                    setViewMessages={setViewMessages}
-                    setViewModalPassword={setViewModalPassword}
-                />
-            )}
+            <Messages />
+            {viewPassword && <ModalPassword />}
             {isOpenAdd && <ModalAdd />}
             {isOpenJoin && <ModalJoin />}
         </Grid>
