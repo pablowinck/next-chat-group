@@ -57,7 +57,7 @@ $ git clone https://github.com/pablowinck/next-chat-group
 $ npm install
 
 # Run the app
-$ npm start
+$ npm run dev
 ```
 
 ## Contact
