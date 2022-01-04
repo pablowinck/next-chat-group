@@ -60,7 +60,7 @@ export const ChannelAvatar = styled.div<{ hasNotifications: boolean }>`
         height: 1rem;
         border: 3px solid ${(props) => props.theme.colors.background[400]};
         border-radius: 50%;
-        background-color: ${(props) => props.theme.colors.red};
+        background-color: ${(props) => props.theme.colors.red[700]};
 
         display: ${(props) => (props.hasNotifications ? 'block' : 'none')};
     }

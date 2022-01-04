@@ -42,7 +42,7 @@ export const Rounded = styled.button`
     transition: all 0.3s ease-in-out;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.primary};
+        background-color: ${(props) => props.theme.colors.primary.main};
         color: white;
     }
 `;

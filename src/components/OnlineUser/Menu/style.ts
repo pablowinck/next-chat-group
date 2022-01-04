@@ -54,7 +54,7 @@ export const Item = styled.div`
     }
 
     .red {
-        color: ${(props) => props.theme.colors.red};
+        color: ${(props) => props.theme.colors.red[500]};
     }
 `;
 

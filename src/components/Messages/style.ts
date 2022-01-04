@@ -53,12 +53,12 @@ export const SendButton = styled.button`
     outline: none;
     cursor: pointer;
 
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary.main};
 
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.primaryDark};
+        background-color: ${(props) => props.theme.colors.primary.dark};
     }
 `;
 
