@@ -1,6 +1,14 @@
 import { useViewContext } from 'contexts/ViewContext';
 import React from 'react';
-import { Container, Icon, Item, Name } from './styles';
+import {
+    Container,
+    Icon,
+    Item,
+    Items,
+    LogoutIcon,
+    LogoutItem,
+    Name
+} from './styles';
 
 const Navbar: React.FC = () => {
     const { viewSettings, setViewSettings } = useViewContext();
@@ -29,16 +37,22 @@ const Navbar: React.FC = () => {
 
     return (
         <Container>
-            {menusData.map((menu) => (
-                <Item
-                    className={menu.alt === viewSettings && 'active'}
-                    onClick={() => setViewSettings(menu.alt)}
-                    key={menu.id}
-                >
-                    <Icon />
-                    <Name>{menu.name}</Name>
-                </Item>
-            ))}
+            <Items>
+                {menusData.map((menu) => (
+                    <Item
+                        className={menu.alt === viewSettings && 'active'}
+                        onClick={() => setViewSettings(menu.alt)}
+                        key={menu.id}
+                    >
+                        <Icon />
+                        <Name>{menu.name}</Name>
+                    </Item>
+                ))}
+            </Items>
+            <LogoutItem>
+                <LogoutIcon />
+                <p>Logout</p>
+            </LogoutItem>
         </Container>
     );
 };

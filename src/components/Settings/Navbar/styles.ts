@@ -1,5 +1,5 @@
+import { Logout } from '@styled-icons/material-sharp/Logout';
 import styled from 'styled-components';
-
 export const Container = styled.div`
     grid-area: navbar;
 
@@ -7,13 +7,13 @@ export const Container = styled.div`
     width: 100%;
 
     border-radius: 18px 0 0 18px;
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 1rem 1rem;
 
     background-color: ${(props) => props.theme.colors.background[100]};
 
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
 
     .active {
         background-color: ${(props) => props.theme.colors.background[800]};
@@ -51,4 +51,36 @@ export const Name = styled.span`
     color: ${(props) => props.theme.colors.text};
 
     user-select: none;
+`;
+
+export const Items = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`;
+export const LogoutItem = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+
+    padding: 0 3rem;
+
+    height: 50px;
+    width: 100%;
+
+    border-radius: 8px;
+
+    color: ${(props) => props.theme.colors.red[500]};
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.background[800]};
+    }
+`;
+export const LogoutIcon = styled(Logout)`
+    height: 30px;
+    width: 30px;
 `;
