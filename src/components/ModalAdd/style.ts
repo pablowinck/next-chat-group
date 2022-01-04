@@ -96,7 +96,7 @@ export const Submit = styled.button`
     grid-area: button;
     height: 2.5rem;
     width: 100%;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary.main};
     color: ${(props) => props.theme.colors.text};
     font-size: 1rem;
     border: none;
@@ -105,7 +105,7 @@ export const Submit = styled.button`
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.primaryDark};
+        background-color: ${(props) => props.theme.colors.primary.dark};
     }
 `;
 export const ChannelName = styled.div`
@@ -147,7 +147,7 @@ export const IsPrivate = styled.input`
     transition: background-color 0.3s ease-in-out;
 
     &:checked {
-        background-color: ${(props) => props.theme.colors.primary};
+        background-color: ${(props) => props.theme.colors.primary.main};
 
         display: flex;
         justify-content: center;
@@ -159,7 +159,7 @@ export const IsPrivate = styled.input`
         }
 
         &:hover {
-            background-color: ${(props) => props.theme.colors.primaryDark};
+            background-color: ${(props) => props.theme.colors.primary.dark};
         }
     }
 

@@ -1,4 +1,6 @@
+import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
 import styled from 'styled-components';
+
 export const Container = styled.div`
     position: absolute;
     top: 0;
@@ -20,3 +22,22 @@ export const Container = styled.div`
     z-index: 100;
 `;
 export const Content = styled.div``;
+
+export const CloseIcon = styled(CloseSquare)`
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    width: 2rem;
+
+    cursor: pointer;
+
+    transition: color 0.3s ease-in-out;
+
+    color: ${(props) => props.theme.colors.text};
+
+    &:hover {
+        color: ${(props) => props.theme.colors.secondary};
+    }
+`;

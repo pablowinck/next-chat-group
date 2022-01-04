@@ -2,7 +2,7 @@ import Overlay from 'components/Overlay';
 import { useViewContext } from 'contexts/ViewContext';
 import React from 'react';
 import Navbar from './Navbar';
-import { Container, Content } from './styles';
+import { CloseIcon, Container, Content } from './styles';
 
 interface IProps {
     menuSelected: string;
@@ -17,6 +17,7 @@ const Settings: React.FC<IProps> = ({ menuSelected }) => {
             <Container>
                 <Navbar />
                 <Content />
+                <CloseIcon />
             </Container>
         </>
     );
