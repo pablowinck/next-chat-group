@@ -21,7 +21,9 @@ export const Container = styled.div`
 
     z-index: 100;
 `;
-export const Content = styled.div``;
+export const Content = styled.div`
+    color: ${(props) => props.theme.colors.text};
+`;
 
 export const CloseIcon = styled(CloseSquare)`
     position: absolute;

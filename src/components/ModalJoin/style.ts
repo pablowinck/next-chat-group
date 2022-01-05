@@ -95,7 +95,7 @@ export const Button = styled.button`
     height: 2rem;
     border: none;
     border-radius: 18px;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary.main};
     color: ${(props) => props.theme.colors.text};
     font-size: 1rem;
 
@@ -104,6 +104,6 @@ export const Button = styled.button`
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.primaryDark};
+        background-color: ${(props) => props.theme.colors.primary.dark};
     }
 `;

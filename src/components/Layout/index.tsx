@@ -24,7 +24,7 @@ const Layout = () => {
             {viewPassword && <ModalPassword />}
             {isOpenAdd && <ModalAdd />}
             {isOpenJoin && <ModalJoin />}
-            {viewSettings !== '' && <Settings menuSelected="profile" />}
+            {viewSettings !== '' && <Settings />}
         </Grid>
     );
 };

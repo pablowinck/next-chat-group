@@ -7,13 +7,9 @@ export const Container = styled.div`
     width: 100%;
 
     border-radius: 18px 0 0 18px;
-    padding: 3rem 1rem 1rem 1rem;
+    padding: 4rem 1rem 1rem 1rem;
 
     background-color: ${(props) => props.theme.colors.background[100]};
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
     .active {
         background-color: ${(props) => props.theme.colors.background[800]};
@@ -83,4 +79,20 @@ export const LogoutItem = styled.div`
 export const LogoutIcon = styled(Logout)`
     height: 30px;
     width: 30px;
+`;
+export const Title = styled.p`
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    font-size: 1.5rem;
+    color: ${(props) => props.theme.colors.text};
+`;
+
+export const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100%;
 `;
