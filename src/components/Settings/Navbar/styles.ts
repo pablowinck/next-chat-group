@@ -1,5 +1,6 @@
 import { Logout } from '@styled-icons/material-sharp/Logout';
 import styled from 'styled-components';
+
 export const Container = styled.div`
     grid-area: navbar;
 
@@ -39,8 +40,7 @@ export const Icon = styled.div`
     height: 30px;
     width: 30px;
 
-    border-radius: 50%;
-    background-color: ${(props) => props.theme.colors.background[300]};
+    color: ${(props) => props.theme.colors.text};
 `;
 export const Name = styled.span`
     font-size: 1rem;

@@ -31,7 +31,7 @@ const Navbar: React.FC<Props> = ({ menus }) => {
                             onClick={() => setViewSettings(menu.alt)}
                             key={menu.id}
                         >
-                            <Icon />
+                            <Icon>{menu.icon}</Icon>
                             <Name>{menu.name}</Name>
                         </Item>
                     ))}

@@ -1,16 +1,19 @@
+import { UserCircle } from '@styled-icons/boxicons-solid/UserCircle';
+import { StyleGuide } from '@styled-icons/fluentui-system-filled/StyleGuide';
 import Overlay from 'components/Overlay';
 import { useViewContext } from 'contexts/ViewContext';
 import React from 'react';
-import AppearanceContent from './AppearanceContent';
+import AppearanceContent from './Content/Appearance';
+import ProfileContent from './Content/Profile';
 import Navbar from './Navbar';
-import ProfileContent from './ProfileContent';
 import { CloseIcon, Container, Content } from './styles';
 
 export type menu = {
     id: number;
     name: string;
-    icon: string;
+    icon: any;
     alt: string;
+    view: any;
 };
 const Settings: React.FC = () => {
     const { setViewSettings, viewSettings } = useViewContext();
@@ -19,14 +22,16 @@ const Settings: React.FC = () => {
         {
             id: 1,
             name: 'My Profile',
-            icon: 'images/profile',
-            alt: 'profile'
+            icon: <UserCircle />,
+            alt: 'profile',
+            view: <ProfileContent />
         },
         {
             id: 2,
             name: 'Appearance',
-            icon: 'image/appearance',
-            alt: 'appaerance'
+            icon: <StyleGuide />,
+            alt: 'appaerance',
+            view: <AppearanceContent />
         }
     ];
 
@@ -36,8 +41,9 @@ const Settings: React.FC = () => {
             <Container>
                 <Navbar menus={menusData} />
                 <Content>
-                    {viewSettings === menusData[0].alt && <ProfileContent />}
-                    {viewSettings === menusData[1].alt && <AppearanceContent />}
+                    {menusData.map(
+                        (menu) => menu.alt == viewSettings && menu.view
+                    )}
                 </Content>
                 <CloseIcon onClick={() => setViewSettings('')} />
             </Container>

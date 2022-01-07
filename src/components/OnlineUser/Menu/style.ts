@@ -1,5 +1,5 @@
 import { UserCircle } from '@styled-icons/boxicons-solid/UserCircle';
-import { Settings } from '@styled-icons/evaicons-solid/Settings';
+import { StyleGuide } from '@styled-icons/fluentui-system-filled/StyleGuide';
 import { Logout } from '@styled-icons/material-sharp/Logout';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -72,7 +72,7 @@ export const ProfileIcon = styled(UserCircle)`
 
     margin-right: 11px;
 `;
-export const ConfigurationIcon = styled(Settings)`
+export const ConfigurationIcon = styled(StyleGuide)`
     grid-area: ICON;
     width: 16px;
     height: 16px;
