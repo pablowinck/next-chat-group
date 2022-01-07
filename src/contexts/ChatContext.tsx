@@ -50,6 +50,7 @@ const ChatContextProvider: React.FC = ({ children }) => {
     );
 
     const addMessage = (message: Message) => {
+        if (!message.content || /^\s*$/.test(message.content)) return;
         setMessages([...messages, message]);
     };
 
