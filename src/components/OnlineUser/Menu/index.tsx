@@ -26,7 +26,7 @@ const Menu = () => {
             </Item>
             <Item onClick={() => handleClick('appaerance')}>
                 <ConfigurationIcon />
-                <span>Appaerance</span>
+                <span>Appearance</span>
             </Item>
             <Separator />
             <Item>
