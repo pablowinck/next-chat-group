@@ -1,7 +1,8 @@
 import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
     position: absolute;
     top: 0;
     left: 0;

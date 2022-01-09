@@ -38,7 +38,11 @@ const Settings: React.FC = () => {
     return (
         <>
             <Overlay onClick={() => setViewSettings('')} />
-            <Container>
+            <Container
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+            >
                 <Navbar menus={menusData} />
                 <Content>
                     {menusData.map(
