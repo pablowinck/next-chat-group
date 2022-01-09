@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 type ViewContextType = {
     isOpenAdd: boolean;
@@ -21,10 +21,6 @@ const ViewContextProvider: React.FC = ({ children }) => {
     const [viewMessages, setViewMessages] = useState(true);
     const [viewPassword, setViewPassword] = useState(false);
     const [viewSettings, setViewSettings] = useState('');
-
-    useEffect(() => {
-        console.log('[viewSettings] ' + viewSettings);
-    }, [viewSettings]);
 
     const value: ViewContextType = {
         isOpenAdd: isOpenAdd,
