@@ -16,4 +16,10 @@ export default createGlobalStyle`
         outline: none;
         border: none;
     }
+
+    button {
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
 `;

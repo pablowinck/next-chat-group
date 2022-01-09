@@ -1,3 +1,4 @@
+import { useUserContext } from 'contexts/UserContext';
 import { useViewContext } from 'contexts/ViewContext';
 import React from 'react';
 import { menu } from '..';
@@ -19,6 +20,7 @@ type Props = {
 
 const Navbar: React.FC<Props> = ({ menus }) => {
     const { viewSettings, setViewSettings } = useViewContext();
+    const { setLogged } = useUserContext();
 
     return (
         <Container>
@@ -36,7 +38,7 @@ const Navbar: React.FC<Props> = ({ menus }) => {
                         </Item>
                     ))}
                 </Items>
-                <LogoutItem>
+                <LogoutItem onClick={() => setLogged(false)}>
                     <LogoutIcon />
                     <p>Logout</p>
                 </LogoutItem>

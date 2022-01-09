@@ -1,11 +1,12 @@
 import Layout from 'components/Layout';
+import Login from 'components/Login';
 import ChatContextProvider from 'contexts/ChatContext';
-import { useThemeContext } from 'contexts/ThemeContext';
+import { useUserContext } from 'contexts/UserContext';
 import ViewContextProvider from 'contexts/ViewContext';
 import Head from 'next/head';
 
 const Home: React.FC = () => {
-    const { selectedTheme, themes } = useThemeContext();
+    const { logged } = useUserContext();
     return (
         <>
             <Head>
@@ -14,7 +15,7 @@ const Home: React.FC = () => {
 
             <ViewContextProvider>
                 <ChatContextProvider>
-                    <Layout />
+                    {logged ? <Layout /> : <Login />}
                 </ChatContextProvider>
             </ViewContextProvider>
         </>
