@@ -19,6 +19,8 @@ export const Title = styled.div`
     padding-top: 1rem;
 
     font-size: 1.5rem;
+
+    user-select: none;
 `;
 export const Content = styled.div`
     grid-area: content;

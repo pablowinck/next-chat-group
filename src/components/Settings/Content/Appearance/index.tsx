@@ -1,12 +1,13 @@
 import { useThemeContext } from 'contexts/ThemeContext';
 import Image from 'next/image';
 import React from 'react';
-import { Container, Label, Selector } from './styles';
+import { Container, Label, Selector, Title } from './styles';
 
 const AppearanceContent: React.FC = () => {
     const { setSelectedTheme, themes } = useThemeContext();
     return (
         <Container>
+            <Title>Appearence</Title>
             <Label>Themes</Label>
             <Selector onChange={(e) => setSelectedTheme(e.target.value)}>
                 {themes.map((theme) => (
