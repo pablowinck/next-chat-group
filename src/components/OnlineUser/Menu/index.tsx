@@ -1,3 +1,4 @@
+import { useUserContext } from 'contexts/UserContext';
 import { useViewContext } from 'contexts/ViewContext';
 import {
     ConfigurationIcon,
@@ -9,6 +10,7 @@ import {
 } from './style';
 const Menu = () => {
     const { setViewSettings } = useViewContext();
+    const { setLogged } = useUserContext();
 
     const handleClick = (view: string) => {
         setViewSettings(view);
@@ -29,7 +31,7 @@ const Menu = () => {
                 <span>Appearance</span>
             </Item>
             <Separator />
-            <Item>
+            <Item onClick={() => setLogged(false)}>
                 <LogoutIcon className="red" />
                 <span className="red">Logout</span>
             </Item>
