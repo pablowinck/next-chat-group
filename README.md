@@ -64,4 +64,3 @@ $ npm run dev
 
 - TwitchTV [devPabloWinter](https://www.twitch.tv/devpablowinter)
 - Linkedin [Pablo Winck Winter](https://www.linkedin.com/in/pablowinck/)
-- Twitter [@dev_winter](https://twitter.com/dev_winter)
