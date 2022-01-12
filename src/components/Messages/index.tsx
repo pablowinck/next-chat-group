@@ -27,19 +27,7 @@ const Messages: FC = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addMessage({
-            id: messages.length + 1,
-            channelId: selectedChannel.id,
-            user: {
-                id: 10,
-                name: 'Pablo Winter',
-                email: 'pablowinck123@gmail.com',
-                profileImage: '/images/default-avatar.png',
-                createdAt: new Date()
-            },
-            content: message,
-            createdAt: new Date()
-        });
+        addMessage(message);
         setMessage('');
         messageInput.current?.focus();
     };

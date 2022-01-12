@@ -11,16 +11,27 @@ export type User = {
 type UserContextType = {
     logged: boolean;
     setLogged: (value: boolean) => void;
+    user: User;
+    setUser: (value: User) => void;
 };
 
 const UserContext = createContext({} as UserContextType);
 
 const UserContextProvider: React.FC = ({ children }) => {
     const [logged, setLogged] = useState(false);
+    const [user, setUser] = useState({
+        id: 10,
+        name: 'Pablo Winter',
+        email: 'pablowinck123@gmail.com',
+        profileImage: '/images/default-avatar.png',
+        createdAt: new Date()
+    });
 
     const value: UserContextType = {
         logged: logged,
-        setLogged: setLogged
+        setLogged: setLogged,
+        user: user,
+        setUser: setUser
     };
 
     return (

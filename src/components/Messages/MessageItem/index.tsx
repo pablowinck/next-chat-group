@@ -23,10 +23,13 @@ const MessageItem = ({ message }: { message: Message }) => {
                 <Header>
                     <Name>{message.user?.name}</Name>
                     <Time>
-                        {message?.createdAt?.toLocaleTimeString('pt-BR', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
+                        {new Date(message?.createdAt)?.toLocaleTimeString(
+                            'pt-BR',
+                            {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }
+                        )}
                     </Time>
                 </Header>
                 <Text>{message?.content}</Text>

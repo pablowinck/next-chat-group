@@ -1,17 +1,10 @@
 import { channelsData } from 'data/channels';
-import { messagesData } from 'data/messages';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { io } from 'socket.io-client';
+import { User } from './UserContext';
 
 export type Message = {
-    id: number;
-    channelId: number;
-    user: {
-        id: number;
-        name: string;
-        email: string;
-        profileImage: string;
-        createdAt: Date;
-    };
+    user: User;
     content: string;
     createdAt: Date;
 };
@@ -21,7 +14,8 @@ export type Channel = {
     name: string;
     topic: string;
     image: string;
-    members: [];
+    members: User[];
+    messages: Message[];
     private: {
         isPrivate: boolean;
         password: string;
@@ -35,7 +29,7 @@ type ChatContextType = {
     messagesByDate: any[];
     channels: Channel[];
     selectedChannel: Channel;
-    addMessage: (message: Message) => void;
+    addMessage: (message: string) => void;
     addChannel: (channel: Channel) => void;
     onSelectChannel: (channel: Channel) => void;
 };
@@ -43,15 +37,42 @@ type ChatContextType = {
 const ChatContext = createContext({} as ChatContextType);
 
 const ChatContextProvider: React.FC = ({ children }) => {
-    const [messages, setMessages] = useState<Message[]>(messagesData);
+    const socket = useMemo(() => io('http://localhost:3000'), []);
+
     const [channels, setChannels] = useState<Channel[]>(channelsData);
     const [selectedChannel, setSelectedChannel] = useState<Channel>(
         channels[0]
     );
+    const [messages, setMessages] = useState<Message[]>(
+        selectedChannel.messages
+    );
 
-    const addMessage = (message: Message) => {
-        if (!message.content || /^\s*$/.test(message.content)) return;
-        setMessages([...messages, message]);
+    useEffect(() => {
+        socket.on('new-message', (message) => {
+            setMessages((messages) => [...messages, message]);
+        });
+
+        setMessages(selectedChannel.messages);
+    }, [socket, selectedChannel]);
+
+    const addMessage = (message: string) => {
+        if (!message || /^\s*$/.test(message)) return;
+
+        const newMessage: Message = {
+            // pegar do localStorage
+            user: {
+                id: 10,
+                name: 'Pablo Winter',
+                email: 'pablowinck123@gmail.com',
+                profileImage: '/images/default-avatar.png',
+                createdAt: new Date()
+            },
+            content: message,
+            createdAt: new Date()
+        };
+
+        socket.emit('send-message', newMessage);
+        setMessages([...messages, newMessage]);
     };
 
     const addChannel = (channel: Channel) => {
@@ -73,17 +94,12 @@ const ChatContextProvider: React.FC = ({ children }) => {
     };
 
     const getMessages = () => {
-        return messages
-            .filter((message) => message.channelId === selectedChannel.id)
-            .sort((a, b) => {
-                if (a.createdAt > b.createdAt) return 1;
-                if (a.createdAt < b.createdAt) return -1;
+        return messages?.sort((a, b) => {
+            if (a.createdAt > b.createdAt) return 1;
+            if (a.createdAt < b.createdAt) return -1;
 
-                if (a.id > b.id) return 1;
-                if (a.id < b.id) return -1;
-
-                return 0;
-            });
+            return 0;
+        });
     };
 
     const getMessagesByDate = (messages: Message[]) => {
