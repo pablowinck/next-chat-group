@@ -1,4 +1,6 @@
+import Wave from 'components/Wave';
 import { useUserContext } from 'contexts/UserContext';
+import Link from 'next/link';
 import React from 'react';
 import {
     CheckInput,
@@ -12,8 +14,7 @@ import {
     SignIn,
     SignOut,
     Subtitle,
-    Title,
-    Wave
+    Title
 } from './styles';
 
 const Login: React.FC = () => {
@@ -36,7 +37,9 @@ const Login: React.FC = () => {
                         <ForgotPassword>Forgot password?</ForgotPassword>
                     </Inline>
                     <SignIn onClick={() => setLogged(true)}>Sign in</SignIn>
-                    <SignOut type="button">Sign up</SignOut>
+                    <Link href="/signup" passHref>
+                        <SignOut type="button">Sign up</SignOut>
+                    </Link>
                 </Form>
             </Content>
             <Wave />

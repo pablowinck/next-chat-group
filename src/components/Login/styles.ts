@@ -109,13 +109,3 @@ export const SignOut = styled(Button)`
         background: ${(props) => props.theme.colors.primary.dark};
     }
 `;
-
-export const Wave = styled.div`
-    position: absolute;
-    bottom: -70px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    background: url('/svg/wave.svg') no-repeat bottom;
-`;
