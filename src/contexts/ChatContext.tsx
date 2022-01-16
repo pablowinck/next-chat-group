@@ -49,7 +49,7 @@ const ChatContextProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         socket.on('new-message', (message) => {
-            setMessages((messages) => [...messages, message]);
+            setMessages((msgs) => [...msgs, message]);
         });
 
         setMessages(selectedChannel.messages);
