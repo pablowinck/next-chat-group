@@ -79,7 +79,8 @@ export const ForgotPassword = styled.div`
         color: ${(props) => props.theme.colors.secondary};
     }
 `;
-export const Button = styled.button`
+
+const Button = styled.button`
     height: 2rem;
     padding: 0 1rem;
     border-radius: 0.5rem;
@@ -91,8 +92,21 @@ export const Button = styled.button`
 
     transition: all 0.3s ease-in-out;
 
+    margin-top: 0.75rem;
+
     &:hover {
         background: ${(props) => props.theme.colors.primary.main};
+    }
+
+    text-transform: uppercase;
+`;
+
+export const SignIn = styled(Button)``;
+
+export const SignOut = styled(Button)`
+    background: ${(props) => props.theme.colors.secondary};
+    &:hover {
+        background: ${(props) => props.theme.colors.primary.dark};
     }
 `;
 

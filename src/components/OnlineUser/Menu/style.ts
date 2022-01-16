@@ -47,7 +47,7 @@ export const Item = styled.div`
 
     span {
         grid-area: TEXT;
-        font-size: 0.75rem;
+        font-size: 0.75rem !important;
         font-weight: 500;
         width: 100%;
         color: ${(props) => props.theme.colors.text};

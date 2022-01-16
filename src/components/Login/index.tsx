@@ -1,7 +1,6 @@
 import { useUserContext } from 'contexts/UserContext';
 import React from 'react';
 import {
-    Button,
     CheckInput,
     Container,
     Content,
@@ -10,6 +9,8 @@ import {
     Inline,
     Input,
     Label,
+    SignIn,
+    SignOut,
     Subtitle,
     Title,
     Wave
@@ -34,12 +35,12 @@ const Login: React.FC = () => {
                         </div>
                         <ForgotPassword>Forgot password?</ForgotPassword>
                     </Inline>
-                    <Button onClick={() => setLogged(true)}>Sign in</Button>
+                    <SignIn onClick={() => setLogged(true)}>Sign in</SignIn>
+                    <SignOut type="button">Sign up</SignOut>
                 </Form>
             </Content>
             <Wave />
         </Container>
     );
 };
-
 export default Login;
