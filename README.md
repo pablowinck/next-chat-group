@@ -40,8 +40,8 @@
 - [x] Private Channel
 - [x] Notification
 - [ ] Login OAuth2
-- [ ] Theme Selector
-- [ ] Profile Configs
+- [x] Theme Selector
+- [x] Profile Configs
 
 ## How To Use
 
