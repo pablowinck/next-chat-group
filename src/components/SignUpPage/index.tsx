@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Wave from 'components/Wave';
 import { Formik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
@@ -44,16 +45,23 @@ const SignUpPage: React.FC = () => {
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
-    const onSubmit = (values: any, { resetForm, setSubmitting }) => {
-        setTimeout(() => {
-            console.log(values);
-            resetForm();
-            setSubmitting(false);
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-            }, 3000);
-        }, 1000);
+    const onSubmit = async (values: any, { resetForm, setSubmitting }) => {
+        await axios
+            .post('http://localhost:3000/users', values)
+            .then(function (response) {
+                resetForm();
+
+                setSuccess(true);
+                setTimeout(() => {
+                    setSuccess(false);
+                }, 3000);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(() => {
+                setSubmitting(false);
+            });
     };
 
     return (
