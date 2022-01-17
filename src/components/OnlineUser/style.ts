@@ -13,8 +13,13 @@ export const Container = styled.div`
 
     user-select: none;
 
+    .content {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
     span {
-        margin-right: 5rem;
         font-size: 18px;
         font-weight: 700;
         color: ${(props) => props.theme.colors.text};

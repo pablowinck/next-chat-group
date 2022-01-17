@@ -1,3 +1,4 @@
+import { useUserContext } from 'contexts/UserContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import { Avatar, Container, MoreIcon } from './style';
 
 const OnlineUser = () => {
     const [open, setOpen] = useState(false);
+    const { user } = useUserContext();
 
     const handleToggle = () => {
         setOpen(!open);
@@ -17,17 +19,19 @@ const OnlineUser = () => {
 
     return (
         <Container>
-            <Avatar>
-                <Image
-                    src="/images/default-avatar.png"
-                    alt="Avatar"
-                    layout="intrinsic"
-                    width={'100%'}
-                    height={'100%'}
-                    draggable={false}
-                />
-            </Avatar>
-            <span>Pablo Winter</span>
+            <div className="content">
+                <Avatar>
+                    <Image
+                        src="/images/default-avatar.png"
+                        alt="Avatar"
+                        layout="intrinsic"
+                        width={'100%'}
+                        height={'100%'}
+                        draggable={false}
+                    />
+                </Avatar>
+                <span>{user?.name}</span>
+            </div>
 
             <motion.div animate={open ? 'open' : 'closed'} variants={variants}>
                 <MoreIcon onClick={handleToggle} />

@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Wave from 'components/Wave';
 import { useUserContext } from 'contexts/UserContext';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     CheckInput,
     Container,
@@ -18,25 +19,57 @@ import {
 } from './styles';
 
 const Login: React.FC = () => {
-    const { setLogged } = useUserContext();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { setLogged, setUser } = useUserContext();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await axios
+            .post('http://localhost:3000/users/login', {
+                email,
+                password
+            })
+            .then((res) => {
+                console.log(res);
+
+                if (res.status == 201) {
+                    setLogged(true);
+                    setUser(res.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <Container>
             <Content>
                 <Title>Sign in</Title>
                 <Subtitle>Sign in and start talking</Subtitle>
-                <Form>
-                    <Label>login</Label>
-                    <Input type="text" autoComplete="login" />
+                <Form onSubmit={(e) => handleSubmit(e)}>
+                    <Label>Email</Label>
+                    <Input
+                        type="text"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                     <Label>password</Label>
-                    <Input type="password" autoComplete="password" />
+                    <Input
+                        type="password"
+                        autoComplete="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                     <Inline>
                         <div>
                             <CheckInput type="checkbox" /> Remember me
                         </div>
                         <ForgotPassword>Forgot password?</ForgotPassword>
                     </Inline>
-                    <SignIn onClick={() => setLogged(true)}>Sign in</SignIn>
+                    <SignIn type="submit">Sign in</SignIn>
                     <Link href="/signup" passHref>
                         <SignOut type="button">Sign up</SignOut>
                     </Link>
