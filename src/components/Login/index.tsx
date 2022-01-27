@@ -1,21 +1,26 @@
 import axios from 'axios';
-import Wave from 'components/Wave';
 import { useUserContext } from 'contexts/UserContext';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Particles from 'react-tsparticles';
+import { ParticleOptions } from './ParticleOptions';
 import {
     CheckInput,
     Container,
     Content,
+    Footer,
     ForgotPassword,
     Form,
+    GithubIcon,
     Inline,
     Input,
     Label,
+    LinkedinIcon,
     SignIn,
     SignOut,
     Subtitle,
-    Title
+    Title,
+    TwitchIcon
 } from './styles';
 
 const Login: React.FC = () => {
@@ -45,9 +50,10 @@ const Login: React.FC = () => {
 
     return (
         <Container>
+            <Particles options={ParticleOptions} />
             <Content>
                 <Title>Sign in</Title>
-                <Subtitle>Sign in and start talking</Subtitle>
+                <Subtitle>Connect now with the world</Subtitle>
                 <Form onSubmit={(e) => handleSubmit(e)}>
                     <Label>Email</Label>
                     <Input
@@ -75,7 +81,17 @@ const Login: React.FC = () => {
                     </Link>
                 </Form>
             </Content>
-            <Wave />
+            <Footer>
+                <Link href="https://github.com/pablowinck" passHref>
+                    <GithubIcon />
+                </Link>
+                <Link href="https://www.linkedin.com/in/pablowinck/" passHref>
+                    <LinkedinIcon />
+                </Link>
+                <Link href="https://www.twitch.tv/devpablowinter" passHref>
+                    <TwitchIcon />
+                </Link>
+            </Footer>
         </Container>
     );
 };

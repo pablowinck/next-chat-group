@@ -1,11 +1,10 @@
+import { Github } from '@styled-icons/bootstrap/Github';
+import { Linkedin } from '@styled-icons/bootstrap/Linkedin';
+import { Twitch } from '@styled-icons/bootstrap/Twitch';
 import styled from 'styled-components';
-
 export const Container = styled.div`
     height: 100vh;
     width: 100%;
-
-    display: grid;
-    place-items: center;
 
     background-color: ${(props) => props.theme.colors.background[800]};
     color: ${(props) => props.theme.colors.text};
@@ -14,13 +13,21 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     width: 30rem;
-    height: 50rem;
+    height: 60vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    backdrop-filter: blur(20px);
 
     gap: 1rem;
 
@@ -107,5 +114,50 @@ export const SignOut = styled(Button)`
     background: ${(props) => props.theme.colors.secondary};
     &:hover {
         background: ${(props) => props.theme.colors.primary.dark};
+    }
+`;
+
+export const Footer = styled.div`
+    position: fixed;
+    z-index: 10;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+`;
+
+const widthIcon = '1.5rem';
+
+export const GithubIcon = styled(Github)`
+    width: ${widthIcon};
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+        color: ${(props) => props.theme.colors.secondary};
+    }
+`;
+export const LinkedinIcon = styled(Linkedin)`
+    width: ${widthIcon};
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+        color: ${(props) => props.theme.colors.secondary};
+    }
+`;
+export const TwitchIcon = styled(Twitch)`
+    width: ${widthIcon};
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+        color: ${(props) => props.theme.colors.secondary};
     }
 `;
