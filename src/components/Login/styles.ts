@@ -20,7 +20,7 @@ export const Content = styled.div`
     bottom: 0;
     margin: auto;
     width: 30rem;
-    height: 60vh;
+    height: min(30rem, 85vh);
 
     display: flex;
     flex-direction: column;
@@ -110,10 +110,24 @@ const Button = styled.button`
 
 export const SignIn = styled(Button)``;
 
-export const SignOut = styled(Button)`
-    background: ${(props) => props.theme.colors.secondary};
+export const DontHaveAccount = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.75rem;
+`;
+
+export const SignOut = styled.div`
+    user-select: none;
+
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
     &:hover {
-        background: ${(props) => props.theme.colors.primary.dark};
+        color: ${(props) => props.theme.colors.primary.main};
     }
 `;
 

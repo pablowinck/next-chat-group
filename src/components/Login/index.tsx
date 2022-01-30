@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useUserContext } from 'contexts/UserContext';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Particles from 'react-tsparticles';
 import { ParticleOptions } from './ParticleOptions';
@@ -8,6 +9,7 @@ import {
     CheckInput,
     Container,
     Content,
+    DontHaveAccount,
     Footer,
     ForgotPassword,
     Form,
@@ -24,10 +26,12 @@ import {
 } from './styles';
 
 const Login: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const { setLogged, setUser, user } = useUserContext();
+    const [email, setEmail] = useState(user ? user.email : '');
     const [password, setPassword] = useState('');
-    const { setLogged, setUser } = useUserContext();
-
+    const [checked, setChecked] = useState(user ? true : false);
+    // const { socket } = useChatContext();
+    const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios
@@ -36,11 +40,11 @@ const Login: React.FC = () => {
                 password
             })
             .then((res) => {
-                console.log(res);
-
                 if (res.status == 201) {
                     setLogged(true);
+                    localStorage.setItem('user', JSON.stringify(res.data));
                     setUser(res.data);
+                    router.push('/chat');
                 }
             })
             .catch((err) => {
@@ -71,14 +75,22 @@ const Login: React.FC = () => {
                     />
                     <Inline>
                         <div>
-                            <CheckInput type="checkbox" /> Remember me
+                            <CheckInput
+                                type="checkbox"
+                                checked={checked}
+                                onChange={() => setChecked(!checked)}
+                            />{' '}
+                            Remember me
                         </div>
                         <ForgotPassword>Forgot password?</ForgotPassword>
                     </Inline>
                     <SignIn type="submit">Sign in</SignIn>
-                    <Link href="/signup" passHref>
-                        <SignOut type="button">Sign up</SignOut>
-                    </Link>
+                    <DontHaveAccount>
+                        <p>{`Don't have an account yet?`}</p>
+                        <Link href="/signup" passHref>
+                            <SignOut>Sign up</SignOut>
+                        </Link>
+                    </DontHaveAccount>
                 </Form>
             </Content>
             <Footer>

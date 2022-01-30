@@ -1,12 +1,14 @@
 import Overlay from 'components/Overlay';
+import { useChatContext } from 'contexts/ChatContext';
 import { useViewContext } from 'contexts/ViewContext';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
     Button,
     CloseIcon,
     Container,
     Content,
     Footer,
+    Form,
     Header,
     Input,
     Label,
@@ -15,7 +17,15 @@ import {
 
 const ModalJoin: FC = () => {
     const { setIsOpenJoin } = useViewContext();
+    const { joinChannel } = useChatContext();
+    const [channelId, setChannelId] = useState<any>();
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (channelId === 0 || !channelId) return;
+        joinChannel(channelId);
+        setIsOpenJoin(false);
+    };
     return (
         <>
             <Overlay onClick={() => setIsOpenJoin(false)} />
@@ -27,13 +37,20 @@ const ModalJoin: FC = () => {
                     <Title>Join a channel</Title>
                     <CloseIcon onClick={() => setIsOpenJoin(false)} />
                 </Header>
-                <Content>
-                    <Label>Channel ID</Label>
-                    <Input />
-                </Content>
-                <Footer>
-                    <Button>Join</Button>
-                </Footer>
+                <Form onSubmit={handleSubmit}>
+                    <Content>
+                        <Label>Channel ID</Label>
+                        <Input
+                            onChange={(e) =>
+                                setChannelId(Number(e.target.value))
+                            }
+                            value={channelId}
+                        />
+                    </Content>
+                    <Footer>
+                        <Button type="submit">Join</Button>
+                    </Footer>
+                </Form>
             </Container>
         </>
     );

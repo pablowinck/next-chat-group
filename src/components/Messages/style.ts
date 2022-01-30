@@ -17,6 +17,12 @@ export const Container = styled.div`
 `;
 export const Content = styled.div`
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const TypeInput = styled.form`

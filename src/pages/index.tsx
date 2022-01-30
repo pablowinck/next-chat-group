@@ -1,8 +1,5 @@
-import Layout from 'components/Layout';
 import Login from 'components/Login';
-import ChatContextProvider from 'contexts/ChatContext';
 import { useUserContext } from 'contexts/UserContext';
-import ViewContextProvider from 'contexts/ViewContext';
 import Head from 'next/head';
 
 const Home: React.FC = () => {
@@ -12,12 +9,7 @@ const Home: React.FC = () => {
             <Head>
                 <title>Chat Group</title>
             </Head>
-
-            <ViewContextProvider>
-                <ChatContextProvider>
-                    {logged ? <Layout /> : <Login />}
-                </ChatContextProvider>
-            </ViewContextProvider>
+            <Login />
         </>
     );
 };

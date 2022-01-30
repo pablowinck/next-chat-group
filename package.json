@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --port=3001",
+        "hml": "next dev --port=3002",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
@@ -15,6 +16,7 @@
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-tsparticles": "^1.39.1",
+        "react-use": "^17.3.2",
         "socket.io-client": "^4.4.1",
         "styled-components": "^5.3.3",
         "styled-icons": "^10.45.0",

@@ -15,7 +15,7 @@ const ModalPassword: FC = () => {
     const [password, setPassword] = useState('');
     const [hasError, setHasError] = useState(false);
 
-    const { selectedChannel } = useChatContext();
+    const { selectedChannel, loadMessages } = useChatContext();
     const { setViewMessages, setViewPassword } = useViewContext();
 
     const handleSubmit = (e) => {
@@ -23,6 +23,7 @@ const ModalPassword: FC = () => {
         if (password === selectedChannel.private?.password) {
             setViewMessages(true);
             setViewPassword(false);
+            loadMessages();
         } else {
             setHasError(true);
         }

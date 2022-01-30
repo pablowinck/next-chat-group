@@ -1,12 +1,23 @@
-import { channelsData } from 'data/channels';
+import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { io } from 'socket.io-client';
+import { useMount } from 'react-use';
+import { io, Socket } from 'socket.io-client';
 import { User } from './UserContext';
 
 export type Message = {
     user: User;
     content: string;
     createdAt: Date;
+};
+
+export type ChannelForm = {
+    id: number;
+    name: string;
+    topic: string;
+    image: string;
+    createdAt: string;
+    isPrivate: boolean;
+    password: string;
 };
 
 export type Channel = {
@@ -32,47 +43,126 @@ type ChatContextType = {
     addMessage: (message: string) => void;
     addChannel: (channel: Channel) => void;
     onSelectChannel: (channel: Channel) => void;
+    socket: Socket;
+    loadMessages: () => void;
+    joinChannel: (channelId: number) => void;
+};
+
+const loadingChannel = {
+    id: 0,
+    name: 'LOADING',
+    topic: 'Loading...',
+    image: '',
+    members: [],
+    messages: [],
+    private: {
+        isPrivate: false,
+        password: ''
+    },
+    isSelected: true,
+    hasNotifications: false
 };
 
 const ChatContext = createContext({} as ChatContextType);
 
 const ChatContextProvider: React.FC = ({ children }) => {
     const socket = useMemo(() => io('http://localhost:3000'), []);
+    const [channelsData, setChannelsData] = useState<Channel[]>([
+        loadingChannel
+    ]);
+    const [channels, setChannels] = useState<Channel[]>([]);
+    const [selectedChannel, setSelectedChannel] =
+        useState<Channel>(loadingChannel);
+    const [messages, setMessages] = useState<Message[]>([]);
 
-    const [channels, setChannels] = useState<Channel[]>(channelsData);
-    const [selectedChannel, setSelectedChannel] = useState<Channel>(
-        channels[0]
-    );
-    const [messages, setMessages] = useState<Message[]>(
-        selectedChannel.messages
-    );
+    async function getChannels() {
+        let currentChannels;
+        const user = JSON.parse(localStorage.getItem('user'));
+        await axios
+            .get('http://localhost:3000/channels/members/' + user.id)
+            .then((res) => (currentChannels = res.data))
+            .catch((err) => console.log(err));
+        currentChannels = currentChannels
+            .map((channel) => {
+                console.log('currentChannel ', channel);
+
+                return {
+                    id: channel.id,
+                    name: channel.name,
+                    topic: channel.topic,
+                    image: channel.image,
+                    members: [],
+                    messages: [],
+                    createdAt: channel.createdAt,
+                    private: {
+                        isPrivate: channel.isPrivate,
+                        password: channel.password
+                    },
+                    isSelected: false,
+                    hasNotifications: false
+                };
+            })
+            .sort((a, b) => {
+                if (a.createdAt > b.createdAt) return 1;
+                if (a.createdAt < b.createdAt) return -1;
+            });
+        currentChannels[0].isSelected = true;
+        setChannelsData(currentChannels);
+    }
 
     useEffect(() => {
+        setChannels(channelsData);
+        setSelectedChannel(channelsData[0]);
+    }, [channelsData]);
+
+    useMount(async () => {
+        getChannels();
+        socket.on('load-messages', (currentMessages) => {
+            console.log('[ChatContext] join-messages', currentMessages);
+
+            setMessages(currentMessages);
+        });
         socket.on('new-message', (message) => {
+            console.log('[ChatContext] new-message', message);
+
             setMessages((msgs) => [...msgs, message]);
         });
+    });
 
-        setMessages(selectedChannel.messages);
-    }, [socket, selectedChannel]);
+    useEffect(() => {
+        if (!selectedChannel) return;
+        if (selectedChannel.private.isPrivate) return;
+        loadMessages();
+    }, [selectedChannel, socket]);
 
     const addMessage = (message: string) => {
         if (!message || /^\s*$/.test(message)) return;
-
-        const newMessage: Message = {
+        const user: User = JSON.parse(localStorage.getItem('user'));
+        const newMessage = {
             // pegar do localStorage
-            user: {
-                id: 10,
-                name: 'Pablo Winter',
-                email: 'pablowinck123@gmail.com',
-                profileImage: '/images/default-avatar.png',
-                createdAt: new Date()
-            },
-            content: message,
-            createdAt: new Date()
+            userId: user.id,
+            text: message,
+            channelId: selectedChannel.id
         };
 
+        console.log('[ChatContext] addMessage', newMessage);
+
         socket.emit('send-message', newMessage);
-        setMessages([...messages, newMessage]);
+    };
+
+    const joinChannel = async (channelId: number) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log('my user', user);
+        await axios
+            .get(
+                'http://localhost:3000/channels/' +
+                    channelId +
+                    '/add-member/' +
+                    user.id
+            )
+            .then(() => {
+                getChannels();
+            });
     };
 
     const addChannel = (channel: Channel) => {
@@ -93,8 +183,13 @@ const ChatContextProvider: React.FC = ({ children }) => {
         setSelectedChannel(currentChannel);
     };
 
+    const loadMessages = () => {
+        socket.emit('join', [selectedChannel.id, selectedChannel.topic]);
+    };
+
     const getMessages = () => {
-        return messages?.sort((a, b) => {
+        if (!messages) return [];
+        return messages.sort((a, b) => {
             if (a.createdAt > b.createdAt) return 1;
             if (a.createdAt < b.createdAt) return -1;
 
@@ -125,7 +220,10 @@ const ChatContextProvider: React.FC = ({ children }) => {
         selectedChannel: selectedChannel,
         addMessage: addMessage,
         addChannel: addChannel,
-        onSelectChannel: onSelectChannel
+        onSelectChannel: onSelectChannel,
+        socket: socket,
+        loadMessages: loadMessages,
+        joinChannel: joinChannel
     };
 
     return (

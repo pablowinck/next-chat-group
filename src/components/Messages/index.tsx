@@ -32,9 +32,12 @@ const Messages: FC = () => {
         messageInput.current?.focus();
     };
 
+    const scrollBottom = (e) => {
+        e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
+    };
     return (
         <Container>
-            <Content>
+            <Content onLoad={(e) => scrollBottom(e)}>
                 {viewMessages &&
                     messagesByDate.map((message, index) => {
                         if (message?.type === 'date') {

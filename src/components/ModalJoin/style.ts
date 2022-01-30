@@ -11,8 +11,8 @@ export const Container = styled(motion.div)`
 
     margin: auto;
 
-    height: 25vh;
-    width: 20vw;
+    height: min(20rem, 25vh);
+    width: min(20rem, 25vw);
 
     background-color: ${(props) => props.theme.colors.background[300]};
     color: ${(props) => props.theme.colors.text};
@@ -23,11 +23,10 @@ export const Container = styled(motion.div)`
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 3rem auto 3rem;
+    grid-template-rows: 3rem auto;
     grid-template-areas:
         'header'
-        'content'
-        'footer';
+        'content';
 `;
 export const Header = styled.div`
     grid-area: header;
@@ -40,14 +39,14 @@ export const Header = styled.div`
     background-color: ${(props) => props.theme.colors.background[100]};
 `;
 export const Content = styled.div`
-    grid-area: content;
     display: flex;
     flex-direction: column;
+    justify-content: initial;
+    height: 100%;
     gap: 0.5rem;
     padding: 1rem 2rem;
 `;
 export const Footer = styled.div`
-    grid-area: footer;
     border-radius: 0 0 18px 18px;
     background-color: ${(props) => props.theme.colors.background[100]};
 
@@ -106,4 +105,12 @@ export const Button = styled.button`
     &:hover {
         background-color: ${(props) => props.theme.colors.primary.dark};
     }
+`;
+
+export const Form = styled.form`
+    grid-area: content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;

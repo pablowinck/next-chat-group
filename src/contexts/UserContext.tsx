@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { createContext, useContext, useState } from 'react';
 
 export type User = {
@@ -17,19 +18,32 @@ type UserContextType = {
 
 const UserContext = createContext({} as UserContextType);
 
+const getDefaultUser = (): User => {
+    if (typeof window === 'undefined') return;
+
+    const localUser = JSON.parse(
+        localStorage.getItem('user') ? localStorage.getItem('user') : '{}'
+    );
+
+    if (!localUser) return;
+
+    return localUser;
+};
+
 const UserContextProvider: React.FC = ({ children }) => {
+    const [user, setUser] = useState<User | null>(getDefaultUser());
     const [logged, setLogged] = useState(false);
-    const [user, setUser] = useState({
-        id: 10,
-        name: 'Pablo Winter',
-        email: 'pablowinck123@gmail.com',
-        profileImage: '/images/default-avatar.png',
-        createdAt: new Date()
-    });
+    const router = useRouter();
+    const handleLogged = (state: boolean) => {
+        setLogged(state);
+        if (state) return;
+        router.push('/');
+        setUser(null);
+    };
 
     const value: UserContextType = {
         logged: logged,
-        setLogged: setLogged,
+        setLogged: handleLogged,
         user: user,
         setUser: setUser
     };

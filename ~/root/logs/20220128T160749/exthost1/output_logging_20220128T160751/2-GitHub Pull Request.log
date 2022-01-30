@@ -1,0 +1,6 @@
+[Info] /home/pablowinter/.ssh/config: ENOENT: no such file or directory, open '/home/pablowinter/.ssh/config'
+[Info] TemporaryState> Error in initialization: Unable to delete nonexistent file '/home/pablowinter/Projects/next-chat-group/~/root/User/globalStorage/github.vscode-pull-request-github/temp'
+[Info] Registering git provider
+[Info] Looking for git repository
+[Info] Found 0 repositories during activation
+[Info] Waiting for git repository
