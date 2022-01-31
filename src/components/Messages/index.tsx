@@ -13,17 +13,19 @@ import {
 
 const Messages = () => {
     const [message, setMessage] = useState('');
-    const { selectedChannel, messagesByDate, addMessage } = useChatContext();
-
-    const [openPassword, setOpenPassword] = useState(false);
-    const [viewMessages, setViewMessages] = useState(false);
+    const {
+        selectedChannel,
+        messagesByDate,
+        addMessage,
+        viewMessages,
+        setViewMessages
+    } = useChatContext();
 
     const messageInput = useRef<HTMLInputElement>();
 
     useEffect(() => {
-        setOpenPassword(selectedChannel?.private?.isPrivate);
         setViewMessages(!selectedChannel?.private?.isPrivate);
-    }, [selectedChannel]);
+    }, [selectedChannel, setViewMessages]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -84,11 +86,7 @@ const Messages = () => {
                 </TypeInput>
             </Container>
 
-            <ModalPassword
-                open={openPassword}
-                onOpenChange={setOpenPassword}
-                onViewMessagesChange={setViewMessages}
-            />
+            <ModalPassword />
         </>
     );
 };

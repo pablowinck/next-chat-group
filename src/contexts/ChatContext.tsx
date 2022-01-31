@@ -46,6 +46,8 @@ type ChatContextType = {
     socket: Socket;
     loadMessages: () => void;
     joinChannel: (channelId: number) => void;
+    viewMessages: boolean;
+    setViewMessages: (viewMessages: boolean) => void;
 };
 
 const loadingChannel = {
@@ -74,6 +76,8 @@ const ChatContextProvider: React.FC = ({ children }) => {
     const [selectedChannel, setSelectedChannel] =
         useState<Channel>(loadingChannel);
     const [messages, setMessages] = useState<Message[]>([]);
+
+    const [viewMessages, setViewMessages] = useState(false);
 
     async function getChannels() {
         let currentChannels;
@@ -223,7 +227,9 @@ const ChatContextProvider: React.FC = ({ children }) => {
         onSelectChannel: onSelectChannel,
         socket: socket,
         loadMessages: loadMessages,
-        joinChannel: joinChannel
+        joinChannel: joinChannel,
+        viewMessages,
+        setViewMessages
     };
 
     return (
