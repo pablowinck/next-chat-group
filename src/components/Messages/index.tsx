@@ -1,6 +1,6 @@
+import ModalPassword from 'components/ModalPassword';
 import { useChatContext } from 'contexts/ChatContext';
-import { useViewContext } from 'contexts/ViewContext';
-import { createRef, FC, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MessageItem from './MessageItem';
 import {
     Container,
@@ -11,74 +11,85 @@ import {
     TypeInput
 } from './style';
 
-const Messages: FC = () => {
+const Messages = () => {
     const [message, setMessage] = useState('');
-    const { selectedChannel, messagesByDate, addMessage, messages } =
-        useChatContext();
+    const { selectedChannel, messagesByDate, addMessage } = useChatContext();
 
-    const messageInput = createRef<HTMLInputElement>();
+    const [openPassword, setOpenPassword] = useState(false);
+    const [viewMessages, setViewMessages] = useState(false);
 
-    const { viewMessages, setViewPassword, setViewMessages } = useViewContext();
+    const messageInput = useRef<HTMLInputElement>();
 
     useEffect(() => {
-        setViewPassword(selectedChannel?.private?.isPrivate);
+        setOpenPassword(selectedChannel?.private?.isPrivate);
         setViewMessages(!selectedChannel?.private?.isPrivate);
-    }, [selectedChannel, setViewPassword, setViewMessages]);
+    }, [selectedChannel]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         addMessage(message);
         setMessage('');
-        messageInput.current?.focus();
+        messageInput.current.focus();
     };
 
-    const scrollBottom = (e) => {
+    const scrollBottom = (e: React.SyntheticEvent) => {
         e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
     };
-    return (
-        <Container>
-            <Content onLoad={(e) => scrollBottom(e)}>
-                {viewMessages &&
-                    messagesByDate.map((message, index) => {
-                        if (message?.type === 'date') {
-                            return (
-                                <DateSeparator key={index}>
-                                    <span>
-                                        {message.date.toLocaleDateString(
-                                            'pt-BR'
-                                        ) ==
-                                        new Date().toLocaleDateString('pt-BR')
-                                            ? 'HOJE'
-                                            : message.date.toLocaleDateString(
-                                                  'pt-BR'
-                                              )}
-                                    </span>
-                                </DateSeparator>
-                            );
-                        } else {
-                            return (
-                                <div key={index}>
-                                    <MessageItem message={message} />
-                                </div>
-                            );
-                        }
-                    })}
-            </Content>
 
-            <TypeInput onSubmit={(e) => handleSubmit(e)}>
-                <input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    type="text"
-                    placeholder="Type a message here"
-                    autoFocus
-                    ref={messageInput}
-                />
-                <SendButton type="submit">
-                    <SendIcon />
-                </SendButton>
-            </TypeInput>
-        </Container>
+    return (
+        <>
+            <Container>
+                <Content onLoad={scrollBottom}>
+                    {viewMessages &&
+                        messagesByDate.map((message, index) => {
+                            if (message?.type === 'date') {
+                                return (
+                                    <DateSeparator key={index}>
+                                        <span>
+                                            {message.date.toLocaleDateString(
+                                                'pt-BR'
+                                            ) ==
+                                            new Date().toLocaleDateString(
+                                                'pt-BR'
+                                            )
+                                                ? 'HOJE'
+                                                : message.date.toLocaleDateString(
+                                                      'pt-BR'
+                                                  )}
+                                        </span>
+                                    </DateSeparator>
+                                );
+                            } else {
+                                return (
+                                    <div key={index}>
+                                        <MessageItem message={message} />
+                                    </div>
+                                );
+                            }
+                        })}
+                </Content>
+
+                <TypeInput onSubmit={handleSubmit}>
+                    <input
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        type="text"
+                        placeholder="Type a message here"
+                        autoFocus
+                        ref={messageInput}
+                    />
+                    <SendButton type="submit">
+                        <SendIcon />
+                    </SendButton>
+                </TypeInput>
+            </Container>
+
+            <ModalPassword
+                open={openPassword}
+                onOpenChange={setOpenPassword}
+                onViewMessagesChange={setViewMessages}
+            />
+        </>
     );
 };
 

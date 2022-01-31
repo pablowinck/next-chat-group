@@ -1,6 +1,5 @@
 import { useChatContext } from 'contexts/ChatContext';
-import { useViewContext } from 'contexts/ViewContext';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import {
     Button,
     Container,
@@ -11,30 +10,41 @@ import {
     Label
 } from './style';
 
-const ModalPassword: FC = () => {
+type ModalPasswordProps = {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    onViewMessagesChange: (view: boolean) => void;
+};
+
+const ModalPassword = ({
+    open,
+    onOpenChange,
+    onViewMessagesChange
+}: ModalPasswordProps) => {
     const [password, setPassword] = useState('');
     const [hasError, setHasError] = useState(false);
 
     const { selectedChannel, loadMessages } = useChatContext();
-    const { setViewMessages, setViewPassword } = useViewContext();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === selectedChannel.private?.password) {
-            setViewMessages(true);
-            setViewPassword(false);
+            onViewMessagesChange(true);
+            onOpenChange(false);
             loadMessages();
         } else {
             setHasError(true);
         }
     };
 
+    if (!open) return null;
+
     return (
         <Container>
             <Header>
                 <span>Enter your password</span>
             </Header>
-            <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form onSubmit={handleSubmit}>
                 <Content>
                     <Label>Password</Label>
                     <Input
