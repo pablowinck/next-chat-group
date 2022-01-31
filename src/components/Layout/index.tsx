@@ -11,8 +11,7 @@ import { useViewContext } from 'contexts/ViewContext';
 import { Grid } from './style';
 
 const Layout = () => {
-    const { isOpenAdd, isOpenJoin, viewPassword, viewSettings } =
-        useViewContext();
+    const { isOpenJoin, viewPassword, viewSettings } = useViewContext();
 
     return (
         <Grid>
@@ -22,7 +21,6 @@ const Layout = () => {
             <Topbar />
             <Messages />
             {viewPassword && <ModalPassword />}
-            {isOpenAdd && <ModalAdd />}
             {isOpenJoin && <ModalJoin />}
             {viewSettings !== '' && <Settings />}
         </Grid>

@@ -1,3 +1,4 @@
+import ModalAdd from 'components/ModalAdd';
 import { useViewContext } from 'contexts/ViewContext';
 import { FC } from 'react';
 import {
@@ -11,7 +12,7 @@ import {
 } from './style';
 
 const ModalAddChannel: FC = () => {
-    const { setIsOpenAdd, setIsOpenJoin } = useViewContext();
+    const { setIsOpenJoin } = useViewContext();
 
     return (
         <Container
@@ -20,10 +21,12 @@ const ModalAddChannel: FC = () => {
             transition={{ duration: 0.3 }}
         >
             <Content>
-                <Item onClick={() => setIsOpenAdd(true)}>
-                    <AddIcon />
-                    <AddText>Add Channel</AddText>
-                </Item>
+                <ModalAdd>
+                    <Item>
+                        <AddIcon />
+                        <AddText>Add Channel</AddText>
+                    </Item>
+                </ModalAdd>
                 <Item onClick={() => setIsOpenJoin(true)}>
                     <JoinIcon />
                     <JoinText>Join Channel</JoinText>

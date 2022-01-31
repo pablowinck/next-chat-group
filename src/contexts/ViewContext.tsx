@@ -1,8 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
 type ViewContextType = {
-    isOpenAdd: boolean;
-    setIsOpenAdd: (value: boolean) => void;
     isOpenJoin: boolean;
     setIsOpenJoin: (value: boolean) => void;
     viewMessages: boolean;
@@ -16,15 +14,12 @@ type ViewContextType = {
 const ViewContext = createContext({} as ViewContextType);
 
 const ViewContextProvider: React.FC = ({ children }) => {
-    const [isOpenAdd, setIsOpenAdd] = useState(false);
     const [isOpenJoin, setIsOpenJoin] = useState(false);
     const [viewMessages, setViewMessages] = useState(true);
     const [viewPassword, setViewPassword] = useState(false);
     const [viewSettings, setViewSettings] = useState('');
 
     const value: ViewContextType = {
-        isOpenAdd: isOpenAdd,
-        setIsOpenAdd: setIsOpenAdd,
         isOpenJoin: isOpenJoin,
         setIsOpenJoin: setIsOpenJoin,
         viewMessages: viewMessages,

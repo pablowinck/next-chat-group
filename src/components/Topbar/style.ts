@@ -10,7 +10,6 @@ export const Container = styled.div`
 
     padding: 0 78px;
 
-    z-index: 1;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 `;
 export const Text = styled.span`
