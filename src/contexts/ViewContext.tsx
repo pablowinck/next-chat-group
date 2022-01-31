@@ -1,33 +1,23 @@
 import { createContext, useContext, useState } from 'react';
 
 type ViewContextType = {
-    isOpenJoin: boolean;
-    setIsOpenJoin: (value: boolean) => void;
     viewMessages: boolean;
     setViewMessages: (value: boolean) => void;
     viewPassword: boolean;
     setViewPassword: (value: boolean) => void;
-    viewSettings: string;
-    setViewSettings: (value: string) => void;
 };
 
 const ViewContext = createContext({} as ViewContextType);
 
 const ViewContextProvider: React.FC = ({ children }) => {
-    const [isOpenJoin, setIsOpenJoin] = useState(false);
     const [viewMessages, setViewMessages] = useState(true);
     const [viewPassword, setViewPassword] = useState(false);
-    const [viewSettings, setViewSettings] = useState('');
 
     const value: ViewContextType = {
-        isOpenJoin: isOpenJoin,
-        setIsOpenJoin: setIsOpenJoin,
         viewMessages: viewMessages,
         setViewMessages: setViewMessages,
         viewPassword: viewPassword,
-        setViewPassword: setViewPassword,
-        viewSettings: viewSettings,
-        setViewSettings: setViewSettings
+        setViewPassword: setViewPassword
     };
 
     return (
