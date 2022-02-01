@@ -1,24 +1,35 @@
 import { UserCircle } from '@styled-icons/boxicons-solid/UserCircle';
 import { StyleGuide } from '@styled-icons/fluentui-system-filled/StyleGuide';
 import Overlay from 'components/Overlay';
-import { useViewContext } from 'contexts/ViewContext';
-import React from 'react';
+import React, { useState } from 'react';
 import AppearanceContent from './Content/Appearance';
 import ProfileContent from './Content/Profile';
 import Navbar from './Navbar';
 import { CloseIcon, Container, Content } from './styles';
 
-export type menu = {
+export type View = 'profile' | 'appaerance' | undefined;
+
+export type Menu = {
     id: number;
     name: string;
-    icon: any;
-    alt: string;
-    view: any;
+    icon: React.ReactNode;
+    alt: View;
+    view: React.ReactNode;
 };
-const Settings: React.FC = () => {
-    const { setViewSettings, viewSettings } = useViewContext();
 
-    const menusData: menu[] = [
+type SettingsContextValue = {
+    view: View;
+    onViewChange: (view: View) => void;
+};
+
+const SettingsContext = React.createContext<SettingsContextValue | undefined>(
+    undefined
+);
+
+const Settings: React.FC = ({ children }) => {
+    const [viewSettings, setViewSettings] = useState<View>(undefined);
+
+    const menusData: Menu[] = [
         {
             id: 1,
             name: 'My Profile',
@@ -36,23 +47,52 @@ const Settings: React.FC = () => {
     ];
 
     return (
-        <>
-            <Overlay onClick={() => setViewSettings('')} />
-            <Container
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-            >
-                <Navbar menus={menusData} />
-                <Content>
-                    {menusData.map(
-                        (menu) => menu.alt == viewSettings && menu.view
-                    )}
-                </Content>
-                <CloseIcon onClick={() => setViewSettings('')} />
-            </Container>
-        </>
+        <SettingsContext.Provider
+            value={{ view: viewSettings, onViewChange: setViewSettings }}
+        >
+            {children}
+            {viewSettings !== undefined && (
+                <Overlay onClick={() => setViewSettings(undefined)} />
+            )}
+            {viewSettings !== undefined && (
+                <Container>
+                    <Navbar
+                        menus={menusData}
+                        onViewChange={setViewSettings}
+                        viewSettings={viewSettings}
+                    />
+                    <Content>
+                        {menusData.map(
+                            (menu) => menu.alt == viewSettings && menu.view
+                        )}
+                    </Content>
+                    <CloseIcon onClick={() => setViewSettings(undefined)} />
+                </Container>
+            )}
+        </SettingsContext.Provider>
     );
+};
+
+export const SettingsProfileTrigger: React.FC = ({ children }) => {
+    const context = React.useContext(SettingsContext);
+
+    const child = React.Children.only(children) as React.ReactElement;
+
+    return React.cloneElement(child, {
+        onClick: () => context.onViewChange('profile'),
+        ...child.props
+    });
+};
+
+export const SettingsAppaeranceTrigger: React.FC = ({ children }) => {
+    const context = React.useContext(SettingsContext);
+
+    const child = React.Children.only(children) as React.ReactElement;
+
+    return React.cloneElement(child, {
+        onClick: () => context.onViewChange('appaerance'),
+        ...child.props
+    });
 };
 
 export default Settings;

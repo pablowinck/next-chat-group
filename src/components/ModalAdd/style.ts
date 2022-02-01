@@ -1,16 +1,13 @@
+import styled from 'styled-components';
 import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
 import { Formik } from 'formik';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-export const Container = styled(motion.div)`
-    position: absolute;
 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    margin: auto;
+export const Container = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: slideUp 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
     height: 35rem;
     width: 50rem;
@@ -21,7 +18,16 @@ export const Container = styled(motion.div)`
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 18px;
 
-    z-index: 10;
+    @keyframes slideUp {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -56%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
 `;
 export const Header = styled.div`
     display: flex;
