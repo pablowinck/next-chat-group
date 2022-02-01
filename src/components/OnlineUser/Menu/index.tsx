@@ -1,5 +1,8 @@
+import Settings, {
+    SettingsAppaeranceTrigger,
+    SettingsProfileTrigger
+} from 'components/Settings';
 import { useUserContext } from 'contexts/UserContext';
-import { useViewContext } from 'contexts/ViewContext';
 import {
     ConfigurationIcon,
     Container,
@@ -9,12 +12,7 @@ import {
     Separator
 } from './style';
 const Menu = () => {
-    const { setViewSettings } = useViewContext();
     const { setLogged } = useUserContext();
-
-    const handleClick = (view: string) => {
-        setViewSettings(view);
-    };
 
     return (
         <Container
@@ -22,19 +20,25 @@ const Menu = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
         >
-            <Item onClick={() => handleClick('profile')}>
-                <ProfileIcon />
-                <span>My Profile</span>
-            </Item>
-            <Item onClick={() => handleClick('appaerance')}>
-                <ConfigurationIcon />
-                <span>Appearance</span>
-            </Item>
-            <Separator />
-            <Item onClick={() => setLogged(false)}>
-                <LogoutIcon className="red" />
-                <span className="red">Logout</span>
-            </Item>
+            <Settings>
+                <SettingsProfileTrigger>
+                    <Item>
+                        <ProfileIcon />
+                        <span>My Profile</span>
+                    </Item>
+                </SettingsProfileTrigger>
+                <SettingsAppaeranceTrigger>
+                    <Item>
+                        <ConfigurationIcon />
+                        <span>Appearance</span>
+                    </Item>
+                </SettingsAppaeranceTrigger>
+                <Separator />
+                <Item onClick={() => setLogged(false)}>
+                    <LogoutIcon className="red" />
+                    <span className="red">Logout</span>
+                </Item>
+            </Settings>
         </Container>
     );
 };

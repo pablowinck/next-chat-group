@@ -1,15 +1,12 @@
-import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
-export const Container = styled(motion.div)`
-    position: absolute;
+import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    margin: auto;
+export const Container = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: slideUp 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
     height: min(20rem, 25vh);
     width: min(20rem, 25vw);
@@ -27,6 +24,17 @@ export const Container = styled(motion.div)`
     grid-template-areas:
         'header'
         'content';
+
+    @keyframes slideUp {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -56%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
 `;
 export const Header = styled.div`
     grid-area: header;

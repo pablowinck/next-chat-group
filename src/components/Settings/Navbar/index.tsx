@@ -1,7 +1,6 @@
 import { useUserContext } from 'contexts/UserContext';
-import { useViewContext } from 'contexts/ViewContext';
 import React from 'react';
-import { menu } from '..';
+import type { Menu, View } from '..';
 import {
     Container,
     Content,
@@ -15,11 +14,12 @@ import {
 } from './styles';
 
 type Props = {
-    menus: menu[];
+    menus: Menu[];
+    viewSettings: View;
+    onViewChange: (view: View) => void;
 };
 
-const Navbar: React.FC<Props> = ({ menus }) => {
-    const { viewSettings, setViewSettings } = useViewContext();
+const Navbar: React.FC<Props> = ({ menus, viewSettings, onViewChange }) => {
     const { setLogged } = useUserContext();
 
     return (
@@ -30,7 +30,7 @@ const Navbar: React.FC<Props> = ({ menus }) => {
                     {menus.map((menu) => (
                         <Item
                             className={menu.alt === viewSettings && 'active'}
-                            onClick={() => setViewSettings(menu.alt)}
+                            onClick={() => onViewChange(menu.alt)}
                             key={menu.id}
                         >
                             <Icon>{menu.icon}</Icon>
