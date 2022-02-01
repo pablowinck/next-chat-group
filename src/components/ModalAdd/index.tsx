@@ -1,6 +1,6 @@
-import { FC, useState, Children, cloneElement } from 'react';
 import Overlay from 'components/Overlay';
 import { Channel, useChatContext } from 'contexts/ChatContext';
+import { Children, cloneElement, FC, useState } from 'react';
 import * as Yup from 'yup';
 import {
     AvatarChange,
@@ -33,6 +33,7 @@ const ModalAdd: FC = ({ children }) => {
             topic: values.channelTopic,
             image: '/images/default-avatar.png',
             members: [],
+            messages: [],
             private: {
                 isPrivate: values.isPrivate,
                 password: values.password
