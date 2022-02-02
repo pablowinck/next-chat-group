@@ -1,10 +1,13 @@
 import { Message } from 'contexts/ChatContext';
+import { useUserContext } from 'contexts/UserContext';
 import Image from 'next/image';
 import { Avatar, Container, Content, Header, Name, Text, Time } from './style';
 
 const MessageItem = ({ message }: { message: Message }) => {
+    const {user} = useUserContext();
+    const isLoggedUser = user?.id === message.user.id;
     return (
-        <Container>
+        <Container isLoggedUser={isLoggedUser}>
             <Avatar>
                 <Image
                     src={
@@ -20,7 +23,7 @@ const MessageItem = ({ message }: { message: Message }) => {
                 />
             </Avatar>
             <Content>
-                <Header>
+                <Header isLoggedUser={isLoggedUser}>
                     <Name>{message.user?.name}</Name>
                     <Time>
                         {new Date(message?.createdAt)?.toLocaleTimeString(
@@ -32,7 +35,7 @@ const MessageItem = ({ message }: { message: Message }) => {
                         )}
                     </Time>
                 </Header>
-                <Text>{message?.content}</Text>
+                <Text isLoggedUser={isLoggedUser}>{message?.content}</Text>
             </Content>
         </Container>
     );

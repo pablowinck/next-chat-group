@@ -2,6 +2,12 @@
 module.exports = {
     reactStrictMode: true,
     images: {
-        domains: ['avatarfiles.alphacoders.com', 'i.pinimg.com']
+        domains: [
+            'avatarfiles.alphacoders.com',
+            'i.pinimg.com',
+            'cdn.brasildefato.com.br',
+            'media-exp1.licdn.com',
+            't.ctcdn.com.br'
+        ]
     }
 };
