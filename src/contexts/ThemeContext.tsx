@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import dark from 'styles/theme/dark';
 import light from 'styles/theme/light';
@@ -18,6 +18,17 @@ const ThemeContext = createContext({} as ThemeContextType);
 
 const ThemeContextProvider: React.FC = ({ children }) => {
     const [selectedTheme, setSelectedTheme] = useState('dark');
+
+
+    useEffect(() => {
+      setSelectedTheme(localStorage.getItem('theme') || 'dark');
+    }, []);
+    
+
+    const handleSelectedTheme = (value: string) => {
+        localStorage.setItem('theme', value);
+        setSelectedTheme(value);
+    }
     const themes = [
         {
             name: 'dark',
@@ -31,7 +42,7 @@ const ThemeContextProvider: React.FC = ({ children }) => {
 
     const value: ThemeContextType = {
         selectedTheme: selectedTheme,
-        setSelectedTheme: setSelectedTheme,
+        setSelectedTheme: handleSelectedTheme,
         themes: themes
     };
 
