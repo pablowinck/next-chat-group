@@ -1,11 +1,13 @@
 import styled from 'styled-components';
-export const Container = styled.div`
+export const Container = styled.div<{isLoggedUser: boolean}>`
     display: flex;
 
     width: 100%;
 
     align-items: start;
-    justify-content: start;
+    justify-content: ${props=> props.isLoggedUser ? 'end' : 'start'};
+    flex-flow: ${props=> props.isLoggedUser ? 'row-reverse' : 'row'};
+    gap: 20px;
 
     margin-top: 38px;
 
@@ -20,8 +22,6 @@ export const Avatar = styled.div`
 
     background-color: ${(props) => props.theme.colors.background[100]};
 
-    margin-right: 20px;
-
     user-select: none;
 
     img {
@@ -35,19 +35,25 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 `;
-export const Header = styled.div`
+export const Header = styled.div<{isLoggedUser: boolean}>`
     color: ${(props) => props.theme.colors.secondary};
     margin-bottom: 12px;
 
     display: flex;
+    flex-flow: ${props=> props.isLoggedUser ? 'row-reverse' : 'row'};
+    gap: 10px;
 `;
 export const Name = styled.div`
     font-weight: 700;
-    margin-right: 10px;
 
     user-select: none;
 `;
 export const Time = styled.div`
     user-select: none;
 `;
-export const Text = styled.div``;
+export const Text = styled.div<{isLoggedUser: boolean}>`
+    text-align: ${
+        props=> props.isLoggedUser ? 'right' : 'left'
+
+    };
+`;

@@ -22,7 +22,11 @@ const OnlineUser = () => {
             <div className="content">
                 <Avatar>
                     <Image
-                        src="/images/default-avatar.png"
+                        src={
+                            user?.profileImage
+                                ? user?.profileImage
+                                : '/images/default-avatar.png'
+                        }
                         alt="Avatar"
                         layout="intrinsic"
                         width={'100%'}

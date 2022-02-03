@@ -35,6 +35,15 @@ export const Item = styled.div`
     &:hover {
         background-color: ${(props) => props.theme.colors.background[800]};
     }
+
+    @media (max-width: 1070px) {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 `;
 export const Icon = styled.div`
     height: 30px;
@@ -47,12 +56,20 @@ export const Name = styled.span`
     color: ${(props) => props.theme.colors.text};
 
     user-select: none;
+
+    @media (max-width: 1070px) {
+        display: none;
+    }
 `;
 
 export const Items = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    @media (max-width: 1070px) {
+        justify-content: center;
+        align-items: center;
+    }
 `;
 export const LogoutItem = styled.div`
     display: grid;
@@ -74,6 +91,16 @@ export const LogoutItem = styled.div`
 
     &:hover {
         background-color: ${(props) => props.theme.colors.background[800]};
+    }
+    p {
+        @media (max-width: 1070px) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 1070px) {
+        justify-content: center;
+        align-items: center;
     }
 `;
 export const LogoutIcon = styled(Logout)`
