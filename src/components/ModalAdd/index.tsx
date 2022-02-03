@@ -26,7 +26,7 @@ const ModalAdd: FC = ({ children }) => {
 
     const [open, setOpen] = useState(false);
 
-    const handleSubmit = (values, { resetForm }) => {
+    const handleOnSubmit = (values, { resetForm }) => {
         const newChannel: Channel = {
             id: channels.length + 1,
             name: values.channelName,
@@ -78,7 +78,7 @@ const ModalAdd: FC = ({ children }) => {
                     <Content
                         initialValues={initialValues}
                         validationSchema={validate}
-                        onSubmit={handleSubmit}
+                        onSubmit={handleOnSubmit}
                     >
                         {({
                             values,
