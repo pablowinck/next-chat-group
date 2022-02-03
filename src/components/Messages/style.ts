@@ -1,4 +1,5 @@
 import { Send } from '@styled-icons/fluentui-system-filled/Send';
+import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -17,6 +18,7 @@ export const Container = styled.div`
 
     
 `;
+
 export const Content = styled.div`
     width: 100%;
     height: 100%;
@@ -35,31 +37,30 @@ export const Content = styled.div`
 `;
 
 export const TypeInput = styled.form`
-    background-color: ${(props) => props.theme.colors.background[100]};
-
     width: 100%;
-    height: 52px;
-    border-radius: 8px;
-
-    padding: 6px 6px 6px 17px;
     margin-top: 50px;
-
+    position: relative;
     display: flex;
+`;
 
-    input {
-        background-color: ${(props) => props.theme.colors.background[100]};
-        width: 100%;
-        height: 100%;
+export const TextareaInput = styled(TextareaAutosize)`
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    background-color: ${(props) => props.theme.colors.background[100]};
+    padding: 16px;
+    padding-right: 60px;
+    color: ${(props) => props.theme.colors.text};
 
-        border: none;
-        outline: none;
-        box-shadow: none !important;
-
-        color: ${(props) => props.theme.colors.text};
-    }
+    border: none;
+    outline: none;
+    resize: none;
 `;
 
 export const SendButton = styled.button`
+    position: absolute;
+    right: 8px;
+    bottom: 5px;
     width: 39px;
     height: 39px;
     border-radius: 8px;
