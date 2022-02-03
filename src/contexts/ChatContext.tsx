@@ -201,9 +201,9 @@ const ChatContextProvider: React.FC = ({ children }) => {
         });
     };
 
-    const getMessagesByDate = (messages: Message[]) => {
+    const getMessagesByDate = (currentMessages: Message[]) => {
         let currentDate = new Date();
-        return messages.reduce((acc, message) => {
+        return currentMessages.reduce((acc, message) => {
             const date = new Date(message.createdAt);
 
             if (date.toDateString() !== currentDate.toDateString()) {

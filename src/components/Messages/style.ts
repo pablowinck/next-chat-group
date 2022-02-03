@@ -15,6 +15,8 @@ export const Container = styled.div`
     overflow-y: hidden;
 
     padding: 39px 70px;
+
+    
 `;
 
 export const Content = styled.div`
@@ -24,6 +26,13 @@ export const Content = styled.div`
 
     ::-webkit-scrollbar {
         display: none;
+    }
+
+    @media (min-width: 1380px) {
+        padding: 0 150px;
+    }
+    @media (min-width: 1700px) {
+        padding: 0 250px;
     }
 `;
 

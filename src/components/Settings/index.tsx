@@ -45,6 +45,8 @@ const Settings: React.FC = ({ children }) => {
             view: <AppearanceContent />
         }
     ];
+    
+    
 
     return (
         <SettingsContext.Provider

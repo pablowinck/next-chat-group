@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
 import { CloseSquare } from '@styled-icons/evaicons-solid/CloseSquare';
+import styled from 'styled-components';
 
 export const Container = styled.div`
     position: fixed;
@@ -10,7 +9,7 @@ export const Container = styled.div`
     z-index: 100;
     animation: slideUp 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
-    width: 1420px;
+    width: min(88.75rem, 90vw);
     height: 770px;
     border-radius: 18px;
     background-color: ${(props) => props.theme.colors.background[800]};
@@ -29,6 +28,9 @@ export const Container = styled.div`
             opacity: 1;
             transform: translate(-50%, -50%);
         }
+    }
+    @media (max-width: 1070px) {
+        grid-template-columns: calc(270px / 2) auto;
     }
 `;
 export const Content = styled.div`

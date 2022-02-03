@@ -34,7 +34,9 @@ const Navbar: React.FC<Props> = ({ menus, viewSettings, onViewChange }) => {
                             key={menu.id}
                         >
                             <Icon>{menu.icon}</Icon>
-                            <Name>{menu.name}</Name>
+                   
+                                <Name>{menu.name}</Name>
+                       
                         </Item>
                     ))}
                 </Items>
