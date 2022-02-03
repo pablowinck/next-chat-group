@@ -29,13 +29,16 @@ export const Content = styled.div`
     grid-template-columns: 8rem auto;
     grid-gap: 1rem;
 `;
-export const Avatar = styled.div`
+export const Avatar = styled.div<{ image: string }>`
     height: 7rem;
     width: 7rem;
     border-radius: 50%;
 
-    background-color: ${(props) => props.theme.colors.secondary};
-
+    background: ${(props) =>
+        props.image !== ''
+            ? `url(${props.image}) no-repeat center`
+            : props.theme.colors.secondary};
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +55,9 @@ export const Avatar = styled.div`
         content: 'upload a photo';
         padding: 0.5rem;
         font-size: 1rem;
+
+        z-index: ${(props) => (props.image === '' ? '1' : '-1')};
+
         color: ${(props) => props.theme.colors.text};
         text-transform: uppercase;
         text-align: center;
@@ -186,3 +192,14 @@ export const SaveButton = styled.button`
 `;
 
 export const GroupButton = styled.div``;
+
+export const LabelTitle = styled.div`
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+`;
+export const Error = styled.div`
+    font-size: 0.8rem;
+    color: ${(props) => props.theme.colors.red[700]};
+    margin-bottom: 0.5rem;
+`;
