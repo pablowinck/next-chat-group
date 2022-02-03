@@ -50,4 +50,6 @@ export const Name = styled.div`
 export const Time = styled.div`
     user-select: none;
 `;
-export const Text = styled.div``;
+export const Text = styled.div`
+    white-space: pre-line;
+`;
