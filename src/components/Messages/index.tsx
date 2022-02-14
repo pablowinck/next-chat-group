@@ -1,10 +1,7 @@
-import { useEffect, useRef } from 'react';
-
-import { useChatContext } from 'contexts/ChatContext';
 import ModalPassword from 'components/ModalPassword';
-
+import { useChatContext } from 'contexts/ChatContext';
+import { useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
-
 import {
     Container,
     Content,

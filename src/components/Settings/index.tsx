@@ -28,7 +28,7 @@ const SettingsContext = React.createContext<SettingsContextValue | undefined>(
 
 const Settings: React.FC = ({ children }) => {
     const [viewSettings, setViewSettings] = useState<View>(undefined);
-
+    const [success, setSuccess] = useState(false);
     const menusData: Menu[] = [
         {
             id: 1,
@@ -45,33 +45,34 @@ const Settings: React.FC = ({ children }) => {
             view: <AppearanceContent />
         }
     ];
-    
-    
 
     return (
-        <SettingsContext.Provider
-            value={{ view: viewSettings, onViewChange: setViewSettings }}
-        >
-            {children}
-            {viewSettings !== undefined && (
-                <Overlay onClick={() => setViewSettings(undefined)} />
-            )}
-            {viewSettings !== undefined && (
-                <Container>
-                    <Navbar
-                        menus={menusData}
-                        onViewChange={setViewSettings}
-                        viewSettings={viewSettings}
-                    />
-                    <Content>
-                        {menusData.map(
-                            (menu) => menu.alt == viewSettings && menu.view
-                        )}
-                    </Content>
-                    <CloseIcon onClick={() => setViewSettings(undefined)} />
-                </Container>
-            )}
-        </SettingsContext.Provider>
+        <>
+            <SettingsContext.Provider
+                value={{ view: viewSettings, onViewChange: setViewSettings }}
+            >
+                {children}
+                {viewSettings !== undefined && (
+                    <Overlay onClick={() => setViewSettings(undefined)} />
+                )}
+                {viewSettings !== undefined && (
+                    <Container>
+                        <Navbar
+                            menus={menusData}
+                            onViewChange={setViewSettings}
+                            viewSettings={viewSettings}
+                        />
+                        <Content>
+                            {menusData.map(
+                                (menu) => menu.alt == viewSettings && menu.view
+                            )}
+                        </Content>
+                        <CloseIcon onClick={() => setViewSettings(undefined)} />
+                    </Container>
+                )}
+            </SettingsContext.Provider>
+            
+        </>
     );
 };
 

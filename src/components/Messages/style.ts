@@ -15,8 +15,6 @@ export const Container = styled.div`
     overflow-y: hidden;
 
     padding: 39px 70px;
-
-    
 `;
 
 export const Content = styled.div`
@@ -55,6 +53,8 @@ export const TextareaInput = styled(TextareaAutosize)`
     border: none;
     outline: none;
     resize: none;
+
+    overflow-y: hidden;
 `;
 
 export const SendButton = styled.button`
