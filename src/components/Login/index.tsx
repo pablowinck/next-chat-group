@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useUserContext } from 'contexts/UserContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Particles from 'react-tsparticles';
+import api from 'utils/api';
 import { ParticleOptions } from './ParticleOptions';
 import {
     CheckInput,
@@ -34,8 +34,8 @@ const Login: React.FC = () => {
     const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios
-            .post('http://localhost:3000/users/login', {
+        await api
+            .post('users/login', {
                 email,
                 password
             })

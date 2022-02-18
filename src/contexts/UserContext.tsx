@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export type User = {
     id: number;
@@ -34,6 +34,11 @@ const UserContextProvider: React.FC = ({ children }) => {
     const [user, setUser] = useState<User | null>(getDefaultUser());
     const [logged, setLogged] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        if (localStorage.getItem('user')) setLogged(true);
+    }, []);
+
     const handleLogged = (state: boolean) => {
         setLogged(state);
         if (state) return;
