@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ModalMessage from 'components/ModalMessage';
 import { useUserContext } from 'contexts/UserContext';
 import React, { useState } from 'react';
 import {
@@ -24,6 +25,8 @@ const ProfileContent: React.FC = () => {
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [password, setPassword] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
     const [errors, setErrors] = useState({
         name: '',
         email: '',
@@ -82,11 +85,14 @@ const ProfileContent: React.FC = () => {
                 }
             )
             .then((res) => {
+                console.log(res);
                 setUser(res.data);
                 localStorage.setItem('user', JSON.stringify(res.data));
+                setSuccess(true);
             })
             .catch((err) => {
                 console.log(err);
+                setError(true);
             });
     };
 
@@ -155,6 +161,20 @@ const ProfileContent: React.FC = () => {
                     <SaveButton onClick={handleSubmit}>Save</SaveButton>
                 </GroupButton>
             </Footer>
+            {success && (
+                <ModalMessage
+                    open={success}
+                    setOpen={setSuccess}
+                    type="success"
+                >
+                    Success
+                </ModalMessage>
+            )}
+            {error && (
+                <ModalMessage open={error} setOpen={setError} type="error">
+                    {'Incorrect password'}
+                </ModalMessage>
+            )}
         </Container>
     );
 };

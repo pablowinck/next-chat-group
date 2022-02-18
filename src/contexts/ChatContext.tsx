@@ -124,11 +124,10 @@ const ChatContextProvider: React.FC = ({ children }) => {
         socket.on('load-messages', (currentMessages) => {
             console.log('[ChatContext] join-messages', currentMessages);
 
-            setMessages(currentMessages);
+            setMessages(getMessagesByUser(currentMessages));
         });
         socket.on('new-message', (message) => {
             console.log('[ChatContext] new-message', message);
-
             setMessages((msgs) => [...msgs, message]);
         });
     });
@@ -169,8 +168,37 @@ const ChatContextProvider: React.FC = ({ children }) => {
             });
     };
 
-    const addChannel = (channel: Channel) => {
-        setChannels([...channels, channel]);
+    const addChannel = async (channel: Channel) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const currentChannel: {
+            name: string;
+            topic: string;
+            image: string;
+            isPrivate: boolean;
+            password: string;
+            userId: number;
+        } = {
+            name: channel.name,
+            topic: channel.topic,
+            image: channel.image,
+            isPrivate: channel.private.isPrivate,
+            password: channel.private.password,
+            userId: user.id
+        };
+
+        await axios
+            .post(
+                'http://localhost:3000/channels',
+                JSON.stringify(currentChannel),
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            .then((res) => {
+                joinChannel(res.data.id);
+            });
     };
 
     const onSelectChannel = (currentChannel: Channel) => {
@@ -213,6 +241,24 @@ const ChatContextProvider: React.FC = ({ children }) => {
 
             acc.push(message);
 
+            return acc;
+        }, []);
+    };
+
+    const getMessagesByUser = (currentMessages: any[]) => {
+        if (currentMessages.length < 1) return [];
+
+        return currentMessages.reduce((acc, message) => {
+            if (acc.length < 1 || message.type === 'date') {
+                acc.push(message);
+                return acc;
+            }
+
+            if (message.user.id === acc[acc.length - 1]?.user?.id) {
+                acc[acc.length - 1].content += '\n' + message.content;
+                return acc;
+            }
+            acc.push(message);
             return acc;
         }, []);
     };

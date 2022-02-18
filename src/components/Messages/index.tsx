@@ -1,6 +1,6 @@
 import ModalPassword from 'components/ModalPassword';
 import { useChatContext } from 'contexts/ChatContext';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
 import {
     Container,
@@ -8,11 +8,11 @@ import {
     DateSeparator,
     SendButton,
     SendIcon,
+    TextareaInput,
     TypeInput
 } from './style';
 
 const Messages = () => {
-    const [message, setMessage] = useState('');
     const {
         selectedChannel,
         messagesByDate,
@@ -21,7 +21,7 @@ const Messages = () => {
         setViewMessages
     } = useChatContext();
 
-    const messageInput = useRef<HTMLInputElement>();
+    const messageInput = useRef<HTMLTextAreaElement>();
 
     useEffect(() => {
         setViewMessages(!selectedChannel?.private?.isPrivate);
@@ -29,13 +29,20 @@ const Messages = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        addMessage(message);
-        setMessage('');
-        messageInput.current.focus();
+        addMessage(messageInput.current.value);
+        messageInput.current.value = '';
     };
 
     const scrollBottom = (e: React.SyntheticEvent) => {
         e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+
+        if (event.code === 'Enter') {
+            handleSubmit(event);
+        }
     };
 
     return (
@@ -72,12 +79,11 @@ const Messages = () => {
                 </Content>
 
                 <TypeInput onSubmit={handleSubmit}>
-                    <input
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        type="text"
+                    <TextareaInput
+                        minRows={1}
+                        maxRows={8}
                         placeholder="Type a message here"
-                        autoFocus
+                        onKeyDown={handleKeyDown}
                         ref={messageInput}
                     />
                     <SendButton type="submit">
