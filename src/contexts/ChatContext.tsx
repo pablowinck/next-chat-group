@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useMount } from 'react-use';
 import { io, Socket } from 'socket.io-client';
+import { channelsApi } from '../api/channels';
+import { messageUtils } from '../utils/messageUtils';
 import { User } from './UserContext';
-
 export type Message = {
     user: User;
     content: string;
@@ -79,39 +79,13 @@ const ChatContextProvider: React.FC = ({ children }) => {
 
     const [viewMessages, setViewMessages] = useState(false);
 
-    async function getChannels() {
-        let currentChannels;
-        const user = JSON.parse(localStorage.getItem('user'));
-        await axios
-            .get('http://localhost:3000/channels/members/' + user.id)
-            .then((res) => (currentChannels = res.data))
-            .catch((err) => console.log(err));
-        currentChannels = currentChannels
-            .map((channel) => {
-                console.log('currentChannel ', channel);
+    const { orderByCreatedAt, orderByDate, isBlank, orderByUser } =
+        messageUtils;
 
-                return {
-                    id: channel.id,
-                    name: channel.name,
-                    topic: channel.topic,
-                    image: channel.image,
-                    members: [],
-                    messages: [],
-                    createdAt: channel.createdAt,
-                    private: {
-                        isPrivate: channel.isPrivate,
-                        password: channel.password
-                    },
-                    isSelected: false,
-                    hasNotifications: false
-                };
-            })
-            .sort((a, b) => {
-                if (a.createdAt > b.createdAt) return 1;
-                if (a.createdAt < b.createdAt) return -1;
-            });
-        currentChannels[0].isSelected = true;
-        setChannelsData(currentChannels);
+    const { getByUser, createChannel, joinChannel } = channelsApi;
+
+    async function getAllChannels() {
+        setChannelsData(await getByUser());
     }
 
     useEffect(() => {
@@ -120,14 +94,11 @@ const ChatContextProvider: React.FC = ({ children }) => {
     }, [channelsData]);
 
     useMount(async () => {
-        getChannels();
+        getAllChannels();
         socket.on('load-messages', (currentMessages) => {
-            console.log('[ChatContext] join-messages', currentMessages);
-
-            setMessages(getMessagesByUser(currentMessages));
+            setMessages(orderByUser(currentMessages));
         });
         socket.on('new-message', (message) => {
-            console.log('[ChatContext] new-message', message);
             setMessages((msgs) => [...msgs, message]);
         });
     });
@@ -139,10 +110,9 @@ const ChatContextProvider: React.FC = ({ children }) => {
     }, [selectedChannel, socket]);
 
     const addMessage = (message: string) => {
-        if (!message || /^\s*$/.test(message)) return;
+        if (isBlank(message)) return;
         const user: User = JSON.parse(localStorage.getItem('user'));
         const newMessage = {
-            // pegar do localStorage
             userId: user.id,
             text: message,
             channelId: selectedChannel.id
@@ -153,52 +123,10 @@ const ChatContextProvider: React.FC = ({ children }) => {
         socket.emit('send-message', newMessage);
     };
 
-    const joinChannel = async (channelId: number) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log('my user', user);
-        await axios
-            .get(
-                'http://localhost:3000/channels/' +
-                    channelId +
-                    '/add-member/' +
-                    user.id
-            )
-            .then(() => {
-                getChannels();
-            });
-    };
-
     const addChannel = async (channel: Channel) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const currentChannel: {
-            name: string;
-            topic: string;
-            image: string;
-            isPrivate: boolean;
-            password: string;
-            userId: number;
-        } = {
-            name: channel.name,
-            topic: channel.topic,
-            image: channel.image,
-            isPrivate: channel.private.isPrivate,
-            password: channel.private.password,
-            userId: user.id
-        };
-
-        await axios
-            .post(
-                'http://localhost:3000/channels',
-                JSON.stringify(currentChannel),
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            .then((res) => {
-                joinChannel(res.data.id);
-            });
+        const { id } = await createChannel(channel);
+        await joinChannel(id);
+        getAllChannels();
     };
 
     const onSelectChannel = (currentChannel: Channel) => {
@@ -219,53 +147,9 @@ const ChatContextProvider: React.FC = ({ children }) => {
         socket.emit('join', [selectedChannel.id, selectedChannel.topic]);
     };
 
-    const getMessages = () => {
-        if (!messages) return [];
-        return messages.sort((a, b) => {
-            if (a.createdAt > b.createdAt) return 1;
-            if (a.createdAt < b.createdAt) return -1;
-
-            return 0;
-        });
-    };
-
-    const getMessagesByDate = (currentMessages: Message[]) => {
-        let currentDate = new Date();
-        return currentMessages.reduce((acc, message) => {
-            const date = new Date(message.createdAt);
-
-            if (date.toDateString() !== currentDate.toDateString()) {
-                acc.push({ type: 'date', date });
-                currentDate = date;
-            }
-
-            acc.push(message);
-
-            return acc;
-        }, []);
-    };
-
-    const getMessagesByUser = (currentMessages: any[]) => {
-        if (currentMessages.length < 1) return [];
-
-        return currentMessages.reduce((acc, message) => {
-            if (acc.length < 1 || message.type === 'date') {
-                acc.push(message);
-                return acc;
-            }
-
-            if (message.user.id === acc[acc.length - 1]?.user?.id) {
-                acc[acc.length - 1].content += '\n' + message.content;
-                return acc;
-            }
-            acc.push(message);
-            return acc;
-        }, []);
-    };
-
     const ChatValue: ChatContextType = {
-        messages: getMessages(),
-        messagesByDate: getMessagesByDate(getMessages()),
+        messages: orderByCreatedAt(messages),
+        messagesByDate: orderByDate(orderByCreatedAt(messages)),
         channels: channels,
         selectedChannel: selectedChannel,
         addMessage: addMessage,
