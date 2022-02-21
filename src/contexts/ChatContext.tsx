@@ -48,6 +48,7 @@ type ChatContextType = {
     joinChannel: (channelId: number) => void;
     viewMessages: boolean;
     setViewMessages: (viewMessages: boolean) => void;
+    isLoading: boolean;
 };
 
 const loadingChannel = {
@@ -78,6 +79,7 @@ const ChatContextProvider: React.FC = ({ children }) => {
     const [messages, setMessages] = useState<Message[]>([]);
 
     const [viewMessages, setViewMessages] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const { orderByCreatedAt, orderByDate, isBlank, orderByUser } =
         messageUtils;
@@ -94,13 +96,14 @@ const ChatContextProvider: React.FC = ({ children }) => {
     }, [channelsData]);
 
     useMount(async () => {
-        getAllChannels();
+        await getAllChannels();
         socket.on('load-messages', (currentMessages) => {
             setMessages(orderByUser(currentMessages));
         });
         socket.on('new-message', (message) => {
             setMessages((msgs) => [...msgs, message]);
         });
+        setIsLoading(false);
     });
 
     useEffect(() => {
@@ -159,7 +162,8 @@ const ChatContextProvider: React.FC = ({ children }) => {
         loadMessages: loadMessages,
         joinChannel: joinChannel,
         viewMessages,
-        setViewMessages
+        setViewMessages,
+        isLoading: isLoading
     };
 
     return (
