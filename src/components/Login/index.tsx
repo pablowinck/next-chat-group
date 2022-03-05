@@ -1,11 +1,12 @@
 import { useUserContext } from 'contexts/UserContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Particles from 'react-tsparticles';
 import api from 'utils/api';
 import { ParticleOptions } from './ParticleOptions';
 import {
+    Bottom,
     CheckInput,
     Container,
     Content,
@@ -30,10 +31,12 @@ const Login: React.FC = () => {
     const [email, setEmail] = useState(user ? user.email : '');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(user ? true : false);
-    // const { socket } = useChatContext();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         await api
             .post('users/login', {
                 email,
@@ -48,9 +51,20 @@ const Login: React.FC = () => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                setError(true);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
+
+    useEffect(() => {
+        if (!error) return;
+        const seconds = 3 * 1000; // 3 seconds
+        setTimeout(() => {
+            setError(false);
+        }, seconds);
+    });
 
     return (
         <Container>
@@ -84,13 +98,20 @@ const Login: React.FC = () => {
                         </div>
                         <ForgotPassword>Forgot password?</ForgotPassword>
                     </Inline>
-                    <SignIn type="submit">Sign in</SignIn>
-                    <DontHaveAccount>
-                        <p>{`Don't have an account yet?`}</p>
-                        <Link href="/signup" passHref>
-                            <SignOut>Sign up</SignOut>
-                        </Link>
-                    </DontHaveAccount>
+                    <SignIn type="submit">
+                        {loading ? 'loading...' : 'Sign in'}
+                    </SignIn>
+                    <Bottom>
+                        {error && (
+                            <p className="error">Invalid email or password</p>
+                        )}
+                        <DontHaveAccount>
+                            <p>{`Don't have an account yet?`}</p>
+                            <Link href="/signup" passHref>
+                                <SignOut>Sign up</SignOut>
+                            </Link>
+                        </DontHaveAccount>
+                    </Bottom>
                 </Form>
             </Content>
             <Footer>

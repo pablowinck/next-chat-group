@@ -12,7 +12,6 @@ const Loading: React.FC = () => {
             }
             setCount(count > 2 ? 0 : count + 1);
             setText(newText);
-            console.log(newText);
         }, 500);
     }, [count]);
 

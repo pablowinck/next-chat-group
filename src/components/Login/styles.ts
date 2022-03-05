@@ -116,7 +116,6 @@ export const DontHaveAccount = styled.div`
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
-    margin-top: 0.75rem;
 `;
 
 export const SignOut = styled.div`
@@ -173,5 +172,16 @@ export const TwitchIcon = styled(Twitch)`
 
     &:hover {
         color: ${(props) => props.theme.colors.secondary};
+    }
+`;
+export const Bottom = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+
+    p.error {
+        color: ${(props) => props.theme.colors.error};
     }
 `;

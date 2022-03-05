@@ -2,6 +2,7 @@ import axios from 'axios';
 import ModalMessage from 'components/ModalMessage';
 import { useUserContext } from 'contexts/UserContext';
 import React, { useState } from 'react';
+import api from 'utils/api';
 import {
     Avatar,
     CancelButton,
@@ -21,7 +22,7 @@ import {
 } from './styles';
 
 const ProfileContent: React.FC = () => {
-    const { user, setUser } = useUserContext();
+    const { user, setUser, setLogged } = useUserContext();
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ const ProfileContent: React.FC = () => {
         email: '',
         password: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (
         value: string,
@@ -96,6 +98,27 @@ const ProfileContent: React.FC = () => {
             });
     };
 
+    const handleDisableAcount = async () => {
+        setLoading(true);
+        await api
+            .post('users/disable/' + user.id, {
+                password
+            })
+            .then((_) => {
+                localStorage.removeItem('user');
+                setSuccess(true);
+                setTimeout(() => {
+                    setLogged(false);
+                }, 3000);
+            })
+            .catch((_) => {
+                setError(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
     return (
         <Container>
             <Title>My Profile</Title>
@@ -153,8 +176,9 @@ const ProfileContent: React.FC = () => {
 
             <Footer>
                 <GroupButton>
-                    <RedButton>Delete Account</RedButton>
-                    <RedButton>Disable Account</RedButton>
+                    <RedButton onClick={handleDisableAcount}>
+                        Disable Account
+                    </RedButton>
                 </GroupButton>
                 <GroupButton>
                     <CancelButton>Cancel</CancelButton>
