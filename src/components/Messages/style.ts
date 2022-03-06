@@ -21,7 +21,8 @@ export const Content = styled.div`
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-
+    display: flex;
+    align-items: flex-end;
     ::-webkit-scrollbar {
         display: none;
     }
@@ -33,7 +34,10 @@ export const Content = styled.div`
         padding: 0 250px;
     }
 `;
-
+export const Children = styled.div`
+    height: auto;
+    width: 100%;
+`;
 export const TypeInput = styled.form`
     width: 100%;
     margin-top: 50px;

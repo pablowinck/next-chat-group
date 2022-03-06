@@ -3,6 +3,7 @@ import { useChatContext } from 'contexts/ChatContext';
 import { useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
 import {
+    Children,
     Container,
     Content,
     DateSeparator,
@@ -49,33 +50,35 @@ const Messages = () => {
         <>
             <Container>
                 <Content onLoad={scrollBottom}>
-                    {viewMessages &&
-                        messagesByDate.map((message, index) => {
-                            if (message?.type === 'date') {
-                                return (
-                                    <DateSeparator key={index}>
-                                        <span>
-                                            {message.date.toLocaleDateString(
-                                                'pt-BR'
-                                            ) ==
-                                            new Date().toLocaleDateString(
-                                                'pt-BR'
-                                            )
-                                                ? 'HOJE'
-                                                : message.date.toLocaleDateString(
-                                                      'pt-BR'
-                                                  )}
-                                        </span>
-                                    </DateSeparator>
-                                );
-                            } else {
-                                return (
-                                    <div key={index}>
-                                        <MessageItem message={message} />
-                                    </div>
-                                );
-                            }
-                        })}
+                    <Children>
+                        {viewMessages &&
+                            messagesByDate.map((message, index) => {
+                                if (message?.type === 'date') {
+                                    return (
+                                        <DateSeparator key={index}>
+                                            <span>
+                                                {message.date.toLocaleDateString(
+                                                    'pt-BR'
+                                                ) ==
+                                                new Date().toLocaleDateString(
+                                                    'pt-BR'
+                                                )
+                                                    ? 'HOJE'
+                                                    : message.date.toLocaleDateString(
+                                                          'pt-BR'
+                                                      )}
+                                            </span>
+                                        </DateSeparator>
+                                    );
+                                } else {
+                                    return (
+                                        <div key={index}>
+                                            <MessageItem message={message} />
+                                        </div>
+                                    );
+                                }
+                            })}
+                    </Children>
                 </Content>
 
                 <TypeInput onSubmit={handleSubmit}>
