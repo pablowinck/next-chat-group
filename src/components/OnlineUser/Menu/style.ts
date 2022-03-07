@@ -17,9 +17,16 @@ export const Container = styled(motion.div)`
 
     top: -10rem;
     right: 1rem;
+    z-index: 5;
 
     display: flex;
     flex-direction: column;
+
+    &.closed {
+        right: -7rem;
+        top: -11rem;
+        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+    }
 `;
 export const Item = styled.div`
     width: 100%;

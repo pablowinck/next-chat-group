@@ -1,3 +1,4 @@
+import { ArrowLeftCircleFill } from '@styled-icons/bootstrap/ArrowLeftCircleFill';
 import { Add } from '@styled-icons/fluentui-system-filled/Add';
 import styled from 'styled-components';
 export const Container = styled.header`
@@ -23,6 +24,42 @@ export const Container = styled.header`
 
     @media (max-width: 768px) {
         display: none;
+    }
+`;
+
+export const Content = styled.div`
+    display: flex;
+    gap: 1rem;
+    .closed {
+        transform: rotate(180deg);
+    }
+`;
+export const OpenCloseButton = styled.div`
+    position: relative;
+    display: grid;
+    place-items: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &::after {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background: white;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+`;
+export const OpenCloseIcon = styled(ArrowLeftCircleFill)`
+    width: 1.5rem;
+    color: ${(props) => props.theme.colors.background[100]};
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        color: ${(props) => props.theme.colors.primary.main};
     }
 `;
 export const Rounded = styled.button`

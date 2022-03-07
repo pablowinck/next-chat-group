@@ -1,4 +1,5 @@
 import { useChatContext } from 'contexts/ChatContext';
+import { useMenuContext } from 'contexts/MenuContext';
 import { useState } from 'react';
 import ChannelItem from './ChannelItem';
 import SearchBar from './SearchBar';
@@ -7,10 +8,11 @@ import { Channels, Container, Content } from './style';
 const ChannelList: React.FC = () => {
     const [filter, setFilter] = useState('');
     const { channels } = useChatContext();
+    const { open } = useMenuContext();
     return (
         <Container>
             <Content>
-                <SearchBar setFilter={setFilter} />
+                {open && <SearchBar setFilter={setFilter} />}
                 <Channels>
                     {channels
                         .filter((channel) =>

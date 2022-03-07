@@ -1,3 +1,4 @@
+import MenuContextProvider from 'contexts/MenuContext';
 import ThemeContextProvider from 'contexts/ThemeContext';
 import UserContextProvider from 'contexts/UserContext';
 import { AppProps } from 'next/app';
@@ -7,8 +8,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <ThemeContextProvider>
             <UserContextProvider>
-                <GlobalStyle />
-                <Component {...pageProps} />
+                <MenuContextProvider>
+                    <GlobalStyle />
+                    <Component {...pageProps} />
+                </MenuContextProvider>
             </UserContextProvider>
         </ThemeContextProvider>
     );

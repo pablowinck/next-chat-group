@@ -81,8 +81,7 @@ const ChatContextProvider: React.FC = ({ children }) => {
     const [viewMessages, setViewMessages] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { orderByCreatedAt, orderByDate, isBlank, orderByUser } =
-        messageUtils;
+    const { orderByCreatedAt, orderByDate, isBlank } = messageUtils;
 
     const { getByUser, createChannel, joinChannel } = channelsApi;
 
@@ -98,7 +97,7 @@ const ChatContextProvider: React.FC = ({ children }) => {
     useMount(async () => {
         await getAllChannels();
         socket.on('load-messages', (currentMessages) => {
-            setMessages(orderByUser(currentMessages));
+            setMessages(currentMessages);
         });
         socket.on('new-message', (message) => {
             setMessages((msgs) => [...msgs, message]);

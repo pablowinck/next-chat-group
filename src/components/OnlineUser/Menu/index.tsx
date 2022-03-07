@@ -2,6 +2,7 @@ import Settings, {
     SettingsAppaeranceTrigger,
     SettingsProfileTrigger
 } from 'components/Settings';
+import { useMenuContext } from 'contexts/MenuContext';
 import { useUserContext } from 'contexts/UserContext';
 import {
     ConfigurationIcon,
@@ -13,12 +14,13 @@ import {
 } from './style';
 const Menu = () => {
     const { setLogged } = useUserContext();
-
+    const { open } = useMenuContext();
     return (
         <Container
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
+            className={!open && 'closed'}
         >
             <Settings>
                 <SettingsProfileTrigger>

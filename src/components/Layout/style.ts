@@ -6,9 +6,10 @@ import styled from 'styled-components';
 // MS -  Messages
 // ON -  Online User
 
-export const Grid = styled.div`
+export const Grid = styled.div<{ menuIsOpen: boolean }>`
     display: grid;
-    grid-template-columns: 324px auto;
+    grid-template-columns: ${({ menuIsOpen }) =>
+            menuIsOpen ? '324px' : '100px'} auto;
     grid-template-rows: 59.49px auto 75.42px;
     grid-template-areas: 'CH TP' 'CL MS' 'ON MS';
     height: 100vh;

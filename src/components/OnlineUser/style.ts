@@ -29,7 +29,7 @@ export const Container = styled.div`
         display: none;
     }
 `;
-export const Avatar = styled.div`
+export const Avatar = styled.div<{ isOpenMenu: boolean }>`
     width: 42px;
     height: 42px;
 
@@ -37,6 +37,13 @@ export const Avatar = styled.div`
 
     margin-right: 0.5rem;
 
+    cursor: ${({ isOpenMenu }) => !isOpenMenu && 'pointer'};
+
+    transition: ${({ isOpenMenu }) => !isOpenMenu && 'filter 0.3s ease-in-out'};
+
+    &:hover {
+        filter: ${(props) => !props.isOpenMenu && 'brightness(0.5)'};
+    }
     img {
         width: 100%;
         height: 100%;

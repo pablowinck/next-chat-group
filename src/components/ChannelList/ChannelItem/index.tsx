@@ -1,4 +1,5 @@
 import { Channel, useChatContext } from 'contexts/ChatContext';
+import { useMenuContext } from 'contexts/MenuContext';
 import Image from 'next/image';
 import { ChannelAvatar, Container, Link, PrivateIcon } from './style';
 
@@ -8,13 +9,18 @@ interface props {
 
 const ChannelItem: React.FC<props> = ({ channel }) => {
     const { onSelectChannel } = useChatContext();
+    const { open } = useMenuContext();
     return (
         <Container>
             <Link
                 onClick={() => onSelectChannel(channel)}
-                className={channel.isSelected && 'selected'}
+                className={channel.isSelected && open && 'selected'}
+                isMenuOpen={open}
             >
-                <ChannelAvatar hasNotifications={channel.hasNotifications}>
+                <ChannelAvatar
+                    hasNotifications={channel.hasNotifications}
+                    isMenuOpen={open}
+                >
                     <Image
                         src={
                             channel.image
@@ -25,9 +31,9 @@ const ChannelItem: React.FC<props> = ({ channel }) => {
                         layout="fill"
                     />
                 </ChannelAvatar>
-                <span>{channel.name}</span>
+                {open && <span>{channel.name}</span>}
 
-                {channel.private?.isPrivate && <PrivateIcon />}
+                {channel.private?.isPrivate && open && <PrivateIcon />}
             </Link>
         </Container>
     );
