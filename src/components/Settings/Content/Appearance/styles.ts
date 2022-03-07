@@ -1,5 +1,5 @@
+import { ArrowDownCircleFill } from '@styled-icons/bootstrap/ArrowDownCircleFill';
 import styled from 'styled-components';
-
 export const Container = styled.div`
     color: ${(props) => props.theme.colors.text};
 
@@ -20,10 +20,57 @@ export const Selector = styled.select`
     background-color: ${(props) => props.theme.colors.primary.main};
     color: ${(props) => props.theme.colors.text};
 
-    border: none;
-    border-radius: 8px;
+    /* reset */
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
 
+    border-radius: 8px;
     padding: 0 1rem;
+
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.primary.dark};
+    }
+
+    /* position: relative;
+    &::before {
+        content: 'v';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 10px;
+        margin: auto 0;
+        color: white;
+        z-index: 1;
+        font-size: 1.5rem;
+    } */
+`;
+export const Input = styled.div`
+    position: relative;
+`;
+export const ArrowDown = styled(ArrowDownCircleFill)`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    margin: auto;
+    color: white;
+    z-index: 1;
+    width: 1rem;
+`;
+export const Option = styled.option`
+    background-color: ${(props) => props.theme.colors.primary.main};
+    color: ${(props) => props.theme.colors.text};
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.primary.dark};
+    }
 `;
 
 export const Label = styled.label`
