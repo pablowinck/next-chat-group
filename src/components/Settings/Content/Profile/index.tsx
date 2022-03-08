@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ModalMessage from 'components/ModalMessage';
 import { useUserContext } from 'contexts/UserContext';
 import React, { useState } from 'react';
@@ -35,6 +34,14 @@ const ProfileContent: React.FC = () => {
     });
     const [loading, setLoading] = useState(false);
 
+    const resetErrors = () => {
+        setErrors({
+            name: '',
+            email: '',
+            password: ''
+        });
+    };
+
     const handleChange = (
         value: string,
         set: (value: string) => void,
@@ -60,20 +67,18 @@ const ProfileContent: React.FC = () => {
     };
 
     const handleSubmit = async () => {
-        if (!password) return;
-        console.log(
-            '[handleSubmit] post to http://localhost:3000/users/' + user.id,
-            JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                profileImage: user.profileImage
-            })
-        );
-        await axios
+        if (!password) {
+            setErrors({
+                ...errors,
+                ['password']: 'required field'
+            });
+            return;
+        }
 
+        setLoading(true);
+        await api
             .patch(
-                'http://localhost:3000/users/' + user.id,
+                'users/' + user.id,
                 JSON.stringify({
                     name: name,
                     email: email,
@@ -87,14 +92,17 @@ const ProfileContent: React.FC = () => {
                 }
             )
             .then((res) => {
-                console.log(res);
                 setUser(res.data);
                 localStorage.setItem('user', JSON.stringify(res.data));
+                resetErrors();
                 setSuccess(true);
             })
             .catch((err) => {
                 console.log(err);
                 setError(true);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
 
@@ -160,7 +168,9 @@ const ProfileContent: React.FC = () => {
                     />
                     <LabelTitle>
                         <Label>Current Password</Label>
-                        {errors.password && <Error>{errors.password}</Error>}
+                        {errors.password !== '' && (
+                            <Error>{errors.password}</Error>
+                        )}
                     </LabelTitle>
                     <Input
                         name="password"
@@ -182,7 +192,9 @@ const ProfileContent: React.FC = () => {
                 </GroupButton>
                 <GroupButton>
                     <CancelButton>Cancel</CancelButton>
-                    <SaveButton onClick={handleSubmit}>Save</SaveButton>
+                    <SaveButton onClick={handleSubmit}>
+                        {loading ? 'Loading...' : 'Save'}
+                    </SaveButton>
                 </GroupButton>
             </Footer>
             {success && (

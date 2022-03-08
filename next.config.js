@@ -9,7 +9,8 @@ module.exports = {
             'media-exp1.licdn.com',
             't.ctcdn.com.br',
             'previews.123rf.com',
-            'www.metroworldnews.com.br'
+            'www.metroworldnews.com.br',
+            'colunadofla.com'
         ]
     }
 };
