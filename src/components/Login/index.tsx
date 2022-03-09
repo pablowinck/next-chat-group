@@ -52,8 +52,6 @@ const Login: React.FC = () => {
          })
          .catch((err) => {
             setError(true);
-         })
-         .finally(() => {
             setLoading(false);
          });
    };
