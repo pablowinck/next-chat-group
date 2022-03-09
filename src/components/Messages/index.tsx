@@ -1,5 +1,7 @@
 import ModalPassword from 'components/ModalPassword';
 import { useChatContext } from 'contexts/ChatContext';
+import { useUserContext } from 'contexts/UserContext';
+import { useFetchChannels } from 'hooks/useChannels';
 import { Message, useFetchMessages } from 'hooks/useMessages';
 import { useEffect, useRef } from 'react';
 import { messageUtils } from 'utils/messageUtils';
@@ -20,8 +22,17 @@ type Props = {
 };
 
 const Messages: React.FC<Props> = ({ channelId }) => {
-   const { selectedChannel, addMessage, viewMessages, setViewMessages } =
-      useChatContext();
+   const { addMessage, viewMessages, setViewMessages } = useChatContext();
+
+   const { user } = useUserContext();
+
+   const fetchChannels = useFetchChannels({
+      userId: `${user.id}`
+   });
+
+   const selectedChannel = fetchChannels?.data?.find(
+      (channel) => channel.id === Number(channelId)
+   );
 
    const { isLoading, data } = useFetchMessages({
       channelId

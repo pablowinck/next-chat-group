@@ -1,6 +1,7 @@
 import Overlay from 'components/Overlay';
-import { Channel } from 'hooks/useChannels';
-import { Children, cloneElement, FC, useState } from 'react';
+import { useUserContext } from 'contexts/UserContext';
+import { ChannelDto, useCreateChannel } from 'hooks/useChannels';
+import { Children, cloneElement, FC, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import {
    AvatarChange,
@@ -23,27 +24,26 @@ import {
 
 const ModalAdd: FC = ({ children }) => {
    const [open, setOpen] = useState(false);
+   const { user } = useUserContext();
+   const mutation = useCreateChannel({ userId: `${user.id}` });
 
    const handleOnSubmit = (values, { resetForm }) => {
-      const newChannel: Channel = {
-         id: null,
+      const newChannel: ChannelDto = {
          name: values.channelName,
          topic: values.channelTopic,
          image: '/images/default-avatar.png',
-         members: [],
-         messages: [],
-         private: {
-            isPrivate: values.isPrivate,
-            password: values.password
-         },
-         hasNotifications: false,
-         isSelected: false
+         isPrivate: values.isPrivate,
+         password: values.password
       };
 
-      // addChannel(newChannel);
+      mutation.mutate(newChannel);
 
       resetForm();
    };
+
+   useEffect(() => {
+      console.log('mutation', mutation);
+   }, [mutation]);
 
    const initialValues = {
       channelName: '',
@@ -62,6 +62,9 @@ const ModalAdd: FC = ({ children }) => {
       password: Yup.string().min(4, 'minimum 4 caracters'),
       isPrivate: Yup.boolean()
    });
+
+   //!TODO refatorar
+   if (mutation.error) alert('Error: ' + mutation.error);
 
    return (
       <>

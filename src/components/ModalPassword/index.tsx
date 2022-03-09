@@ -1,5 +1,8 @@
 import { useChatContext } from 'contexts/ChatContext';
-import { useState } from 'react';
+import { useUserContext } from 'contexts/UserContext';
+import { useFetchChannels } from 'hooks/useChannels';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import {
    Button,
    Container,
@@ -15,24 +18,37 @@ const ModalPassword = () => {
    const [hasError, setHasError] = useState(false);
    const [open, setOpen] = useState(false);
 
-   const { selectedChannel, setViewMessages } = useChatContext();
+   const { setViewMessages } = useChatContext();
 
-   // useEffect(() => {
-   //    setOpen(selectedChannel?.private?.isPrivate);
-   // }, [selectedChannel]);
+   const router = useRouter();
+   const { user } = useUserContext();
+
+   const { data, isLoading, isError } = useFetchChannels({
+      userId: `${user.id}`
+   });
+
+   const selectedChannel = data?.find(
+      (channel) => channel.id === Number(router.query.channelId)
+   );
+
+   useEffect(() => {
+      setOpen(selectedChannel?.private?.isPrivate);
+   }, [selectedChannel]);
 
    const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (password === selectedChannel.private?.password) {
          setViewMessages(true);
          setOpen(false);
-         // loadMessages();
       } else {
          setHasError(true);
       }
    };
 
    if (!open) return null;
+
+   if (isLoading) return <p>Loading...</p>;
+   if (isError || !data) return <p>Error</p>;
 
    return (
       <Container>

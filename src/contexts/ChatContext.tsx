@@ -1,12 +1,10 @@
 import { Channel } from 'hooks/useChannels';
-import { Message } from 'hooks/useMessages';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { io, Socket } from 'socket.io-client';
 import { messageUtils } from '../utils/messageUtils';
 
 type ChatContextType = {
-   selectedChannel: Channel;
    addMessage: (message: string) => void;
    onSelectChannel: (channel: Channel) => void;
    socket: Socket;
@@ -14,21 +12,6 @@ type ChatContextType = {
    setViewMessages: (viewMessages: boolean) => void;
    isLoading: boolean;
    setIsLoading: (isLoading: boolean) => void;
-};
-
-const loadingChannel = {
-   id: 0,
-   name: 'LOADING',
-   topic: 'Loading...',
-   image: '',
-   members: [],
-   messages: [],
-   private: {
-      isPrivate: false,
-      password: ''
-   },
-   isSelected: true,
-   hasNotifications: false
 };
 
 const ChatContext = createContext({} as ChatContextType);
@@ -41,12 +24,10 @@ type ChatContextProviderProps = {
 
 const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
    children,
-   userId
+   userId,
+   channelId
 }) => {
    const socket = useMemo(() => io('http://localhost:3000'), []);
-
-   const [selectedChannel, setSelectedChannel] =
-      useState<Channel>(loadingChannel);
 
    const [viewMessages, setViewMessages] = useState(false);
 
@@ -54,21 +35,21 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
 
    const { isBlank } = messageUtils;
 
-   const { setQueryData, getQueryData } = useQueryClient();
+   const client = useQueryClient();
 
+   //!TODO refatorar
    useEffect(() => {
-      socket.on('new-message', (message) => {
-         const messages = getQueryData<Message[]>(['messages', userId]);
-         setQueryData(['messages', userId], [...messages, message]);
+      socket.on('new-message', () => {
+         client.invalidateQueries(['messages', channelId]);
       });
-   }, [userId, setQueryData, getQueryData, socket]);
+   }, [client, channelId, socket]);
 
    const addMessage = (message: string) => {
       if (isBlank(message)) return;
       const newMessage = {
          userId: userId,
          text: message,
-         channelId: selectedChannel.id
+         channelId: +channelId
       };
 
       socket.emit('send-message', newMessage);
@@ -88,7 +69,6 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
    };
 
    const ChatValue: ChatContextType = {
-      selectedChannel: selectedChannel,
       addMessage: addMessage,
       onSelectChannel: onSelectChannel,
       socket: socket,
