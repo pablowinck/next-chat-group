@@ -4,7 +4,6 @@ import Messages from 'components/Messages';
 import OnlineUser from 'components/OnlineUser';
 import Topbar from 'components/Topbar';
 import { useMenuContext } from 'contexts/MenuContext';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { Grid } from './style';
 
 const Layout = ({ channelId }) => {
@@ -15,9 +14,8 @@ const Layout = ({ channelId }) => {
          <ChannelHeader />
          <ChannelList />
          <OnlineUser />
-         <Topbar />
+         <Topbar channelId={channelId} />
          <Messages channelId={channelId} />
-         <ReactQueryDevtools />
       </Grid>
    );
 };

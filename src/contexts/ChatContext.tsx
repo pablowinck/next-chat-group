@@ -35,6 +35,7 @@ const ChatContext = createContext({} as ChatContextType);
 
 type ChatContextProviderProps = {
    children: React.ReactNode;
+   channelId: string;
    userId: number;
 };
 

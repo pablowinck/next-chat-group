@@ -9,12 +9,18 @@ import { Channels, Container, Content } from './style';
 const ChannelList: React.FC = () => {
    const [filter, setFilter] = useState('');
    const { user } = useUserContext();
-   const { data, isLoading } = useFetchChannels({ userId: user.id.toString() });
+   const { data, isError, isLoading } = useFetchChannels({
+      userId: `${user.id}`
+   });
    const { open } = useMenuContext();
 
    //!TODO create skeleton
    if (isLoading) {
       return <div>Loading...</div>;
+   }
+
+   if (isError || !data) {
+      return <div>error...</div>;
    }
 
    return (
