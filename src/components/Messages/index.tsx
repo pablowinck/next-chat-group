@@ -5,6 +5,7 @@ import { useFetchChannels } from 'hooks/useChannels';
 import { Message, useFetchMessages } from 'hooks/useMessages';
 import { useEffect, useRef } from 'react';
 import { messageUtils } from 'utils/messageUtils';
+import Loading from './Loading';
 import MessageItem from './MessageItem';
 import {
    Children,
@@ -68,9 +69,8 @@ const Messages: React.FC<Props> = ({ channelId }) => {
       return orderByDate(orderByCreatedAt(currentMessages));
    };
 
-   //!TODO create skeleton
    if (isLoading) {
-      return <div>Loading...</div>;
+      return <Loading />;
    }
 
    return (

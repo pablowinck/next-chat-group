@@ -4,7 +4,7 @@ import UserContextProvider from 'contexts/UserContext';
 import { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 import GlobalStyle from '../styles/global';
 
 const client = new QueryClient({
@@ -32,7 +32,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                <MenuContextProvider>
                   <GlobalStyle />
                   <Component {...pageProps} />
-                  <ReactQueryDevtools />
+                  {/* <ReactQueryDevtools /> */}
                </MenuContextProvider>
             </UserContextProvider>
          </ThemeContextProvider>

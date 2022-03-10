@@ -3,6 +3,7 @@ import { useUserContext } from 'contexts/UserContext';
 import { useFetchChannels } from 'hooks/useChannels';
 import { useState } from 'react';
 import ChannelItem from './ChannelItem';
+import Loading from './Loading';
 import SearchBar from './SearchBar';
 import { Channels, Container, Content } from './style';
 
@@ -14,9 +15,8 @@ const ChannelList: React.FC = () => {
    });
    const { open } = useMenuContext();
 
-   //!TODO create skeleton
    if (isLoading) {
-      return <div>Loading...</div>;
+      return <Loading />;
    }
 
    if (isError || !data) {

@@ -62,7 +62,6 @@ export const useCreateChannel = ({ userId }: { userId: string }) => {
    );
 };
 
-//!TODO join channel
 export const useJoinChannel = ({ userId }: { userId: string }) => {
    const client = useQueryClient();
    return useMutation(
