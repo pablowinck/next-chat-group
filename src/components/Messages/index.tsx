@@ -1,103 +1,126 @@
 import ModalPassword from 'components/ModalPassword';
 import { useChatContext } from 'contexts/ChatContext';
+import { useUserContext } from 'contexts/UserContext';
+import { useFetchChannels } from 'hooks/useChannels';
+import { Message, useFetchMessages } from 'hooks/useMessages';
 import { useEffect, useRef } from 'react';
+import { messageUtils } from 'utils/messageUtils';
 import MessageItem from './MessageItem';
 import {
-    Children,
-    Container,
-    Content,
-    DateSeparator,
-    SendButton,
-    SendIcon,
-    TextareaInput,
-    TypeInput
+   Children,
+   Container,
+   Content,
+   DateSeparator,
+   SendButton,
+   SendIcon,
+   TextareaInput,
+   TypeInput
 } from './style';
 
-const Messages = () => {
-    const {
-        selectedChannel,
-        messagesByDate,
-        addMessage,
-        viewMessages,
-        setViewMessages
-    } = useChatContext();
+type Props = {
+   channelId: string;
+};
 
-    const messageInput = useRef<HTMLTextAreaElement>();
+const Messages: React.FC<Props> = ({ channelId }) => {
+   const { addMessage, viewMessages, setViewMessages } = useChatContext();
 
-    useEffect(() => {
-        setViewMessages(!selectedChannel?.private?.isPrivate);
-    }, [selectedChannel, setViewMessages]);
+   const { user } = useUserContext();
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        addMessage(messageInput.current.value);
-        messageInput.current.value = '';
-    };
+   const fetchChannels = useFetchChannels({
+      userId: `${user.id}`
+   });
 
-    const scrollBottom = (e: React.SyntheticEvent) => {
-        e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
-    };
+   const selectedChannel = fetchChannels?.data?.find(
+      (channel) => channel.id === Number(channelId)
+   );
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+   const { isLoading, data } = useFetchMessages({
+      channelId
+   });
 
-        if (event.code === 'Enter') {
-            handleSubmit(event);
-        }
-    };
+   const messageInput = useRef<HTMLTextAreaElement>();
 
-    return (
-        <>
-            <Container>
-                <Content onLoad={scrollBottom}>
-                    <Children>
-                        {viewMessages &&
-                            messagesByDate.map((message, index) => {
-                                if (message?.type === 'date') {
-                                    return (
-                                        <DateSeparator key={index}>
-                                            <span>
-                                                {message.date.toLocaleDateString(
-                                                    'pt-BR'
-                                                ) ==
-                                                new Date().toLocaleDateString(
-                                                    'pt-BR'
-                                                )
-                                                    ? 'HOJE'
-                                                    : message.date.toLocaleDateString(
-                                                          'pt-BR'
-                                                      )}
-                                            </span>
-                                        </DateSeparator>
-                                    );
-                                } else {
-                                    return (
-                                        <div key={index}>
-                                            <MessageItem message={message} />
-                                        </div>
-                                    );
-                                }
-                            })}
-                    </Children>
-                </Content>
+   useEffect(() => {
+      setViewMessages(!selectedChannel?.private?.isPrivate);
+   }, [selectedChannel, setViewMessages]);
 
-                <TypeInput onSubmit={handleSubmit}>
-                    <TextareaInput
-                        minRows={1}
-                        maxRows={8}
-                        placeholder="Type a message here"
-                        onKeyDown={handleKeyDown}
-                        ref={messageInput}
-                    />
-                    <SendButton type="submit">
-                        <SendIcon />
-                    </SendButton>
-                </TypeInput>
-            </Container>
+   const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      addMessage(messageInput.current.value);
+      messageInput.current.value = '';
+   };
 
-            <ModalPassword />
-        </>
-    );
+   const scrollBottom = (e: React.SyntheticEvent) => {
+      e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
+   };
+
+   const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+
+      if (event.code === 'Enter') {
+         handleSubmit(event);
+      }
+   };
+
+   const { orderByDate, orderByCreatedAt } = messageUtils;
+
+   const orderMessages = (currentMessages: Message[]) => {
+      return orderByDate(orderByCreatedAt(currentMessages));
+   };
+
+   //!TODO create skeleton
+   if (isLoading) {
+      return <div>Loading...</div>;
+   }
+
+   return (
+      <>
+         <Container>
+            <Content onLoad={scrollBottom}>
+               <Children>
+                  {viewMessages &&
+                     orderMessages(data).map((message, index) => {
+                        if (message?.type === 'date') {
+                           return (
+                              <DateSeparator key={index}>
+                                 <span>
+                                    {message.date.toLocaleDateString('pt-BR') ==
+                                    new Date().toLocaleDateString('pt-BR')
+                                       ? 'HOJE'
+                                       : message.date.toLocaleDateString(
+                                            'pt-BR'
+                                         )}
+                                 </span>
+                              </DateSeparator>
+                           );
+                        } else {
+                           return (
+                              <div key={index}>
+                                 <MessageItem message={message} />
+                              </div>
+                           );
+                        }
+                     })}
+               </Children>
+            </Content>
+
+            <TypeInput onSubmit={handleSubmit}>
+               <TextareaInput
+                  minRows={1}
+                  maxRows={8}
+                  placeholder="Type a message here"
+                  onKeyDown={handleKeyDown}
+                  ref={messageInput}
+               />
+               <SendButton type="submit">
+                  <SendIcon />
+               </SendButton>
+            </TypeInput>
+         </Container>
+
+         <ModalPassword />
+      </>
+   );
 };
 
 export default Messages;
