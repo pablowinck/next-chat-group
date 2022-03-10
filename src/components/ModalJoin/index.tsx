@@ -1,5 +1,8 @@
 import Overlay from 'components/Overlay';
+import { useUserContext } from 'contexts/UserContext';
+import { useJoinChannel } from 'hooks/useChannels';
 import { Children, cloneElement, FC, useState } from 'react';
+import ReactInputMask from 'react-input-mask';
 import {
    Button,
    CloseIcon,
@@ -14,15 +17,22 @@ import {
 } from './style';
 
 const ModalJoin: FC = ({ children }) => {
-   const [channelId, setChannelId] = useState<any>();
+   const [channelId, setChannelId] = useState<string>('');
    const [open, setOpen] = useState(false);
-
+   const { user } = useUserContext();
+   const mutation = useJoinChannel({ userId: `${user.id}` });
    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (channelId === 0 || !channelId) return;
-      //   joinChannel(channelId);
+      if (!channelId || channelId === '0') return;
+      mutation.mutate(channelId.trim());
       setOpen(false);
    };
+
+   //!TODO refatorar
+   if (mutation.error) {
+      console.log(mutation.error);
+   }
+
    return (
       <>
          <ModalJoinTrigger onOpenChange={setOpen}>{children}</ModalJoinTrigger>
@@ -36,10 +46,14 @@ const ModalJoin: FC = ({ children }) => {
                <Form onSubmit={handleSubmit}>
                   <Content>
                      <Label>Channel ID</Label>
-                     <Input
-                        onChange={(e) => setChannelId(Number(e.target.value))}
+                     <ReactInputMask
+                        mask="999999"
+                        onChange={(e) => setChannelId(e.target.value)}
                         value={channelId}
-                     />
+                        maskChar=" "
+                     >
+                        {() => <Input />}
+                     </ReactInputMask>
                   </Content>
                   <Footer>
                      <Button type="submit">Join</Button>

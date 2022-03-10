@@ -52,7 +52,6 @@ export const useFetchChannels = ({ userId }: { userId: string }) => {
    );
 };
 
-//!TODO create channel
 export const useCreateChannel = ({ userId }: { userId: string }) => {
    const client = useQueryClient();
    return useMutation(
@@ -64,3 +63,12 @@ export const useCreateChannel = ({ userId }: { userId: string }) => {
 };
 
 //!TODO join channel
+export const useJoinChannel = ({ userId }: { userId: string }) => {
+   const client = useQueryClient();
+   return useMutation(
+      (channelId: string) => {
+         return api.post('channels/join', { channelId, userId });
+      },
+      { onSuccess: () => client.invalidateQueries(['channels', userId]) }
+   );
+};
