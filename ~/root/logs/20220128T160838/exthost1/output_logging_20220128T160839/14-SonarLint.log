@@ -1,2 +1,0 @@
-[Info  - 16:08:44.443] Started security hotspot handler on port 64120
-Exception occurred while initializing the Git API: TypeError: Cannot read property 'forEach' of undefined

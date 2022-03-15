@@ -1,3 +1,4 @@
+import { useToast } from 'components/Toast';
 import { useMutation } from 'react-query';
 import api from 'utils/api';
 
@@ -9,15 +10,37 @@ type UpdateUserDto = {
 };
 
 export const useUpdateProfile = ({ userId }: { userId: string }) => {
-   return useMutation((values: UpdateUserDto) => {
-      return api.patch(`users/${userId}`, values);
-   });
+   const toast = useToast();
+   return useMutation(
+      (values: UpdateUserDto) => {
+         return api.patch(`users/${userId}`, values);
+      },
+      {
+         onSuccess: () => {
+            toast.success('Success');
+         },
+         onError: () => {
+            toast.error('Incorrect password');
+         }
+      }
+   );
 };
 
 export const useDisableAccount = ({ userId }: { userId: string }) => {
-   return useMutation((password: string) => {
-      return api.post(`users/disable/${userId}`, {
-         password
-      });
-   });
+   const toast = useToast();
+   return useMutation(
+      (password: string) => {
+         return api.post(`users/disable/${userId}`, {
+            password
+         });
+      },
+      {
+         onSuccess: () => {
+            toast.success('Success');
+         },
+         onError: () => {
+            toast.error('Incorrect password');
+         }
+      }
+   );
 };
