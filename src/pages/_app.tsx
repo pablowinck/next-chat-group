@@ -1,3 +1,4 @@
+import Toaster from 'components/Toast';
 import MenuContextProvider from 'contexts/MenuContext';
 import ThemeContextProvider from 'contexts/ThemeContext';
 import UserContextProvider from 'contexts/UserContext';
@@ -32,6 +33,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                <MenuContextProvider>
                   <GlobalStyle />
                   <Component {...pageProps} />
+                  <Toaster />
                   {/* <ReactQueryDevtools /> */}
                </MenuContextProvider>
             </UserContextProvider>

@@ -47,7 +47,8 @@ const Messages: React.FC<Props> = ({ channelId }) => {
 
    const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      addMessage(messageInput.current.value);
+      const { id } = JSON.parse(localStorage.getItem('user'));
+      addMessage({ message: messageInput.current.value, userId: `${id}` });
       messageInput.current.value = '';
    };
 

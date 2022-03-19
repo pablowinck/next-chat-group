@@ -20,7 +20,7 @@ const Chat: React.FC<Props> = ({ channelId }) => {
             <title>Chat Group</title>
          </Head>
 
-         <ChatContextProvider userId={user?.id} channelId={channelId}>
+         <ChatContextProvider channelId={channelId}>
             <Layout channelId={channelId} />
          </ChatContextProvider>
       </>

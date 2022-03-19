@@ -1,4 +1,3 @@
-import ModalMessage from 'components/ModalMessage';
 import { useUserContext } from 'contexts/UserContext';
 import { useDisableAccount, useUpdateProfile } from 'hooks/useProfile';
 import React, { useState } from 'react';
@@ -95,7 +94,7 @@ const ProfileContent: React.FC = () => {
    const handleDisableAcount = () => {
       disableMutation.mutate(password, {
          onSuccess: () => {
-            setPassword('')
+            setPassword('');
             localStorage.removeItem('user');
             setTimeout(() => {
                setLogged(false);
@@ -175,12 +174,6 @@ const ProfileContent: React.FC = () => {
                </SaveButton>
             </GroupButton>
          </Footer>
-         {(updateMutation.isSuccess || disableMutation.isSuccess) && (
-            <ModalMessage type="success">Success</ModalMessage>
-         )}
-         {(updateMutation.isError || disableMutation.isError) && (
-            <ModalMessage type="error">{'Incorrect password'}</ModalMessage>
-         )}
       </Container>
    );
 };
