@@ -19,6 +19,7 @@ const ChannelList: React.FC = () => {
       return <Loading />;
    }
 
+   //!TODO #45 refactor error in channel list
    if (isError || !data) {
       return <div>error...</div>;
    }

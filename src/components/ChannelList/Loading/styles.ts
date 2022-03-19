@@ -9,7 +9,7 @@ export const Items = styled.div`
 
 export const Skeleton = styled.div`
    width: 100%;
-   height: 3rem;
+   height: 3rem; //3 * 16 = 30px
    background-color: #cccc;
    border-radius: 12px;
 

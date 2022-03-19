@@ -1,17 +1,17 @@
-import { Channel } from 'hooks/useChannels';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useMount } from 'react-use';
 import { io, Socket } from 'socket.io-client';
 import { messageUtils } from '../utils/messageUtils';
 
 type ChatContextType = {
-   addMessage: (message: string) => void;
-   onSelectChannel: (channel: Channel) => void;
+   addMessage: (props: { message: string; userId: string }) => void;
    socket: Socket;
    viewMessages: boolean;
    setViewMessages: (viewMessages: boolean) => void;
    isLoading: boolean;
    setIsLoading: (isLoading: boolean) => void;
+   joinChannel: (channelId: string) => void;
 };
 
 const ChatContext = createContext({} as ChatContextType);
@@ -19,15 +19,16 @@ const ChatContext = createContext({} as ChatContextType);
 type ChatContextProviderProps = {
    children: React.ReactNode;
    channelId: string;
-   userId: number;
 };
 
 const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
    children,
-   userId,
    channelId
 }) => {
-   const socket = useMemo(() => io('http://localhost:3000'), []);
+   const socket = useMemo(
+      () => io(process.env.API || 'http://localhost:3000'),
+      []
+   );
 
    const [viewMessages, setViewMessages] = useState(false);
 
@@ -38,16 +39,24 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
    const client = useQueryClient();
 
    //!TODO refatorar
-   useEffect(() => {
+   useMount(() => {
       socket.on('new-message', () => {
-         client.invalidateQueries(['messages', channelId]);
-      });
-   }, [client, channelId, socket]);
+         console.log('recebi nova mensagem!');
 
-   const addMessage = (message: string) => {
+         client.invalidateQueries(['messages', `${channelId}`]);
+      });
+   });
+
+   const addMessage = ({
+      message,
+      userId
+   }: {
+      message: string;
+      userId: string;
+   }) => {
       if (isBlank(message)) return;
       const newMessage = {
-         userId: userId,
+         userId: +userId,
          text: message,
          channelId: +channelId
       };
@@ -55,27 +64,18 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
       socket.emit('send-message', newMessage);
    };
 
-   //!TODO select channel by router
-   const onSelectChannel = (currentChannel: Channel) => {
-      // const channels = getQueryData<Channel[]>(['channels', userId]);
-      // currentChannel.hasNotifications = false;
-      // let newChannels = channels.map((channel) => {
-      //    channel.isSelected = channel.id === currentChannel.id ? true : false;
-      //    return channel;
-      // });
-      // setQueryData(['channels', userId], newChannels);
-      // setSelectedChannel(currentChannel);
-      // !TODO get messages
+   const joinChannel = (channelId: string) => {
+      socket.emit('join', channelId);
    };
 
    const ChatValue: ChatContextType = {
-      addMessage: addMessage,
-      onSelectChannel: onSelectChannel,
-      socket: socket,
+      addMessage,
+      socket,
       viewMessages,
       setViewMessages,
-      isLoading: isLoading,
-      setIsLoading: setIsLoading
+      isLoading,
+      setIsLoading,
+      joinChannel
    };
 
    return (
