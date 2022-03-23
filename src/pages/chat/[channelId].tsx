@@ -13,7 +13,6 @@ const Chat: React.FC<Props> = ({ channelId }) => {
    const { user } = useUserContext();
 
    if (!user?.id) return <Loading />;
-
    return (
       <>
          <Head>

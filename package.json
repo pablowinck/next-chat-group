@@ -1,37 +1,38 @@
 {
-    "name": "test-next",
-    "private": true,
-    "scripts": {
-        "dev": "next dev --port=3001",
-        "hml": "next dev --port=3002",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    },
-    "dependencies": {
-        "axios": "^0.24.0",
-        "formik": "^2.2.9",
-        "framer-motion": "^5.5.5",
-        "next": "12.0.7",
-        "react": "17.0.2",
-        "react-dom": "17.0.2",
-        "react-input-mask": "^2.0.4",
-        "react-query": "^3.34.15",
-        "react-textarea-autosize": "^8.3.3",
-        "react-tsparticles": "^1.39.1",
-        "react-use": "^17.3.2",
-        "socket.io-client": "^4.4.1",
-        "styled-components": "^5.3.3",
-        "styled-icons": "^10.45.0",
-        "yup": "^0.32.11"
-    },
-    "devDependencies": {
-        "@types/node": "^16.11.13",
-        "@types/react": "^17.0.37",
-        "@types/styled-components": "^5.1.18",
-        "eslint": "^8.4.1",
-        "eslint-config-next": "12.0.7",
-        "prettier": "^2.5.1",
-        "typescript": "^4.5.4"
-    }
+   "name": "test-next",
+   "private": true,
+   "scripts": {
+      "dev": "next dev --port=3001",
+      "hml": "next dev --port=3002",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint"
+   },
+   "dependencies": {
+      "axios": "^0.24.0",
+      "formik": "^2.2.9",
+      "framer-motion": "^6.2.8",
+      "next": "12.0.7",
+      "react": "17.0.2",
+      "react-beautiful-dnd": "^13.1.0",
+      "react-dom": "17.0.2",
+      "react-input-mask": "^2.0.4",
+      "react-query": "^3.34.15",
+      "react-textarea-autosize": "^8.3.3",
+      "react-tsparticles": "^1.39.1",
+      "react-use": "^17.3.2",
+      "socket.io-client": "^4.4.1",
+      "styled-components": "^5.3.3",
+      "styled-icons": "^10.45.0",
+      "yup": "^0.32.11"
+   },
+   "devDependencies": {
+      "@types/node": "^16.11.13",
+      "@types/react": "^17.0.37",
+      "@types/styled-components": "^5.1.18",
+      "eslint": "^8.4.1",
+      "eslint-config-next": "12.0.7",
+      "prettier": "^2.5.1",
+      "typescript": "^4.5.4"
+   }
 }

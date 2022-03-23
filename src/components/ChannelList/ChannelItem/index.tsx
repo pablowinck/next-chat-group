@@ -1,47 +1,57 @@
-import { useChatContext } from 'contexts/ChatContext';
 import { useMenuContext } from 'contexts/MenuContext';
 import { Channel } from 'hooks/useChannels';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Draggable } from 'react-beautiful-dnd';
 import { ChannelAvatar, Container, Content, PrivateIcon } from './style';
 
 interface props {
    channel: Channel;
+   index: number;
 }
 
-const ChannelItem: React.FC<props> = ({ channel }) => {
-   const { joinChannel } = useChatContext();
+const ChannelItem: React.FC<props> = ({ channel, index }) => {
    const { open } = useMenuContext();
 
    return (
-      <Container onClick={() => joinChannel(`${channel.id}`)}>
-         {/* eslint-disable-next-line @next/next/link-passhref */}
-         <Link href={`/chat/${channel.id}`}>
-            <Content
-               // onClick={() => onSelectChannel(channel)}
-               className={channel.isSelected && open && 'selected'}
-               isMenuOpen={open}
+      <Draggable draggableId={`${channel.id}`} index={index} key={channel.id}>
+         {(provided) => (
+            <div
+               ref={provided.innerRef}
+               {...provided.draggableProps}
+               {...provided.dragHandleProps}
             >
-               <ChannelAvatar
-                  hasNotifications={channel.hasNotifications}
-                  isMenuOpen={open}
-               >
-                  <Image
-                     src={
-                        channel.image
-                           ? channel.image
-                           : '/images/default-avatar.png'
-                     }
-                     alt="ChannelAvatar"
-                     layout="fill"
-                  />
-               </ChannelAvatar>
-               {open && <span>{channel.name}</span>}
+               <Container>
+                  <Link href={`/chat/${channel.id}`} passHref>
+                     <Content
+                        draggable={`false`}
+                        className={channel.isSelected && open && 'selected'}
+                        isMenuOpen={open}
+                     >
+                        <ChannelAvatar
+                           hasNotifications={channel.hasNotifications}
+                           isMenuOpen={open}
+                        >
+                           <Image
+                              src={
+                                 channel.image
+                                    ? channel.image
+                                    : '/images/default-avatar.png'
+                              }
+                              alt="ChannelAvatar"
+                              layout="fill"
+                              draggable={false}
+                           />
+                        </ChannelAvatar>
+                        {open && <span>{channel.name}</span>}
 
-               {channel.private?.isPrivate && open && <PrivateIcon />}
-            </Content>
-         </Link>
-      </Container>
+                        {channel.private?.isPrivate && open && <PrivateIcon />}
+                     </Content>
+                  </Link>
+               </Container>
+            </div>
+         )}
+      </Draggable>
    );
 };
 

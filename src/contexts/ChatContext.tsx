@@ -41,9 +41,7 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({
    //!TODO refatorar
    useMount(() => {
       socket.on('new-message', () => {
-         console.log('recebi nova mensagem!');
-
-         client.invalidateQueries(['messages', `${channelId}`]);
+         client.invalidateQueries('messages');
       });
    });
 

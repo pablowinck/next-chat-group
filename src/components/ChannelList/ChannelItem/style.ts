@@ -10,11 +10,18 @@ export const Container = styled.div`
    user-select: none;
    cursor: pointer;
 
-   position: relative;
+   /* position: relative; */
+
+   &:active {
+      cursor: grab;
+   }
 `;
 export const Content = styled.a<{ isMenuOpen: boolean }>`
    text-decoration: none;
    color: ${(props) => props.theme.colors.text};
+   user-select: none;
+
+   position: relative;
 
    display: flex;
    justify-content: ${({ isMenuOpen }) => (isMenuOpen ? 'start' : 'center')};

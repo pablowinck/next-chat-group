@@ -143,6 +143,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.9.2":
+  version "7.17.8"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.8.tgz#3e56e4aff81befa55ac3ac6a0967349fd1c5bca2"
+  integrity sha512-dQpEpK0O9o6lj6oPu0gRDbbnk+4LeHlNcBpspf6Olzt3GIX4P1lWF1gS+pHLDFlaJvbR6q7jCfQ08zA4QJBnmA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.16.0.tgz"
@@ -681,7 +688,7 @@
     "@babel/runtime" "^7.10.5"
     "@styled-icons/styled-icon" "^10.6.0"
 
-"@types/hoist-non-react-statics@*":
+"@types/hoist-non-react-statics@*", "@types/hoist-non-react-statics@^3.3.0":
   version "3.3.1"
   resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"
   integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
@@ -713,6 +720,16 @@
   version "15.7.4"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.4.tgz"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
+
+"@types/react-redux@^7.1.20":
+  version "7.1.23"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.23.tgz#3c2bb1bcc698ae69d70735f33c5a8e95f41ac528"
+  integrity sha512-D02o3FPfqQlfu2WeEYwh3x2otYd2Dk1o8wAfsA0B1C2AJEFxE663Ozu7JzuWbznGgW248NaOF6wsqCGNq9d3qw==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.0"
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+    redux "^4.0.0"
 
 "@types/react@*", "@types/react@^17.0.37":
   version "17.0.37"
@@ -1327,6 +1344,13 @@ crypto-browserify@3.12.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+css-box-model@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/css-box-model/-/css-box-model-1.2.1.tgz#59951d3b81fd6b2074a62d49444415b0d2b4d7c1"
+  integrity sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==
+  dependencies:
+    tiny-invariant "^1.0.6"
+
 css-color-keywords@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/css-color-keywords/-/css-color-keywords-1.0.0.tgz"
@@ -1390,11 +1414,6 @@ data-uri-to-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz"
   integrity sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==
-
-debounce@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
-  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
 
 debug@2, debug@^2.6.9:
   version "2.6.9"
@@ -1955,16 +1974,14 @@ formik@^2.2.9:
     tiny-warning "^1.0.2"
     tslib "^1.10.0"
 
-framer-motion@^5.5.5:
-  version "5.5.5"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-5.5.5.tgz#2cc9345e720ec1b93189ee76423799c72a3224b4"
-  integrity sha512-+LPAF5ddo02qKh+MK4h1ChwqUFvrLkK1NDWwrHy+MuCVmQDGgiFNHvwqOSklTDGkEtbio3dCOEDy23+ZyNAa9g==
+framer-motion@^6.2.8:
+  version "6.2.8"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.2.8.tgz#02abb529191af7e2df444185fe27e932215b715d"
+  integrity sha512-4PtBWFJ6NqR350zYVt9AsFDtISTqsdqna79FvSYPfYDXuuqFmiKtZdkTnYPslnsOMedTW0pEvaQ7eqjD+sA+HA==
   dependencies:
     framesync "6.0.1"
     hey-listen "^1.0.8"
     popmotion "11.0.3"
-    react-merge-refs "^1.1.0"
-    react-use-measure "^2.1.1"
     style-value-types "5.0.0"
     tslib "^2.1.0"
   optionalDependencies:
@@ -2156,7 +2173,7 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0:
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -2584,6 +2601,11 @@ mdn-data@2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.14.tgz#7113fc4281917d63ce29b43446f701e68c25ba50"
   integrity sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==
+
+memoize-one@^5.1.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
+  integrity sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==
 
 merge-stream@^2.0.0:
   version "2.0.0"
@@ -3110,6 +3132,11 @@ queue@6.0.2:
   dependencies:
     inherits "~2.0.3"
 
+raf-schd@^4.0.2:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-4.0.3.tgz#5d6c34ef46f8b2a0e880a8fcdb743efc5bfdbc1a"
+  integrity sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"
@@ -3135,6 +3162,19 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-beautiful-dnd@^13.1.0:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-13.1.0.tgz#ec97c81093593526454b0de69852ae433783844d"
+  integrity sha512-aGvblPZTJowOWUNiwd6tNfEpgkX5OxmpqxHKNW/4VmvZTNTbeiq7bA3bn5T+QSF2uibXB0D1DmJsb1aC/+3cUA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    css-box-model "^1.2.0"
+    memoize-one "^5.1.1"
+    raf-schd "^4.0.2"
+    react-redux "^7.2.0"
+    redux "^4.0.4"
+    use-memo-one "^1.1.1"
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
@@ -3157,7 +3197,7 @@ react-input-mask@^2.0.4:
     invariant "^2.2.4"
     warning "^4.0.2"
 
-react-is@17.0.2:
+react-is@17.0.2, react-is@^17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
@@ -3167,11 +3207,6 @@ react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-merge-refs@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
-  integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
-
 react-query@^3.34.15:
   version "3.34.15"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.15.tgz#9e143b7d0aa39c515102a35120d5518ad91b10f6"
@@ -3180,6 +3215,18 @@ react-query@^3.34.15:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"
     match-sorter "^6.0.2"
+
+react-redux@^7.2.0:
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
+  integrity sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==
+  dependencies:
+    "@babel/runtime" "^7.15.4"
+    "@types/react-redux" "^7.1.20"
+    hoist-non-react-statics "^3.3.2"
+    loose-envify "^1.4.0"
+    prop-types "^15.7.2"
+    react-is "^17.0.2"
 
 react-refresh@0.8.3:
   version "0.8.3"
@@ -3207,13 +3254,6 @@ react-universal-interface@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/react-universal-interface/-/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
   integrity sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==
-
-react-use-measure@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/react-use-measure/-/react-use-measure-2.1.1.tgz#5824537f4ee01c9469c45d5f7a8446177c6cc4ba"
-  integrity sha512-nocZhN26cproIiIduswYpV5y5lQpSQS1y/4KuvUCjSKmw7ZWIS/+g3aFnX3WdBkyuGUtTLif3UTqnLLhbDoQig==
-  dependencies:
-    debounce "^1.2.1"
 
 react-use@^17.3.2:
   version "17.3.2"
@@ -3258,6 +3298,13 @@ readdirp@~3.5.0:
   integrity sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
   dependencies:
     picomatch "^2.2.1"
+
+redux@^4.0.0, redux@^4.0.4:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.2.tgz#140f35426d99bb4729af760afcf79eaaac407104"
+  integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
 
 regenerator-runtime@0.13.4:
   version "0.13.4"
@@ -3758,6 +3805,11 @@ timers-browserify@2.0.12:
   dependencies:
     setimmediate "^1.0.4"
 
+tiny-invariant@^1.0.6:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.2.0.tgz#a1141f86b672a9148c72e978a19a73b9b94a15a9"
+  integrity sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==
+
 tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
@@ -3907,6 +3959,11 @@ use-latest@^1.0.0:
   integrity sha512-d2TEuG6nSLKQLAfW3By8mKr8HurOlTkul0sOpxbClIv4SQ4iOd7BYr7VIzdbktUCnv7dua/60xzd8igMU6jmyw==
   dependencies:
     use-isomorphic-layout-effect "^1.0.0"
+
+use-memo-one@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.2.tgz#0c8203a329f76e040047a35a1197defe342fab20"
+  integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
 
 use-subscription@1.5.1:
   version "1.5.1"
