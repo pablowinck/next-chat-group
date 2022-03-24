@@ -185,3 +185,11 @@ export const Bottom = styled.div`
         color: ${(props) => props.theme.colors.error};
     }
 `;
+
+export const ErrorMessage = styled.span`
+    color: red;
+    font-size: 0.8rem;
+    font-style: italic;
+    transition: 0.4s linear;
+    letter-spacing: 1px;
+`;
