@@ -20,9 +20,9 @@ export const Container = styled.div`
 export const Content = styled.div`
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
-    display: flex;
-    align-items: flex-end;
+    overflow-y: auto;
+    /* display: flex; */
+    /* align-items: flex-end; */
     ::-webkit-scrollbar {
         display: none;
     }
