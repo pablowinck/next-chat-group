@@ -5,12 +5,15 @@ import { Container } from './styles';
 
 type Props = {
    channelId: string;
+   isMenuOpen: boolean;
 };
 
-const DeleteButton: React.FC<Props> = ({ channelId }) => {
+const DeleteButton: React.FC<Props> = ({ channelId, isMenuOpen }) => {
    const { user } = useUserContext();
    const { mutate } = useUnJoinChannel({ userId: `${user.id}` });
-   return <Container onClick={() => mutate(channelId)} />;
+   return (
+      <Container onClick={() => mutate(channelId)} isMenuOpen={isMenuOpen} />
+   );
 };
 
 export default DeleteButton;

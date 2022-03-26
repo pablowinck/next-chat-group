@@ -1,6 +1,6 @@
 import { Lock } from '@styled-icons/boxicons-solid/Lock';
 import styled from 'styled-components';
-export const Container = styled.div<{ deleteMode: boolean }>`
+export const Container = styled.div`
    display: flex;
    justify-content: center;
    align-items: start;
@@ -11,27 +11,6 @@ export const Container = styled.div<{ deleteMode: boolean }>`
    cursor: pointer;
 
    /* position: relative; */
-
-   animation: ${({ deleteMode }) =>
-      deleteMode && 'shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite'};
-
-   @keyframes shake {
-      0% {
-         transform: rotate(0deg);
-      }
-      25% {
-         transform: rotate(-5deg);
-      }
-      50% {
-         transform: rotate(0deg);
-      }
-      75% {
-         transform: rotate(5deg);
-      }
-      100% {
-         transform: rotate(0deg);
-      }
-   }
 
    &:active {
       cursor: grab;
@@ -70,6 +49,7 @@ export const Content = styled.a<{ isMenuOpen: boolean }>`
 export const ChannelAvatar = styled.div<{
    hasNotifications: boolean;
    isMenuOpen: boolean;
+   deleteMode: boolean;
 }>`
    width: 3rem;
    height: 3rem;
@@ -78,6 +58,27 @@ export const ChannelAvatar = styled.div<{
    margin-right: 1rem;
 
    position: relative;
+
+   animation: ${({ deleteMode }) =>
+      deleteMode && 'shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite'};
+
+   @keyframes shake {
+      0% {
+         transform: rotate(0deg);
+      }
+      25% {
+         transform: rotate(-5deg);
+      }
+      50% {
+         transform: rotate(0deg);
+      }
+      75% {
+         transform: rotate(5deg);
+      }
+      100% {
+         transform: rotate(0deg);
+      }
+   }
 
    img {
       width: 100%;

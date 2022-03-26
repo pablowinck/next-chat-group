@@ -71,7 +71,7 @@ const ChannelItem: React.FC<props> = ({
                onMouseDown={handleDown}
                onMouseUp={handleUp}
             >
-               <Container deleteMode={deleteMode}>
+               <Container>
                   <Link href={`/chat/${channel.id}`} passHref>
                      <Content
                         draggable={`false`}
@@ -81,6 +81,7 @@ const ChannelItem: React.FC<props> = ({
                         <ChannelAvatar
                            hasNotifications={channel.hasNotifications}
                            isMenuOpen={open}
+                           deleteMode={deleteMode}
                         >
                            <Image
                               src={
@@ -95,7 +96,10 @@ const ChannelItem: React.FC<props> = ({
                         </ChannelAvatar>
                         {open && <span>{channel.name}</span>}
                         {deleteMode && (
-                           <DeleteButton channelId={`${channel.id}`} />
+                           <DeleteButton
+                              channelId={`${channel.id}`}
+                              isMenuOpen={open}
+                           />
                         )}
                         {channel.private?.isPrivate && open && <PrivateIcon />}
                      </Content>
