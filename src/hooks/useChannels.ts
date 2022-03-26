@@ -55,9 +55,8 @@ export const useFetchChannels = ({ userId }: { userId: string }) => {
 export const useCreateChannel = ({ userId }: { userId: string }) => {
    const client = useQueryClient();
    return useMutation(
-      (channelDto: ChannelDto) => {
-         return api.post('channels', { ...channelDto, userId: userId });
-      },
+      (channelDto: ChannelDto) =>
+         api.post('channels', { ...channelDto, userId: userId }),
       { onSuccess: () => client.invalidateQueries(['channels', userId]) }
    );
 };
@@ -65,8 +64,18 @@ export const useCreateChannel = ({ userId }: { userId: string }) => {
 export const useJoinChannel = ({ userId }: { userId: string }) => {
    const client = useQueryClient();
    return useMutation(
+      (channelId: string) => api.post('channels/join', { channelId, userId }),
+      { onSuccess: () => client.invalidateQueries(['channels', userId]) }
+   );
+};
+
+export const useUnJoinChannel = ({ userId }: { userId: string }) => {
+   const client = useQueryClient();
+   return useMutation(
       (channelId: string) => {
-         return api.post('channels/join', { channelId, userId });
+         console.log('[unJoinChannel]', { channelId, userId });
+
+         return api.post('channels/unjoin', { channelId, userId });
       },
       { onSuccess: () => client.invalidateQueries(['channels', userId]) }
    );

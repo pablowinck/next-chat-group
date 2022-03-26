@@ -9,6 +9,7 @@
       "lint": "next lint"
    },
    "dependencies": {
+      "@types/react-beautiful-dnd": "^13.1.2",
       "axios": "^0.24.0",
       "formik": "^2.2.9",
       "framer-motion": "^6.2.8",

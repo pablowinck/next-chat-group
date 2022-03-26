@@ -1,5 +1,6 @@
 import { useUserContext } from 'contexts/UserContext';
 import { useFetchChannels } from 'hooks/useChannels';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import Loading from './Loading';
 import { ChannelId, Container, Text } from './style';
@@ -8,6 +9,7 @@ type TopbarProps = {
 };
 
 const Topbar: FC<TopbarProps> = ({ channelId }) => {
+   const router = useRouter();
    const { user } = useUserContext();
 
    const { isLoading, isError, data } = useFetchChannels({
@@ -23,6 +25,10 @@ const Topbar: FC<TopbarProps> = ({ channelId }) => {
       (channel) => channel.id === parseInt(channelId, 10)
    );
 
+   if (!selectedChannel || !selectedChannel?.topic) {
+      router.push(`/chat/${data[0].id}`);
+      return <Loading />;
+   }
    return (
       <Container>
          <Text>{selectedChannel.topic}</Text>

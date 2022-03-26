@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 import { Container, Content } from './style';
 
 const ChannelList: React.FC = () => {
+   const [deleteMode, setDeleteMode] = useState(false);
    const [filter, setFilter] = useState('');
    const [channels, setChannels] = useState([]);
    const { user } = useUserContext();
@@ -64,7 +65,7 @@ const ChannelList: React.FC = () => {
          <Content>
             {open && <SearchBar setFilter={setFilter} />}
             <DragDropContext onDragEnd={onDragEnd}>
-               <Droppable droppableId="list">
+               <Droppable droppableId="list" isDropDisabled={!deleteMode}>
                   {(provided) => (
                      <div ref={provided.innerRef} {...provided.droppableProps}>
                         {channels.map((channel, index) => (
@@ -72,6 +73,8 @@ const ChannelList: React.FC = () => {
                               key={index}
                               channel={channel}
                               index={index}
+                              deleteMode={deleteMode}
+                              setDeleteMode={setDeleteMode}
                            />
                         ))}
                         {provided.placeholder}
