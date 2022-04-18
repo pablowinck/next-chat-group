@@ -39,6 +39,14 @@ const UserContextProvider: React.FC = ({ children }) => {
       if (localStorage.getItem('user')) setLogged(true);
    }, []);
 
+   useEffect(() => {
+      function setUserToStorage() {
+         if (!user) return;
+         localStorage.setItem('user', JSON.stringify(user));
+      }
+      setUserToStorage();
+   }, [user]);
+
    const handleLogged = (state: boolean) => {
       setLogged(state);
       if (state) return;

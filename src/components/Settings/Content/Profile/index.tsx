@@ -18,6 +18,7 @@ import {
    SaveButton,
    Title
 } from './styles';
+import ChangeAvatar from './ChangeAvatar'
 
 const ProfileContent: React.FC = () => {
    const { user, setUser, setLogged } = useUserContext();
@@ -108,7 +109,7 @@ const ProfileContent: React.FC = () => {
          <Title>My Profile</Title>
 
          <Content>
-            <Avatar image={user.profileImage} />
+            <ChangeAvatar />
 
             <Form
                onSubmit={(e) => {

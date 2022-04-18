@@ -45,7 +45,6 @@ const Login: React.FC = () => {
          .then((res) => {
             if (res.status == 201) {
                setLogged(true);
-               localStorage.setItem('user', JSON.stringify(res.data));
                setUser(res.data);
                router.push('/chat');
             }

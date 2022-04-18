@@ -27,7 +27,7 @@ export const Content = styled.div`
 
     display: grid;
     grid-template-columns: 8rem auto;
-    grid-gap: 1rem;
+    grid-gap: 2rem;
 `;
 export const Avatar = styled.div<{ image: string }>`
     height: 7rem;
