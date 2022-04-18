@@ -40,8 +40,8 @@
 - [x] Private Channel
 - [x] Notification
 - [ ] Login OAuth2
-- [ ] Theme Selector
-- [ ] Profile Configs
+- [x] Theme Selector
+- [x] Profile Configs
 
 ## How To Use
 
@@ -64,4 +64,3 @@ $ npm run dev
 
 - TwitchTV [devPabloWinter](https://www.twitch.tv/devpablowinter)
 - Linkedin [Pablo Winck Winter](https://www.linkedin.com/in/pablowinck/)
-- Twitter [@dev_winter](https://twitter.com/dev_winter)
